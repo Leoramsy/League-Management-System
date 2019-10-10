@@ -98,7 +98,7 @@ function display_changelog() {
  */
 function flash_package() {
     $('#flash-overlay-modal').modal();
-    $('div.alert').not('.alert-important').not('.oilstar-alert').delay(6000).fadeOut(350); //Not .oilstar-hint
+    $('div.alert').not('.alert-important').delay(6000).fadeOut(350); //Not .oilstar-hint
 }
 
 /**

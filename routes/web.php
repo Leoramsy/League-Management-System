@@ -11,13 +11,9 @@
   |
  */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 /*
  * Admin Auth Logic
@@ -30,4 +26,9 @@ Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail
 Route::post('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.update');
 Route::get('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.request');
 Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+/**
+ * Fixtures Routes
+ */
+Route::get('/fixtures', 'Matchday\FixtureController@index')->name('fixtures');
 

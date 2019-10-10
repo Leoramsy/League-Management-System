@@ -15,7 +15,7 @@ class CreateCardsTable extends Migration {
         Schema::create('cards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('card_type_id')->unsigned();
-            $table->bigInteger('match_id')->unsigned();
+            $table->bigInteger('fixture_id')->unsigned();
             $table->bigInteger('team_id')->unsigned();
             $table->bigInteger('player_id')->unsigned();
             $table->timestamps();

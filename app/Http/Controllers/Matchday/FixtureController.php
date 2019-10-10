@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Matchday;
 
-use App\Models\Match;
+
+use App\Models\Fixture;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class MatchController extends Controller
+class FixtureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class MatchController extends Controller
      */
     public function index()
     {
-        //
+        return view('client.fixtures');
     }
 
     /**

@@ -8,7 +8,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="/fixtures">
                     <i class="far fa-file-alt"></i>
                     Fixtures
                 </a>

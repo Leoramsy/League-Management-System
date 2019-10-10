@@ -12,7 +12,7 @@ class CreateMatchesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('matches', function (Blueprint $table) {
+        Schema::create('fixtures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('match_day_id')->unsigned();
             $table->bigInteger('home_team_id')->unsigned();
@@ -32,7 +32,7 @@ class CreateMatchesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('matches');
+        Schema::dropIfExists('fixtures');
     }
 
 }
