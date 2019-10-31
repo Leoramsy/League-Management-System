@@ -30,20 +30,23 @@
 
 <body>
     <nav class="navbar navbar-default sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('/') }}">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('/admin') }}">
             <img src={{URL::asset("images/cloz..png")}} alt="Communications League of Zimbabwe" />
         </a>
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 <!-- <a class="nav-link" href="#">Sign out</a> -->
-                <a href="{{ route('login') }}">Login</a>                    
+                <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </li>
         </ul>
     </nav>
     <div class="container-fluid">
         <div class="row">
-            @include('partials.navigation')
+            @include('partials.admin-navigation')
             <main role="main" class="col-md-10" style="padding: 0px">
                 @include('flash::message')
                 @yield('content')

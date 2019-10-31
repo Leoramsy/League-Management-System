@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Team;
 
-use App\Models\Team;
+use DB;
+use App\Models\Team\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class TeamController extends Controller
-{
+class TeamController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $query = Team::select('teams.*', DB::raw('IF(active, "Yes" , "No") AS active_indicator'));
+            $recordsTotal = $query->count();
+            $recordsFiltered = $query->count();
+            $data = $query->offset($request->start)->limit($request->length)->get();
+            return response()->json(['draw' => $request->draw, 'recordsTotal' => $recordsTotal, 'recordsFiltered' => $recordsFiltered, 'data' => $data->toArray()]);
+        }
+        return view('admin.teams');
     }
 
     /**
@@ -22,8 +30,7 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,8 +40,7 @@ class TeamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -44,8 +50,7 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
-    {
+    public function show(Team $team) {
         //
     }
 
@@ -55,8 +60,7 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function edit(Team $team)
-    {
+    public function edit(Team $team) {
         //
     }
 
@@ -67,8 +71,7 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
-    {
+    public function update(Request $request, Team $team) {
         //
     }
 
@@ -78,8 +81,8 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
-    {
+    public function destroy(Team $team) {
         //
     }
+
 }

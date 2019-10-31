@@ -1,16 +1,16 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">        
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Match Centre</span>
+            <span>System Settings</span>
             <a class="d-flex align-items-center text-muted" href="#">
                 <span data-feather="plus-circle"></span>
             </a>
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link active" href="{{route('match_centre', ['type' => 'fixtures'])}}">
+                <a class="nav-link active" href="{{route('admin.teams')}}">
                     <i class="far fa-file-alt"></i>
-                    Fixtures
+                    Teams
                 </a>
             </li>
             <li class="nav-item">

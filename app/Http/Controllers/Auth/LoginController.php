@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
+use Exception;
+use Illuminate\Http\Request;
 use App\Models\System\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,7 +39,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
+    }   
     
     /**
      * Log the user out of the application.
@@ -45,7 +48,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request) {
-        $this->guard('client')->logout();
+        $this->guard('users')->logout();
         $request->session()->flush();
         //$request->session()->regenerate();
 

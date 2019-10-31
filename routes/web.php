@@ -14,7 +14,6 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-
 /*
  * Admin Auth Logic
  */
@@ -28,7 +27,20 @@ Route::get('/password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 /**
- * Fixtures Routes
+ * Match Centre Routes
  */
-Route::get('/fixtures', 'Matchday\FixtureController@index')->name('fixtures');
+Route::get('/match_centre/{type}', 'Matchday\MatchCentreController@index')->name('match_centre');
+Route::get('/match_centre/data', 'Matchday\MatchCentreController@index')->name('match_centre.index');
 
+
+
+/*
+ * Admin Auth Logic
+ */
+Route::prefix('admin')->middleware(['web'])->group(function () {
+    Route::get('/', 'AdminController@index')->name('admin.home');
+    /*
+     * Team Routes
+     */
+    Route::get('/teams', 'Team\TeamController@index')->name('admin.teams');   
+});

@@ -16,7 +16,7 @@ class FixtureController extends Controller
      */
     public function index()
     {
-        return view('client.fixtures');
+        return view('client.match_centre');
     }
 
     /**
