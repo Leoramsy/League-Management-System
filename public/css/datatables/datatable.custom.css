@@ -1,0 +1,1190 @@
+
+.table > tbody > tr > td.selector {
+    width: 4%;
+    text-align: center;
+}
+
+.table > tbody > tr > td.selector:before {
+    font-family: FontAwesome;
+    content: "\f096";
+}
+
+.table > tbody > tr.selected > td.selector:before {
+    font-family: FontAwesome;
+    content: "\f046";
+}
+
+.dt-cell-left {
+    text-align: left;
+}
+
+.dt-cell-center {
+    text-align: center;
+}
+
+.dt-cell-right {
+    text-align: right;
+}
+
+.select2-container {    
+
+}
+
+#editor-dynamic-loading > div {
+    text-align: center;
+}
+
+div.DTE div.DTE_Processing_Indicator {
+    position: absolute;
+    top: 0px;
+    margin-top: 10px;
+    right: 35px;
+    z-index: 20;
+    display: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #31618b;
+}
+
+div.DTE div.DTE_Processing_Indicator:before {
+}
+
+
+div.DTE_Field > label.control-label {
+    padding-top: 0px;
+}
+
+div.DTE_Field textarea {
+    resize: none;
+}
+
+a.datatable-tooltip {
+    text-decoration: underline;
+    color: #7d8465;
+    cursor: default;
+}
+
+div.DTE > div.DTE_Header {
+    color: #fff;
+    background-color: #1d75ba;
+}
+
+div.DTE > div.DTE_Header h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+div.DTE > div.DTE_Body label {    
+    font-size: 14px;
+    padding-left: 0px;
+}
+
+div.DTE > div.DTE_Body label > div.DTE_Label_Info {
+    font-size: 10px;
+    font-style: italic;
+}
+
+div.DTE > div.DTE_Body input {
+    border-radius: 0px;
+}
+
+div.DTE > div.DTE_Footer {
+    background-color: #fff;
+    padding: 0px 15px 15px 15px;
+}
+
+div.DTE > div.DTE_Footer > div.DTE_Form_Error {
+    float: left;
+    text-align: left;
+    padding-top: 15px;
+}
+
+div.DTE > div.DTE_Footer > div.DTE_Form_Buttons {
+    float: right;
+    padding-top: 15px;
+}
+
+div.DTE > div.DTE_Footer > div.DTE_Form_Buttons > button.btn-default {
+    color: #fff;
+    background-color: #f68a1f;
+    font-weight: bold;
+    border-radius: 0px;
+}
+
+div.DTE > div.DTE_Footer > div.DTE_Form_Buttons > button.btn-default:hover {
+    opacity: .65;
+}
+
+.btn-editor {
+    display: block;
+    margin: auto;
+}
+
+/*
+    SELECT 2
+*/
+
+div.DTE_Field_Type_select2 .select2 {
+    width: 100% !important;
+}
+
+div.DTE > div.DTE_Body div.DTE_Field_InputControl span.select2-selection {
+    min-height: 34px;
+    padding: 6px 12px;
+    border-radius: 0px;
+}
+
+.DTE_Field .select2-container .select2-selection--single .select2-selection__rendered,
+.DTE_Field .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
+
+}
+
+div.DTE > div.DTE_Body div.DTE_Field_InputControl span.select2-selection > span.select2-selection__rendered {
+    line-height: inherit;
+    padding-left: 0px;
+    color: #444;
+}
+
+div.DTE > div.DTE_Body div.DTE_Field_InputControl span.select2-selection > span.select2-selection__arrow {
+    height: 34px;
+}
+
+/*
+    RADIO
+*/
+
+div.DTE_Field_Type_radio {
+    margin: 2.5px 0px;
+}
+
+/*
+div.DTE_Field_Type_checkbox div.controls, 
+div.DTE_Field_Type_radio div.controls {
+    margin-top: 0.4em;
+}
+*/
+
+div.DTE_Field_Type_radio > div  > div.DTE_Field_InputControl > div {
+    min-height: 20px;
+}
+
+div.DTE_Field_Type_radio > div  > div.DTE_Field_InputControl > div div {
+    float: left;
+    margin-right: 15px;
+}
+
+div.DTE_Field_Type_radio > div  > div.DTE_Field_InputControl > div div > label {
+    vertical-align: inherit;
+    margin-left: 5px;
+}
+
+div.DTE_Field_Type_radio > div  > div.DTE_Field_InputControl > div > div > input[type=radio] {
+    opacity: 1;
+    width: initial;
+    font-size: initial;
+    margin: initial;
+    padding: initial;
+}
+
+/*
+    TITLE
+*/
+
+div.DTE_Field.DTE_Field_Type_title:hover {
+    background-color: transparent;
+    border: 0px;
+}
+
+/*
+    FIELD 
+*/
+
+.DTE_Field div.help-block {
+    font-size: 11px;
+    margin-bottom: 0px;
+}
+
+div.custom-editor fieldset {
+    flex: 1;
+    border: 0px #fff !important;
+    margin: 0.5em;
+    padding: 10px 0px;
+    border-radius: 0px !important;
+    background-color: #fff !important;
+    color: #1B75B9 !important;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+.contentOverlay {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9000;
+    /* cursor: wait !important; */
+}
+
+.panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+    border-top: 1px solid #ddd;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.panel-group .panel-heading {
+    padding: 0;
+    border-bottom-color: transparent;
+}
+.panel-default>.panel-heading {
+    color: #434a54;
+    background-color: #e6e9ed;
+    border-color: #e6e9ed;
+}
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.panel-group .panel-heading {
+    border-bottom: 0;
+}
+.modal-dialog {
+    position: relative;   
+    width: 600px;
+    margin: 30px auto;
+}
+
+#version_modal  .modal_header_css {
+    background-color: #cabeb2;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-family: Arial;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+#version_modal .modal-body {
+    max-height: 500px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+#version_modal .modal-content {
+    color: #434a54;
+    border: none;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    position: relative;
+    background-color: #fff;    
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+}
+
+#version_modal .modal_footer_css {
+    background-color: #f3f3f3;
+    padding: 10px;
+    text-align: right;
+}
+#version_modal .btn {
+    background-image: none;
+    background-color: #eb3f35;
+    text-shadow: none;
+    color: white;
+}
+
+.modal-header .close {
+    margin-top: -2px;
+}
+
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.ui-widget-header {
+    border: 1px solid #cabeb2;
+    background: #cabeb2;
+}
+
+.ui-dialog-buttonset .ui-state-default {
+    color: #fff;
+    background: none;
+    background-color: #eb3f35;
+    border: 1px solid #fff;    
+    outline: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-weight: normal;
+}
+
+.notification_span {
+    float: right;
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-top: -35px;
+    margin-right: 8px;
+    background-color: #eb3f35;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 500;
+    min-width: 30px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+
+/** Pagination **/
+
+table:not(.break-all).dataTable td,
+table:not(.break-word).dataTable td,
+table:not(.break-none).dataTable td {
+    word-break: break-all;
+}
+
+table.break-all.dataTable td {
+    word-break: break-all;
+}
+
+table.break-word.dataTable td {
+    word-break: break-word;
+}
+
+table.break-none.dataTable td {
+    word-break: normal;
+}
+
+table.dataTable thead.break-all th {
+    word-break: break-all;
+}
+
+table.dataTable thead.break-word th {
+    word-break: break-word;
+}
+
+table.dataTable thead.break-none th {
+    word-break: normal;
+}
+
+.pagination{margin:0px;}
+.pagination>.disabled>a {
+    opacity: .5; 
+}
+
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{
+    color: #4c4147;
+    background-color: #fff;
+    border-color: #cabeb2    
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+    border: 1px solid #cabeb2;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: none;
+    border:none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding:0px
+}
+
+/** Buttons **/
+div.DTE button.btn, div.DTE div.DTE_Form_Buttons button{
+    background-image: none;
+    background-color: var(--secondary);
+    color:#fff;
+    text-shadow: none;
+}
+
+div.DTE button.btn:hover, div.DTE div.DTE_Form_Buttons button:hover{
+    background-image: none;
+    color:#fff;
+    background-color: var(--primary);
+}
+
+button.dt-button, div.dt-button, a.dt-button{
+    background-image: none;
+    background-color: var(--secondary);
+    color:#fff;
+    border:none;
+}
+
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled){
+    background-image: none;
+    background-color: var(--primary);
+    color:#fff;
+    border:none;
+}
+
+button.dt-button:focus:not(.disabled), div.dt-button:focus:not(.disabled), a.dt-button:focus:not(.disabled){
+    background-image: none;
+    background-color: var(--primary);;
+    color:#fff;
+    border:none;
+}
+
+button.dt-button:active:not(.disabled), 
+button.dt-button.active:not(.disabled), 
+div.dt-button:active:not(.disabled), 
+div.dt-button.active:not(.disabled), 
+a.dt-button:active:not(.disabled), 
+a.dt-button.active:not(.disabled){
+    background-image: none;
+    background-color: #eb3f35;
+    color:#fff;
+    border:none;
+}
+
+/**UI Date Picker**/
+#ui-datepicker-div .ui-widget-header {
+    border: 1px solid #eb3f35;
+    background: #eb3f35;
+    color: #fff;
+    font-weight: normal;
+}
+
+#ui-datepicker-div .ui-widget-content .ui-icon {
+    background-image: url("images/ui-icons_ffffff_256x240.png");
+}
+
+#ui-datepicker-div .ui-widget-content{
+    font-weight: normal;
+    color: #fff;
+}
+
+.ui-datepicker-calendar{
+    background: #cabeb2;
+}
+
+#ui-datepicker-div .ui-state-default {
+    border: none;
+    background: none; 
+    font-weight: normal;
+    color: #fff;
+}
+
+.ui-datepicker-today{
+    background-color: #eb3f35; 
+}
+
+.ui-datepicker .ui-datepicker-calendar td:hover{
+    color:#4c4147;
+}
+
+.ui-datepicker {
+    background-color: #fff;
+    border: 1px solid #66AFE9;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(102,175,233,.6);
+    display: none;
+    margin-top: 4px;
+    padding: 10px;
+    width: 240px;
+}
+.ui-datepicker a,
+.ui-datepicker a:hover {
+    text-decoration: none;
+}
+.ui-datepicker a:hover,
+.ui-datepicker td:hover a {
+    color: #2A6496;
+    -webkit-transition: color 0.1s ease-in-out;
+    -moz-transition: color 0.1s ease-in-out;
+    -o-transition: color 0.1s ease-in-out;
+    transition: color 0.1s ease-in-out;
+}
+.ui-datepicker .ui-datepicker-header {
+    margin-bottom: 4px;
+    text-align: center;
+}
+.ui-datepicker .ui-datepicker-title {
+    font-weight: 700;
+}
+
+.ui-datepicker .ui-datepicker-calendar th,
+.ui-datepicker .ui-datepicker-calendar td {
+    text-align: center;
+    padding: 4px 0;
+}
+.ui-datepicker .ui-datepicker-calendar td {
+    border-radius: 4px;
+    -webkit-transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+    -moz-transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+    -o-transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
+.ui-datepicker .ui-datepicker-calendar td:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-calendar td a {
+    text-decoration: none;
+}
+.ui-datepicker .ui-datepicker-current-day {
+    background-color: #c5423b;
+}
+.ui-datepicker .ui-datepicker-current-day a {
+    color: #fff
+}
+.ui-datepicker .ui-datepicker-calendar .ui-datepicker-unselectable:hover {
+    background-color: #fff;
+    cursor: default;
+}
+
+.ui-datepicker-prev-hover  {
+    border: 1px solid #c5423b;
+    background: none;
+    background-color: #c5423b;
+    font-weight: bold;
+    color: #c77405;
+}
+
+/**Editor Inputs**/
+
+div.DTE_Field input, div.DTE_Field textarea{
+    display: inline-block;    
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    outline-color:#786e74;
+}
+
+/** Tables **/
+
+#content table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+#content table.dataTable tr td:first-child { 
+    text-align: center; 
+} 
+
+#content table.dataTable thead tr th.headerLeft {
+    text-align: left;
+    padding-left: 10px;
+}
+
+#content table.dataTable thead tr th.headerCenter {
+    text-align: center;
+    padding-left: 18px;
+}
+
+#content table.dataTable thead tr th.headerRight {
+    text-align: right;
+    padding-right: 18px;
+}
+
+#content table.dataTable tbody tr .dataLeft {
+    text-align: left;
+}
+
+#content table.dataTable tbody tr .dataRight {
+    text-align: right;
+}
+
+#content table.dataTable tbody tr .dataCenter {
+    text-align: center;
+}
+
+/* Added dt-body-center - allows for the table inside a table to not render a tick box */
+#content table.dataTable tr td.dt-body-center:first-child:before 
+{ 
+    font-family: FontAwesome; 
+    content: "\f096"; /* fa-square-o */ 
+}
+
+#content div.innerTableContainer {
+    max-height: 200px;
+    overflow: scroll;
+}
+
+#content table.innerDT > thead > tr > th {
+    background-color: #cabeb2;
+    color: #4c4147;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform:capitalize;
+}
+
+#content table.dataTable tbody > tr > td table.innerDT > tbody > tr:not(.childRow) {
+    background-color: #e8e4e1;
+    color: #4c4147;
+    font-family: "Poppins", sans-serif;
+}
+
+#content table.dataTable tr div.childRowLoading {
+    width: 100%;
+    height: 25px;
+    text-align: center;
+}
+
+#content table.dataTable tr table .ingCostDown:before {
+    font-family: FontAwesome; 
+    content: "\F0D7"; /* fa-caret-right */ 
+    font-size: x-large;
+    color: red;
+}
+
+#content table.dataTable tr table .ingCostUp:before {
+    font-family: FontAwesome; 
+    content: "\F0D8"; /* fa-caret-right */ 
+    font-size: x-large;
+    color: chartreuse;
+}
+
+#content table.dataTable tr td.arrowRightCollapse:before {
+    font-family: FontAwesome; 
+    content: "\f0da"; /* fa-caret-right */ 
+    font-size: medium;
+}
+
+#content table.dataTable tr td.ingCostEqual {
+    font-size: large;
+}
+
+#content table.dataTable tr.selected td.dt-body-center:first-child:before 
+{ 
+    font-family: FontAwesome; 
+    content: "\f046"; /* fa-check-square-o */ 
+}
+
+#content table.dataTable tr td.dataTables_empty:first-child:before 
+{ 
+    content: ""; 
+}
+
+/* EXPAND (Was used for old recipe method (table inside a table)) */
+#content td.details-control:last-child {
+    text-align: center; 
+}
+
+#content td.details-control:last-child:before {
+    content: "\f0d9"; /* content: "\f0d7"; */
+    font-family: FontAwesome;
+}
+
+#content tr.shown td.details-control:last-child:before {
+    content: "\f0d7"; /* content: "\f0d9"; */
+}
+
+/**   **/
+
+.DTE_Field_Input select
+{   
+    min-width: 50px;
+    font-size: 12px;
+    border-radius: 0;
+    height: 30px;
+    appearance: normal;
+    color: #4c4147;
+}
+
+.DTE_Field_Input option
+{
+    background-color: #eb3f35;
+    color: #fff;
+}
+
+label.DTE_Label{
+    /* color: #3d7dad; Color changed for consistency */
+    color: #4c4147;
+    font-size: 14px;
+}
+
+label.DTE_Label > div.DTE_Label_Info {
+    font-size: 10px;
+}
+
+div.DTE div.DTE_Form_Buttons button{
+    font-size: 13px;
+}
+
+div.DTE_Form_Info{
+    color: #4c4147;
+    font-size: 14px;
+}
+
+
+/** TABLE HEADER **/
+
+#content thead > tr > th {
+    background-color: var(--secondary);
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#content table.dataTable > thead > tr > th:first-child {    
+    width: 4%;
+}
+
+#content table.dataTable > tbody > tr > td:first-child {    
+    width: 4%;
+}
+
+/** TABLE ROWS **/
+
+#content tbody > tr {
+    color: #4c4147;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+}
+
+#content table.dataTable.display tbody tr {
+    font-weight: normal;
+}
+
+/* HOVER ROW COLOUR */ /* #63A0D5 */
+#content table.dataTable.hover tbody tr:hover,
+#content table.dataTable.display tbody tr:hover {
+    background-color: transparent;
+}
+#content table.dataTable.hover tbody tr.odd:hover,
+#content table.dataTable.hover tbody tr.even:hover,
+#content table.dataTable.display tbody tr.odd:hover,
+#content table.dataTable.display tbody tr.even:hover,
+#content table.dataTable.display tbody tr.childRow:hover {
+    background-color: #e8e4e1;
+    color: #4c4147;
+}
+
+/* ODD */
+#content table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+    background-color: #f8f6f4;  
+}
+
+/* EVEN */
+
+table.dataTable.stripe tbody tr.even, table.dataTable.display tbody tr.even {
+    /* Nothing required */
+}
+
+/* Labels around table */
+#content .dataTables_wrapper .dataTables_length,
+#content .dataTables_wrapper .dataTables_filter,
+#content .dataTables_wrapper .dataTables_info,
+#content .dataTables_wrapper .dataTables_processing,
+#content .dataTables_wrapper .dataTables_paginate {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    color: #4c4147;
+}
+
+#allProducts .dataTables_wrapper .dataTables_filter, 
+#ioProducts .dataTables_wrapper .dataTables_filter,
+#productArchives .dataTables_wrapper .dataTables_filter,
+#tabs-A1 .dataTables_wrapper .dataTables_filter, 
+#tabs-A2 .dataTables_wrapper .dataTables_filter,
+#tabs-A3 .dataTables_wrapper .dataTables_filter {
+    margin-bottom: 10px;
+}
+
+.datatable_heading {
+    color: #7d8465;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    margin:0px;
+    padding: 7px 14px 7px 14px;
+    background:#f8f7f7;
+}
+
+.datatable_div{
+    background:#f8f7f7;
+    padding: 20px 10px 10px 10px;
+    display: inline-block;
+}
+
+/* Used on forms inside datables, when linking from one row to a different page*/
+table.dataTable form {
+    margin: 0px;
+}
+
+/* SORTING */
+
+#content table.dataTable.order-column tbody tr > .sorting_1,
+#content table.dataTable.order-column tbody tr > .sorting_2,
+#content table.dataTable.order-column tbody tr > .sorting_3, #content table.dataTable.display tbody tr > .sorting_1,
+#content table.dataTable.display tbody tr > .sorting_2,
+#content table.dataTable.display tbody tr > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.order-column tbody tr.selected > .sorting_1,
+#content table.dataTable.order-column tbody tr.selected > .sorting_2,
+#content table.dataTable.order-column tbody tr.selected > .sorting_3, #content table.dataTable.display tbody tr.selected > .sorting_1,
+#content table.dataTable.display tbody tr.selected > .sorting_2,
+#content table.dataTable.display tbody tr.selected > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.odd > .sorting_1, #content table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.odd > .sorting_2, #content table.dataTable.order-column.stripe tbody tr.odd > .sorting_2 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.odd > .sorting_3, #content table.dataTable.order-column.stripe tbody tr.odd > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.odd.selected > .sorting_1, #content table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_1 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.odd.selected > .sorting_2, #content table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_2 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.odd.selected > .sorting_3, #content table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.even > .sorting_1, #content table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.even > .sorting_2, #content table.dataTable.order-column.stripe tbody tr.even > .sorting_2 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.even > .sorting_3, #content table.dataTable.order-column.stripe tbody tr.even > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.even.selected > .sorting_1, #content table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_1 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.even.selected > .sorting_2, #content table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_2 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr.even.selected > .sorting_3, #content table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr:hover > .sorting_1,
+#content table.dataTable.display tbody tr.odd:hover > .sorting_1,
+#content table.dataTable.display tbody tr.even:hover > .sorting_1, #content table.dataTable.order-column.hover tbody tr:hover > .sorting_1,
+#content table.dataTable.order-column.hover tbody tr.odd:hover > .sorting_1,
+#content table.dataTable.order-column.hover tbody tr.even:hover > .sorting_1 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr:hover > .sorting_2,
+#content table.dataTable.display tbody tr.odd:hover > .sorting_2,
+#content table.dataTable.display tbody tr.even:hover > .sorting_2, #content table.dataTable.order-column.hover tbody tr:hover > .sorting_2,
+#content table.dataTable.order-column.hover tbody tr.odd:hover > .sorting_2,
+#content table.dataTable.order-column.hover tbody tr.even:hover > .sorting_2 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr:hover > .sorting_3,
+#content table.dataTable.display tbody tr.odd:hover > .sorting_3,
+#content table.dataTable.display tbody tr.even:hover > .sorting_3, #content table.dataTable.order-column.hover tbody tr:hover > .sorting_3,
+#content table.dataTable.order-column.hover tbody tr.odd:hover > .sorting_3,
+#content table.dataTable.order-column.hover tbody tr.even:hover > .sorting_3 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr:hover.selected > .sorting_1,
+#content table.dataTable.display tbody tr.odd:hover.selected > .sorting_1,
+#content table.dataTable.display tbody tr.even:hover.selected > .sorting_1, #content table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_1,
+#content table.dataTable.order-column.hover tbody tr.odd:hover.selected > .sorting_1,
+#content table.dataTable.order-column.hover tbody tr.even:hover.selected > .sorting_1 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr:hover.selected > .sorting_2,
+#content table.dataTable.display tbody tr.odd:hover.selected > .sorting_2,
+#content table.dataTable.display tbody tr.even:hover.selected > .sorting_2, #content table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_2,
+#content table.dataTable.order-column.hover tbody tr.odd:hover.selected > .sorting_2,
+#content table.dataTable.order-column.hover tbody tr.even:hover.selected > .sorting_2 {
+    background-color: transparent;
+}
+#content table.dataTable.display tbody tr:hover.selected > .sorting_3,
+#content table.dataTable.display tbody tr.odd:hover.selected > .sorting_3,
+#content table.dataTable.display tbody tr.even:hover.selected > .sorting_3, #content table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3,
+#content table.dataTable.order-column.hover tbody tr.odd:hover.selected > .sorting_3,
+#content table.dataTable.order-column.hover tbody tr.even:hover.selected > .sorting_3 {
+    background-color: transparent;
+}
+
+.prodArchive, .prodGoTo, .archGoTo, .archDelete {
+    cursor: pointer;
+}
+
+a.save-collection, a.btnFwDt {
+    margin-left: 1em;
+}
+
+#ioProducts .DTTT_container  {
+    float: left;
+}
+
+.DTED_Lightbox_Content textarea {
+    resize: none;
+}
+
+.DTED_Lightbox_Content select {
+    width: 100%;
+}
+
+/* Individual Table widths for their select menus */
+
+/* #tab-1 select going to use the ID DataTables gives the select tag */
+#DTE_Field_Recipe-Ingredient_ID {
+    width: 180px; /* minus 2 for the padding. Should be 200. Need to change the padding on the TD tag as well. */
+}
+
+#DTE_Field_Recipe-Recipe_Format_ID {
+    min-width: 60px;
+}
+
+#DTE_Field_Recipe-Ingredient_Size_ID {
+    min-width: 60px;
+}
+
+.fieldErrorMsg {
+    color: red;
+}
+
+.fieldWarningMsg {
+    color: orange;
+}
+
+ul.popover_list {
+    max-height: 60px;
+    overflow: overlay;
+    -webkit-padding-start: 0px;
+    -webkit-padding-end: 20px;
+    -moz-padding-end: 20px;
+    -moz-padding-start: 0px;
+    list-style: none;
+}
+
+li.li_info {
+    font-size: 12px;
+}
+
+li.li_warning {
+    color: orange !important;
+}
+
+li.li_error {
+    color: red !important;
+}
+
+/*
+** Datatable popup styling
+*/
+
+div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content div.DTE {    
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+}
+
+div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content{
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+}
+
+div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content div.DTE div.DTE_Header {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: auto;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+div.DTE div.DTE_Header {
+    background-color: var(--secondary);
+    color: #fff;
+}
+
+div.DTE_Header_Content {
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    font-size: 0.9em;
+}
+
+/* removed 02/12/2016
+div.DTE div.DTE_Footer {
+    border-top: none;
+}
+*/
+
+div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content div.DTED_Lightbox_Close {
+    box-shadow: none;
+    border-radius: 0px;
+    top:12px;
+    right:15px;  
+}
+
+div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content div.DTED_Lightbox_Close:hover {    
+    box-shadow: none;
+}
+
+div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content div.DTED_Lightbox_Close:after {   
+    color: #fff;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 0px;
+}
+
+/* DATATABLES INNER CHILD TABLE CONTROLS */
+
+table.dataTable tr td.arrowExpand {
+    width: 4%;
+}
+
+table.dataTable tr td.arrowExpand:before {
+    font-family: FontAwesome; 
+    content: "\f149"; /* fa-level-down */ 
+    font-size: medium;
+}
+
+table.dataTable tr td.arrowCollapse {
+    width: 4%;
+}
+
+table.dataTable tr td.arrowCollapse:before {
+    font-family: FontAwesome; 
+    content: "\f148"; /* fa-level-up */ 
+    font-size: medium;
+}
+
+/* DATATABLES INNER CHILD TABLE CSS */
+
+tr > .dataLeft {
+    text-align: left;
+}
+
+tr > .dataRight {
+    text-align: right;
+}
+
+tr > .dataCenter {
+    text-align: center;
+}
+
+tr > .barcode {
+    text-align: left;
+}
+
+
+.select2-selection__rendered {
+    max-height: 100px;
+    overflow: scroll;
+}
+
+
+div.DTE_Field_InputControl > input:readonly,
+div.DTE_Field_InputControl > input:-moz-read-only {
+
+}
+
+div:not(.DTE) .select2-container {
+    width: 100% !important; 
+}
+
+.select2-container ul {
+    overflow-y: scroll;
+}
+
+/*
+Filter by
+DTE_Field_cylinders[]-id
+if using another multi selection 
+*/
+ul.select2-selection__rendered {
+    overflow-y: scroll !important; 
+}
+
+li.select2-selection__choice {    
+    text-align: center;
+}
+
+li.select2-selection__choice > span.select2-selection__choice__remove {
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_processing {
+    position: fixed;
+    top: 50%;
+    height: 50px;
+    box-shadow: 0px 0px 30px #000000;
+    background-color: #777777;
+    background: linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255, 255, 255, 0.98) 100%);
+    color: red !important;
+    font-weight: bold;
+    z-index: 9999;
+}
+
+div.modal-multi-columns div.DTE_Body div.DTE_Body_Content div.custom-editor fieldset.full-set div.DTE_Field > label.col-lg-4 {
+    width: 16.66666667% !important;
+}

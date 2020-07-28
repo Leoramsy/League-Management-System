@@ -26,7 +26,7 @@ class MatchCentreController extends Controller {
     public function index(Request $request, $type) { 
         if ($request->ajax()){
             return response()->json(["data" => []]);
-        }
+        }       
         return view('client.match_centre', compact('type'));
     }
 

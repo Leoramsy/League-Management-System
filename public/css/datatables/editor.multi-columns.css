@@ -1,0 +1,73 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 4, 2016, 11:57:11 AM
+    Author     : ZakS 
+*/
+div.modal-multi-columns > .modal-dialog {
+    width: 1000px;
+}
+/*
+div.modal-multi-columns > div.modal-content { 
+    width: 800px;
+}
+*/
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field {
+    width: 50%;
+    padding: 5px 5px;
+    box-sizing: border-box;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Form_Content {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full {
+    width: 100%;
+}
+
+/*
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full.DTE_Field_Type_checkbox > div > div.DTE_Field_InputControl > div > div:nth-child(odd) {
+*/
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full.DTE_Field_Type_checkbox > div > div.DTE_Field_InputControl > div > div {
+    float: left;
+    width: 50%;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full.DTE_Field_Type_checkbox.DTE_Checkbox_Col_3 > div > div.DTE_Field_InputControl > div > div {
+    width: 33.3333%;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full.DTE_Field_Type_checkbox.DTE_Checkbox_Col_4 > div > div.DTE_Field_InputControl > div > div {
+    width: 25%;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full:not(.DTE_Field_Type_title) > label.col-lg-4 {
+    width: 16.66666667% !important;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.DTE_Field_Full:not(.DTE_Field_Type_title) > div.col-lg-8 {
+    width: 83.33333333% !important;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Field_Margin_Right {
+    margin-right: 50%;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Field_Margin_Left {
+    margin-left: 50%;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Field_Center {
+    margin: auto;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Field_Center > label {
+    text-align: center;
+}

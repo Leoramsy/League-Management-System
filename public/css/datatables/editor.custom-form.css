@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*  
+    Created on : 06 Apr 2017, 2:52:26 PM
+    Author     : ZakS
+*/
+
+.modal-multi-columns div.custom-editor {
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    width: 100%;
+}
+
+div.custom-editor fieldset {
+    flex: 1;
+    border: 1px solid #aaa;
+    margin: 0.5em;
+    padding: 10px 0px;
+}
+
+div.custom-editor fieldset.half-set {
+    flex: 1 1 50%;
+}
+
+div.custom-editor fieldset.half-set div.DTE_Field,
+div.modal-multi-columns div.DTE_Body div.DTE_Body_Content div.custom-editor fieldset.half-set div.DTE_Field {
+    width: 50%;
+}
+
+div.custom-editor fieldset.full-set {
+    flex: 1 1 100%;
+}
+
+div.custom-editor fieldset.full-set div.DTE_Field,
+div.modal-multi-columns div.DTE_Body div.DTE_Body_Content div.custom-editor fieldset.full-set div.DTE_Field {
+    width: 100%;
+}
+
+div.modal-multi-columns div.DTE_Body div.DTE_Body_Content div.custom-editor fieldset.full-set div.DTE_Field > label.col-lg-4 {
+    width: 16.66666667%;
+}
+
+div.modal-multi-columns div.DTE_Body div.DTE_Body_Content div.custom-editor fieldset.full-set div.DTE_Field > div.col-lg-8 {
+    width: 83.33333333%;
+    max-width: 83.33333333% !important;
+}
+
+div.modal-multi-columns > .modal-dialog div.DTE_Body div.DTE_Body_Content div.custom-editor fieldset.multi-set div.DTE_Field {
+    float: left;
+}
+
+.custom-editor fieldset legend {
+    width: auto;
+    padding: 5px 10px;
+    border: 1px solid #aaa;
+    font-weight: bold;
+    margin: 0px 0px 0px -1px;
+}
+
+.custom-editor div.DTE_Field {
+    padding: 5px;
+}
+
+div.custom-select-2 li {
+    width: 100% !important;
+    border: none !important;
+    background-color: transparent !important;
+    padding: 0px !important;
+    font-size: 13px !important;
+}

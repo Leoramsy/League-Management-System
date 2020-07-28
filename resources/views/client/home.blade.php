@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">Latest News</div>
-            <div class="card-body center">
+            <div class="card-body">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">                        
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -49,11 +49,11 @@
     <div class="col-md-6" style="margin-top: 10px;">
         <div class="card">
             <div class="card-header">Match Centre</div>
-            <div class="card-body">
-                <ul class="nav nav-tabs row">                        
-                    <li class="col-md-4 text-center"><a data-toggle="tab" href="#fixtures-tab">Fixtures<span></span></a></li>
-                    <li class="col-md-4 text-center"><a data-toggle="tab" href="#results-tab">Results <span></span></a></li>                       
-                    <li class="col-md-4 text-center"><a data-toggle="tab" href="#log-tab">Log Standings<span></span></a></li>                        
+            <div class="card-body">                
+                <ul id="dashboard-match-center" class="col-md-12 nav nav-tabs nav-justified tabbed-nav">                        
+                    <li role="presentation" class="active"><a data-toggle="tab" href="#fixtures-tab">Fixtures<span></span></a></li>
+                    <li role="presentation" class=""><a data-toggle="tab" href="#results-tab">Results <span></span></a></li>                       
+                    <li role="presentation" class=""><a data-toggle="tab" href="#log-tab">Log Standings<span></span></a></li>                        
                 </ul>
                 <div class="tab-content row">                       
                     <div id="fixtures-tab" class="tab-pane fade show active">      

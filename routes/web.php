@@ -11,7 +11,7 @@
   |
  */
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 /*
@@ -42,5 +42,8 @@ Route::prefix('admin')->middleware(['web'])->group(function () {
     /*
      * Team Routes
      */
-    Route::get('/teams', 'Team\TeamController@index')->name('admin.teams');   
+    Route::get('/teams', 'Team\TeamController@index')->name('admin.teams'); 
+    Route::post('/teams/add', 'Team\TeamController@store')->name('admin.teams.store'); 
+    Route::put('/teams/update/{id}', 'Team\TeamController@update')->name('admin.teams.update'); 
+    Route::delete('/teams/delete/{id}', 'Team\TeamController@delete')->name('admin.teams.delete'); 
 });

@@ -10,21 +10,13 @@ $(document).ready(function () {
         }
     });
 
+
     $("#version_link").click(function () {
         openVersions(false);
     });
 
     $("#version_modal_submit").click(function () {
         updateVersion();
-        $('#version_container').hide();
-    });
-
-    $("#version_modal_close").click(function () {
-        $('#version_container').hide();
-    });
-
-    $("#version_container button.close").click(function () {
-        $('#version_container').hide();
     });
 
     $(".parent-version").click(function () {
@@ -35,33 +27,12 @@ $(document).ready(function () {
             $icon.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
         }
     });
-    $("#factory-modal-submit").click(function () {
-        $("#switch-factory").submit();
-    });
 
     /**
      * 
      */
     $('.modal').on('hidden.bs.modal', function () {
         $(this).parent('.content-overlay').hide();
-    });
-
-    /**
-     * 'function' allows the function to invoke a given callback
-     * '#form' allows the function to submit a given form
-     */
-    $("#feedback-ok").unbind("click").bind("click", function (e) {
-        //$(this).closest(".modal").hide();
-        $('#feedback-modal').modal("hide");
-        var callback = $(this).attr("data-dismisswithcallback");
-        if (callback) {
-            var fn = window[callback];
-            if (typeof fn === 'function') {
-                fn();
-            } else {
-                $(callback).submit();
-            }
-        }
     });
 
     $(".collapse-click").click(function () {
@@ -72,6 +43,8 @@ $(document).ready(function () {
             $icon.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
         }
     });
+
+
 });
 
 function openVersions(update_button) {
@@ -82,49 +55,53 @@ function openVersions(update_button) {
         $('#version_modal_close').show();
         $('#version_modal_submit').hide();
     }
-    $('#version_container').show();
-    $('#version_modal').modal({
+    $('#overlay-container').show();
+    $('#version-modal').modal({
         backdrop: 'static',
         keyboard: false
     });
 }
 
-function display_changelog() {
-    console.log("Open version window");
+function switchCompany() {
+    $('#overlay-container').show();
+    $('#company-modal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 }
+
+/*
+ * Submit new branch ID to the server
+ * @returns {undefined
+ */
+function submitCompany() {
+    var company_id = $('input[name=companies]:checked').val();
+    var csrf_token = $('meta[name="csrf-token"]').attr('content'); //Tag is in the main layout //csrf_token()                                    
+    $('<form>', {
+        'method': 'post',
+        'action': "/updateCompany"
+    }).append($('<input>', {
+        'name': '_token',
+        'value': csrf_token,
+        'type': 'hidden'
+    })).append($('<input>', {
+        'name': 'company_id',
+        'value': company_id,
+        'type': 'hidden'
+    })).appendTo('body').submit();
+    $(this).dialog("close");   
+}
+
 
 /**
  * Preparing serverside feedback if any
  */
 function flash_package() {
     $('#flash-overlay-modal').modal();
-    $('div.alert').not('.alert-important').delay(6000).fadeOut(350); //Not .oilstar-hint
+    $('div.alert').not('.alert-important').not('.oilstar-alert').delay(6000).fadeOut(350); //Not .oilstar-hint
 }
 
-/**
- * Client side flash feedback
- */
-function flash_msg(msg, alert_type) {
-    $('div.oilstar-alert').removeClass('alert-info alert-warning alert-danger alert-success');
-    if (alert_type.length > 0) {
-        $('div.oilstar-alert').addClass(alert_type);
-    } else {
-        $('div.oilstar-alert').addClass('alert-info');
-    }
-    $('div.oilstar-alert > span').empty().html(msg);
-    $('div.oilstar-alert').fadeIn(250).delay(4000).fadeOut(250); //Not .oilstar-hint 
-    $('div.oilstar-alert').removeClass('hide');
-}
 
-function show_report(selector, title) {
-    $('.report-container').addClass('hide');
-    $('#' + selector + '-reports').removeClass('hide');
-    $('#report-modal .modal-title').empty().html(title);
-    $('#report-modal').modal({
-        backdrop: false
-    });
-    $('#overlay-container').show(); //report -> overlay-container
-}
 
 /**
  * 
@@ -201,7 +178,7 @@ function modal_error(title, body, listItems) {
     } else {
         content += body;
     }
-    modal_msg('<span class="text-danger"><b>Oilstar Error:</b></span> ' + title, '<div id="modal-error-body" class="bg-danger">' + content + '</div>', true);
+    modal_msg('<span class="text-danger"><b>Error:</b></span> ' + title, '<div id="modal-error-body" class="bg-danger">' + content + '</div>', true);
 }
 
 function modal_warning(title, body, listItems) {
@@ -215,7 +192,7 @@ function modal_warning(title, body, listItems) {
     } else {
         content += body;
     }
-    modal_msg('<span class="text-warning"><b>Oilstar Warning:</b></span> ' + title, '<div id="modal-error-body" class="bg-warning">' + content + '</div>', true);
+    modal_msg('<span class="text-warning"><b>Warning:</b></span> ' + title, '<div id="modal-error-body" class="bg-warning">' + content + '</div>', true);
 }
 
 /**

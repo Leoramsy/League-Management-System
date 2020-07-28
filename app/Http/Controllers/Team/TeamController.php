@@ -15,6 +15,7 @@ class TeamController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        $page = 'Teams';
         if ($request->ajax()) {
             $query = Team::select('teams.*', DB::raw('IF(active, "Yes" , "No") AS active_indicator'));
             $recordsTotal = $query->count();
@@ -22,18 +23,9 @@ class TeamController extends Controller {
             $data = $query->offset($request->start)->limit($request->length)->get();
             return response()->json(['draw' => $request->draw, 'recordsTotal' => $recordsTotal, 'recordsFiltered' => $recordsFiltered, 'data' => $data->toArray()]);
         }
-        return view('admin.teams');
+        return view('admin.teams', compact('page'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -41,7 +33,7 @@ class TeamController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        dd($request);
     }
 
     /**
