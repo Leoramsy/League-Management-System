@@ -50,13 +50,13 @@
         <div class="card">
             <div class="card-header">Match Centre</div>
             <div class="card-body">                
-                <ul id="dashboard-match-center" class="col-md-12 nav nav-tabs nav-justified tabbed-nav">                        
+                <ul id="dashboard-match-center" class="col-md-12 nav nav-tabs" style="border-bottom: 2px solid #1B75B9">                        
                     <li role="presentation" class="active"><a data-toggle="tab" href="#fixtures-tab">Fixtures<span></span></a></li>
                     <li role="presentation" class=""><a data-toggle="tab" href="#results-tab">Results <span></span></a></li>                       
                     <li role="presentation" class=""><a data-toggle="tab" href="#log-tab">Log Standings<span></span></a></li>                        
                 </ul>
-                <div class="tab-content row">                       
-                    <div id="fixtures-tab" class="tab-pane fade show active">      
+                <div class="tab-content">                       
+                    <div id="fixtures-tab" class="tab-pane fade in active">      
                         Fixtures will go here
                     </div>                        
                     <div id="results-tab" class="tab-pane fade">      

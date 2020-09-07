@@ -9,7 +9,7 @@
             bFilter: false,
             bInfo: false,
             ajax: {
-                url: '/match_centre/data',
+                url: '/match-centre/data',
                 type: "GET",
                 data: {
                     type: 'fixtures'

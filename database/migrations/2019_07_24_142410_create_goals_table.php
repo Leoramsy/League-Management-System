@@ -13,10 +13,10 @@ class CreateGoalsTable extends Migration {
      */
     public function up() {
         Schema::create('goals', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('fixture_id')->unsigned();
-            $table->bigInteger('team_id')->unsigned();
-            $table->bigInteger('player_id')->unsigned()->nullable();
+            $table->id();
+            $table->bigInteger('fixture_id')->constrained();
+            $table->bigInteger('team_id')->constrained();
+            $table->bigInteger('player_id')->constrained()->nullable();
             $table->boolean('own_goal')->default(FALSE);
             $table->timestamps();
         });

@@ -4,18 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLeaguesTable extends Migration
-{
+class CreateLeaguesTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('leagues', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('league_format_id')->unsigned();
+            $table->id();
+            $table->foreignId('league_format_id')->constrained('league_formats');
             $table->string('description');
             $table->boolean('active')->default(TRUE);
             $table->timestamps();
@@ -27,8 +26,8 @@ class CreateLeaguesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('leagues');
     }
+
 }

@@ -13,10 +13,10 @@ class CreateMatchesTable extends Migration {
      */
     public function up() {
         Schema::create('fixtures', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('match_day_id')->unsigned();
-            $table->bigInteger('home_team_id')->unsigned();
-            $table->bigInteger('away_team_id')->unsigned();
+            $table->id();
+            $table->foreignId('match_day_id')->constrained('match_days');
+            $table->foreignId('home_team_id')->constrained('teams');
+            $table->foreignId('away_team_id')->constrained('teams');
             $table->integer('home_team_score');
             $table->integer('away_team_score');
             $table->boolean('drawn_match')->default(FALSE);

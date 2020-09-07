@@ -21,32 +21,32 @@
                 <div class="collapse  show" id="movements">
                     <ul class="nav">
                         <li class="{{ ($page_slug ?? ' ') == 'fixtures' ? 'active' : ''}}">
-                            <a href="{{route('match_centre', ['type' => 'fixtures'])}}">
+                            <a href="{{route('match-centre', ['type' => 'fixtures'])}}">
                                 
                                 <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
                                 <span class="sidebar-normal"> Fixtures </span>
                             </a>
                         </li>
                         <li class="{{ ($page_slug ?? ' ') == 'results' ? 'active' : ''}}">
-                            <a href="{{route('match_centre', ['type' => 'results'])}}">
+                            <a href="{{route('match-centre', ['type' => 'results'])}}">
                                 <span class="sidebar-mini-icon">PA</span>
                                 <span class="sidebar-normal"> Results </span>
                             </a>
                         </li>
                         <li class="{{ ($page_slug ?? ' ') == 'logs' ? 'active' : ''}}">
-                            <a href="{{route('match_centre', ['type' => 'logs'])}}">
+                            <a href="{{route('match-centre', ['type' => 'logs'])}}">
                                 <span class="sidebar-mini-icon">PI</span>
                                 <span class="sidebar-normal"> Standings </span>
                             </a>
                         </li>
                         <li class="{{ ($page_slug ?? ' ') == 'live' ? 'active' : ''}}">
-                            <a href="{{route('match_centre', ['type' => 'live'])}}">
+                            <a href="{{route('match-centre', ['type' => 'live'])}}">
                                 <span class="sidebar-mini-icon">RA</span>
                                 <span class="sidebar-normal"> Live Matches </span>
                             </a>
                         </li>
                         <li class="{{ ($page_slug ?? ' ') == 'statistics' ? 'active' : ''}}">
-                            <a href="{{route('match_centre', ['type' => 'statistics'])}}">
+                            <a href="{{route('match-centre', ['type' => 'statistics'])}}">
                                 <span class="sidebar-mini-icon">RO</span>
                                 <span class="sidebar-normal"> Statistics </span>
                             </a>

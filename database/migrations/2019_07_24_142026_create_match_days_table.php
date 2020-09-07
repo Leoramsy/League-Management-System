@@ -13,8 +13,8 @@ class CreateMatchDaysTable extends Migration {
      */
     public function up() {
         Schema::create('match_days', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('season_id')->unsigned();
+            $table->id();
+            $table->foreignId('season_id')->constrained('seasons');
             $table->string('description');
             $table->date('date');
             $table->boolean('completed')->default(FALSE);

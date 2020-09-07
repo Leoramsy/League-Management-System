@@ -29,8 +29,11 @@ Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetFor
 /**
  * Match Centre Routes
  */
-Route::get('/match_centre/{type}', 'Matchday\MatchCentreController@index')->name('match_centre');
-Route::get('/match_centre/data', 'Matchday\MatchCentreController@index')->name('match_centre.index');
+Route::prefix('match-centre')->group(function() {
+    Route::get('/{type}', 'Matchday\MatchCentreController@index')->name('match-centre');
+    Route::get('/data', 'Matchday\MatchCentreController@index')->name('match-centre.index');
+});
+
 
 
 
@@ -39,11 +42,14 @@ Route::get('/match_centre/data', 'Matchday\MatchCentreController@index')->name('
  */
 Route::prefix('admin')->middleware(['web'])->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.home');
-    /*
-     * Team Routes
-     */
-    Route::get('/teams', 'Team\TeamController@index')->name('admin.teams'); 
-    Route::post('/teams/add', 'Team\TeamController@store')->name('admin.teams.store'); 
-    Route::put('/teams/update/{id}', 'Team\TeamController@update')->name('admin.teams.update'); 
-    Route::delete('/teams/delete/{id}', 'Team\TeamController@delete')->name('admin.teams.delete'); 
+    Route::prefix('settings')->group(function() {
+        /*
+         * Team Routes
+         */
+        Route::get('/teams', 'Team\TeamController@view')->name('admin.teams');
+        Route::get('/teams/index', 'Team\TeamController@index')->name('admin.teams.index');
+        Route::post('/teams/add', 'Team\TeamController@store')->name('admin.teams.store');
+        Route::put('/teams/update/{id}', 'Team\TeamController@update')->name('admin.teams.update');
+        Route::delete('/teams/delete/{id}', 'Team\TeamController@delete')->name('admin.teams.delete');
+    });
 });

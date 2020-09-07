@@ -14,7 +14,7 @@ class CreateLeagueFormatsTable extends Migration
     public function up()
     {
         Schema::create('league_formats', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('description');
             $table->string('slug');
             $table->timestamps();

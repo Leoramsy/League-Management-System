@@ -13,11 +13,11 @@ class CreateCardsTable extends Migration {
      */
     public function up() {
         Schema::create('cards', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('card_type_id')->unsigned();
-            $table->bigInteger('fixture_id')->unsigned();
-            $table->bigInteger('team_id')->unsigned();
-            $table->bigInteger('player_id')->unsigned();
+            $table->id();
+            $table->foreignId('card_type_id')->constrained('card_types');
+            $table->foreignId('fixture_id')->constrained('fixtures');
+            $table->foreignId('team_id')->constrained('teams');
+            $table->foreignId('player_id')->constrained('players');
             $table->timestamps();
         });
     }

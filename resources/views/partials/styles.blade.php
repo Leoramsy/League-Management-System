@@ -1,5 +1,4 @@
-{!! Html::style('packages/Bootstrap-4.0.0/css/bootstrap.min.css') !!}
-{!! Html::style('packages/Select2-4.0.6/css/select2.min.css') !!}
+{!! Html::style('packages/Select2-4.0.3/css/select2.min.css') !!}
 {{-- Template main styling --}}
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
 <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">

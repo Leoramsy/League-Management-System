@@ -2,79 +2,92 @@
 
 namespace App\Http\Controllers\Team;
 
-use DB;
-use App\Models\Team\Team;
+use App\Models\Team\Color;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\EditorController;
 
-class TeamController extends Controller {
+class TeamController extends EditorController {
 
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
+     * @return void
+     */
+    public function __construct(Request $request) {
+        parent::__construct($request);
+        $this->middleware('auth');
+        $this->setPrimaryClass('App\Models\Team\Team');
+    }
+
+    /**
+     * Show the view for this controller
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function view() {
         $page = 'Teams';
-        if ($request->ajax()) {
-            $query = Team::select('teams.*', DB::raw('IF(active, "Yes" , "No") AS active_indicator'));
-            $recordsTotal = $query->count();
-            $recordsFiltered = $query->count();
-            $data = $query->offset($request->start)->limit($request->length)->get();
-            return response()->json(['draw' => $request->draw, 'recordsTotal' => $recordsTotal, 'recordsFiltered' => $recordsFiltered, 'data' => $data->toArray()]);
+        return view('admin.settings.teams', compact('page'));
+    }
+
+    /**
+     * Return a list of resource.
+     * 
+     * @param Request $request
+     * @param int $id
+     * @return mixed
+     */
+    protected function getRows(Request $request, $id = 0) {
+        $object = $this->getPrimaryClass();
+        $query = $object::select(['teams.*']);
+        if ($id > 0) {
+            return $query->where('teams.id', $id)->first();
         }
-        return view('admin.teams', compact('page'));
-    }
-   
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        dd($request);
+        return $query->get();
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Controllers\type|array
      */
-    public function show(Team $team) {
-        //
+    protected function getOptions() {
+        $color_options = editorOptions(Color::select('id', 'name AS description')->orderBy('name')->get(), ["value"=>0, "label"=>"Select a Color"]);
+        return [
+            "teams.home_color_id" => $color_options,
+            "teams.away_color_id" => $color_options,
+        ];
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Team $team) {
-        //
+    protected function format($data): array {
+        return [
+            "teams" => [
+                "name" => $data->name,
+                "nick_name" => $data->nick_name,
+                "contact_person" => $data->contact_person,
+                "phone_number" => $data->phone_number,
+                "email" => $data->email,
+                "home_color_id" => $data->home_color_id,
+                "away_color_id" => $data->away_color_id,
+                "home_ground" => $data->home_ground,
+                "active" => $data->active_indicator
+            ]
+        ];
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Team $team) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Team $team) {
-        //
+    protected function setRules(array $rules = array()): array {
+        $this->rules = [
+            'teams.name' => 'required|string|min:3',
+            'teams.nick_name' => 'required|string|min:3',
+            'teams.contact_person' => 'required|string|min:3',
+            'teams.phone_number' => 'required|string|min:3',
+            'teams.email' => 'required|email|min:3',
+            'teams.away_color_id' => 'required|integer',
+            'teams.away_color_id' => 'required|integer',
+            'teams.home_ground' => 'required|string|min:3',
+            'teams.active' => 'required|boolean',
+        ];
+        if (count($rules) > 0) {
+            $this->rules = array_merge($this->rules, $rules);
+        }
+        return $this->rules;
     }
 
 }

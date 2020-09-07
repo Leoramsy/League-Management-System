@@ -9,7 +9,7 @@
 {{-- System scripts --}}
 @include('partials.post_initiate')
 {!! Html::script('js/main.js') !!}
-{!! Html::script('packages/Select2-4.0.6/js/select2.min.js') !!}
+{!! Html::script('packages/Select2-4.0.3/js/select2.min.js') !!}
 {!! Html::script('js/datatables/jquery-ui.min.js') !!}
 {!! Html::script('js/datatables/jquery.dataTables.min.js') !!}    
 {!! Html::script('js/datatables/dataTables.bootstrap.min.js') !!} 

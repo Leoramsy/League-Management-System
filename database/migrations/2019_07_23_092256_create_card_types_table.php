@@ -14,7 +14,7 @@ class CreateCardTypesTable extends Migration
     public function up()
     {
         Schema::create('card_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('description');
             $table->string('slug');
             $table->timestamps();
