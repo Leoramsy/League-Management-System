@@ -9,11 +9,11 @@ use Carbon\Carbon;
  */
 
 /**
- * 
+ *
  * @param type $row_id
  * @return type
  */
-function formatRowID($row_id) {
+function formatEditorPrimaryKey($row_id) {
     $id = null;
     switch (true) {
         case (is_numeric($row_id)):
@@ -24,7 +24,7 @@ function formatRowID($row_id) {
             break;
         case (str_contains($row_id, ',')):
             $row_ids = explode(',', $row_id);
-            $id = array_map(function($row_id) {
+            $id = array_map(function ($row_id) {
                 return substr($row_id, 4);
             }, $row_ids);
             break;
@@ -37,7 +37,7 @@ function formatRowID($row_id) {
 
 /**
  * Helper method to create lists for the in: validation
- * 
+ *
  * @param collection $query_results
  * @param boolean - return an array of ids or string
  * @return type
@@ -54,7 +54,9 @@ function createValidateList($query_results, $array = false) {
  * TODO: Tweak this method to enable it to return select2 for Editor or Select2
  *  -> i.e. value vs id && label vs text
  * This method is not currently being used, but will be in the future once code is refactored
- * 
+ *
+ * Allows for HTML5 data-global attributes?
+ *
  * @return type
  */
 function editorOptions($results, array $default = null, $key = "value", $value = "label", array $extras = []) {
@@ -82,7 +84,43 @@ function editorOptions($results, array $default = null, $key = "value", $value =
 }
 
 /**
- *  
+ * Pass a collection in from a query, where you query the parent first then leftJoin the children in.
+ *
+ * @param $collection
+ * @param string $parent_id
+ * @param string $parent
+ * @param string $child_key
+ * @param string $child_value
+ * @return array
+ */
+function editorSelectTwoGroupOptions($collection, $parent_id = 'parent_id', $parent = 'select_group', $child_key = 'id', $first_option = null) {
+    $options = [];
+    $groups = $collection->where($child_key, null)->unique($parent)->pluck($parent, $parent_id)->all();
+    if (!is_null($first_option)) {
+        $options[] = $first_option;
+    }
+    //Only has the groups
+    foreach ($groups AS $index => $group) {
+        $child_options = [];
+        $children = $collection->where($child_key, $index)->all();
+        ;
+        if (count($children) > 0) {
+            $option = ['text' => $group];
+            $child_options[] = ['id' => $index, 'text' => $group];
+        } else {
+            $option = ['id' => $index, 'text' => $group];
+        }
+        foreach ($children AS $child) {
+            $child_options[] = ['id' => $child->$parent_id, 'text' => $child->$parent];
+        }
+        $option['children'] = $child_options;
+        $options[] = $option;
+    }
+    return $options;
+}
+
+/**
+ *
  * @return type
  */
 function normalOptions($results = null, array $default = null, $key = "value", $value = "label") { //, $key = 'id', $value = 'description'
@@ -97,6 +135,15 @@ function normalOptions($results = null, array $default = null, $key = "value", $
     return $options;
 }
 
+/**
+ *
+ * @param type $collection
+ * @param type $first_option
+ * @param type $title
+ * @param type $key
+ * @param type $value
+ * @return type
+ */
 function normalGroupOptions($collection, $first_option = null, $title = 'select_group', $key = 'id', $value = 'description') {
     $options = [];
     if (!is_null($first_option)) {
@@ -113,6 +160,14 @@ function normalGroupOptions($collection, $first_option = null, $title = 'select_
     return $options;
 }
 
+/**
+ *
+ * @param type $results
+ * @param type $first_option
+ * @param type $key
+ * @param type $value
+ * @return type
+ */
 function selectTwoOptions($results, $first_option = null, $key = 'id', $value = 'description') {
     $options = [];
     if (!is_null($first_option)) {
@@ -124,6 +179,14 @@ function selectTwoOptions($results, $first_option = null, $key = 'id', $value = 
     return $options;
 }
 
+/**
+ *
+ * @param type $collection
+ * @param type $title
+ * @param type $key
+ * @param type $value
+ * @return type
+ */
 function selectTwoGroupOptions($collection, $title = 'select_group', $key = 'id', $value = 'description') {
     $options = [];
     $groups = $collection->unique($title)->pluck($title)->all();
@@ -140,6 +203,15 @@ function selectTwoGroupOptions($collection, $title = 'select_group', $key = 'id'
     return $options;
 }
 
+/**
+ *
+ * @param type $results
+ * @param type $first_option
+ * @param type $key
+ * @param type $value
+ * @param array $extras
+ * @return type
+ */
 function updateSelectTwo($results, $first_option = null, $key = 'id', $value = 'description', array $extras = []) {
     $options = [];
     if (!is_null($first_option)) {
@@ -155,44 +227,103 @@ function updateSelectTwo($results, $first_option = null, $key = 'id', $value = '
     return $options;
 }
 
+/**
+ *
+ * @param Carbon $date
+ * @param type $format
+ * @return type
+ */
 function toDateString($date, $format = null) {
     $carbon = ($date instanceof Carbon ? $date : getCarbon($date, $format));
     return $carbon->toDateString();
 }
 
+/**
+ *
+ * @param Carbon $date
+ * @param type $format
+ * @return type
+ */
+function toCarbon($date, $format = null) {
+    if (is_null($date)) {
+        return Carbon::now();
+    }
+    $carbon = ($date instanceof Carbon ? $date : getCarbon($date, $format));
+    return $carbon;
+}
+
+/**
+ *
+ * @param type $date
+ * @param type $format
+ * @return type
+ */
 function getCarbon($date, $format = null) {
     //For now just return carbon::parse 
     return is_null($format) ? Carbon::parse($date) : Carbon::createFromFormat($format, $date);
 }
 
-function setFilters($request) {
-    $filters = $request->input();
-    if (!is_null($request->session()->get($request->route()->getName()))) {
-        $request->session()->forget($request->route()->getName());
+/**
+ * 
+ * @param Carbon $date
+ * @param int $start
+ * @param int $end
+ */
+function getYearSelect($date, $start, $end) {
+    $years = [];
+    for ($i = -5; $i <= 5; $i++) {
+        //$years .= "{label: '" . ($currentyear + $i) . "', value: '" . ($currentyear + $i) . "'},";
+        $years[] = ['label' => ($date + $i), 'value' => ($date + $i)];
     }
-    $request->session()->push($request->route()->getName(), $filters);
+    return $years;
 }
 
-function getFilters($request) {
-    $filters = null;    
-    if (!is_null($request->session()->get($request->route()->getName() . '.index'))) {
-        $previous_filters = $request->session()->get($request->route()->getName() . '.index');
-        $filters = current($previous_filters);     
-        //dd($filters);
-        if (isset($filters['planned_date']) && in_array($filters['planned_date'], $filters) && strlen($filters['planned_date']) > 0) {
-            $planned_date = Carbon::createFromFormat('D M d Y H:i:s e+', $filters['planned_date']);
-            $filters['planned_date'] = $planned_date->format('d/m/Y');
+/**
+ * @param int $length
+ * @return bool|string
+ */
+function str_quick_random($length = 16) {
+    $pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+}
+
+/**
+ *
+ * http://php.net/manual/en/exception.gettraceasstring.php
+ * ernest at vogelsinger dot at
+ *
+ * @param $e
+ * @param null $seen
+ * @return array|string
+ */
+function jTraceEx($e, $seen = null) {
+    $starter = $seen ? 'Caused by: ' : '';
+    $result = array();
+    if (!$seen)
+        $seen = array();
+    $trace = $e->getTrace();
+    $prev = $e->getPrevious();
+    $result[] = sprintf('%s%s: %s', $starter, get_class($e), $e->getMessage());
+    $file = $e->getFile();
+    $line = $e->getLine();
+    while (true) {
+        $current = "$file:$line";
+        if (is_array($seen) && in_array($current, $seen)) {
+            $result[] = sprintf(' ... %d more', count($trace) + 1);
+            break;
         }
-        
-        if (isset($filters['start_date']) && in_array($filters['start_date'], $filters) && strlen($filters['start_date']) > 0) {
-            $start_date = Carbon::createFromFormat('D M d Y H:i:s e+', $filters['start_date']);
-            $filters['start_date'] = $start_date->format('d/m/Y');
-        }
-        
-        if (isset($filters['end_date']) && in_array($filters['end_date'], $filters) && strlen($filters['end_date']) > 0) {
-            $end_date = Carbon::createFromFormat('D M d Y H:i:s e+', $filters['end_date']);
-            $filters['end_date'] = $end_date->format('d/m/Y');
-        }
+        $result[] = sprintf(' at %s%s%s(%s%s%s)', count($trace) && array_key_exists('class', $trace[0]) ? str_replace('\\', '.', $trace[0]['class']) : '', count($trace) && array_key_exists('class', $trace[0]) && array_key_exists('function', $trace[0]) ? '.' : '', count($trace) && array_key_exists('function', $trace[0]) ? str_replace('\\', '.', $trace[0]['function']) : '(main)', $line === null ? $file : basename($file), $line === null ? '' : ':', $line === null ? '' : $line);
+        if (is_array($seen))
+            $seen[] = "$file:$line";
+        if (!count($trace))
+            break;
+        $file = array_key_exists('file', $trace[0]) ? $trace[0]['file'] : 'Unknown Source';
+        $line = array_key_exists('file', $trace[0]) && array_key_exists('line', $trace[0]) && $trace[0]['line'] ? $trace[0]['line'] : null;
+        array_shift($trace);
     }
-    return $filters;
+    $result = join("\n", $result);
+    if ($prev)
+        $result .= "\n" . jTraceEx($prev, $seen);
+
+    return $result;
 }

@@ -14,9 +14,7 @@
                         <th class='dt-cell-left'>Nick Name</th>
                         <th class='dt-cell-left'>Contact Person</th>
                         <th class='dt-cell-left'>Tel No</th>                
-                        <th class='dt-cell-left'>Email</th>
-                        <th class='dt-cell-left'>Home Colour</th>
-                        <th class='dt-cell-left'>Away Colour</th>
+                        <th class='dt-cell-left'>Email</th>                      
                         <th class='dt-cell-left'>Home Ground</th>
                         <th class='dt-cell-center'>Active</th>
                     </tr>

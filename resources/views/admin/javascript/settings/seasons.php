@@ -1,50 +1,51 @@
 <script>
-    var teams_table;
+    var seasons_table;
     $(document).ready(function () {
-        teams_editor = new $.fn.dataTable.Editor({
+        seasons_editor = new $.fn.dataTable.Editor({
             ajax: {
-                create: '/admin/settings/teams/add',
+                create: '/admin/settings/seasons/add',
                 edit: {
                     type: 'PUT',
-                    url: '/admin/settings/teams/edit/_id_'
+                    url: '/admin/settings/seasons/edit/_id_'
                 },
                 remove: {
                     type: 'DELETE',
-                    url: '/admin/settings/teams/delete/_id_'
+                    url: '/admin/settings/seasons/delete/_id_'
                 }
             },
-            table: "#teams-table",
-            template: "#teams-editor",
+            table: "#seasons-table",
+            template: "#seasons-editor",
             fields: [
                 {
-                    label: "Team Name:",
-                    name: "teams.name"
+                    label: "League Name:",
+                    name: "seasons.league_id",
+                    type: "select2",
+                    opts: {
+                        minimumResultsForSearch: 2
+                    },
+                    def: 0
                 }, {
-                    label: "Nick Name:",
-                    name: "teams.nick_name"
+                    label: "Season Name:",
+                    name: "seasons.description"
                 }, {
-                    label: "Contact Person",
-                    name: "teams.contact_person"
+                    label: "Start Date",
+                    name: "seasons.start_date",
+                    type: "date",
+                    def: function () {
+                        return new Date();
+                    },
+                    dateFormat: 'd/mm/yy'
                 }, {
-                    label: "Phone Number:",
-                    name: "teams.phone_number"
-                }, {
-                    label: "Email:",
-                    name: "teams.email"
-                }, {
-                    label: "Home Color:",
-                    name: "teams.home_color_id",
-                    type: "select2"
-                }, {
-                    label: "Away Color:",
-                    name: "teams.away_color_id",
-                    type: "select2"
-                }, {
-                    label: "Home Ground:",
-                    name: "teams.home_ground"
+                    label: "End Date:",
+                    name: "seasons.end_date",
+                    type: "date",
+                    def: function () {
+                        return new Date();
+                    },
+                    dateFormat: 'd/mm/yy'
                 }, {
                     label: "Active:",
-                    name: "teams.active",
+                    name: "seasons.active",
                     type: "radio",
                     options: [
                         {label: "Yes", value: 1},
@@ -55,28 +56,24 @@
             ]
         });
         /***** INIT TABLE *****/
-        teams_table = $('#teams-table').DataTable({
-            serverSide: true,
+        seasons_table = $('#seasons-table').DataTable({
             tabIndex: 1,
             pageLength: 20,
             bFilter: false,
             bInfo: false,
-            rowId: 'id',
             dom: 'Bfrtip',
             ajax: {
-                url: '/admin/settings/teams/index',
+                url: '/admin/settings/seasons/index',
                 type: "GET"
             },
             columns: [
                 {data: null, defaultContent: '', orderable: false, sClass: "selector"},
-                {data: "teams.name"},
-                {data: "teams.nick_name"},
-                {data: "teams.contact_person"},
-                {data: "teams.phone_number"},
-                {data: "teams.email"},
-                {data: "teams.home_ground"},
+                {data: "leagues.description", editField: "seasons.league_id"},
+                {data: "seasons.description"},
+                {data: "seasons.start_date"},
+                {data: "seasons.end_date"},
                 {data: null, render: function (data, type, row) {
-                        if (row['teams']['active'] == "1") {
+                        if (row['seasons']['active'] == "1") {
                             return "Active";
                         } else {
                             return "In-Active";
@@ -84,8 +81,8 @@
                     }}
             ],
             columnDefs: [
-                {className: "dt-cell-left", targets: [1, 2, 3, 4, 5, 6]}, //Align table body cells to left  
-                {className: "dt-cell-center", targets: [7]}, //Align table body cells to left  
+                {className: "dt-cell-left", targets: [1, 2]}, //Align table body cells to left  
+                {className: "dt-cell-center", targets: [3, 4, 5]}, //Align table body cells to left  
                 {searchable: false, targets: 0}
             ],
             order: [1, 'asc'],
@@ -94,10 +91,10 @@
                 style: 'single',
                 selector: 'td:first-child'
             }, buttons: [
-                {extend: 'create', text: 'Add', className: "add-team",
+                {extend: 'create', text: 'Add', className: "add-season",
                     action: function () {
-                        teams_editor.create({
-                            title: '<h3>Add: Team</h3>',
+                        seasons_editor.create({
+                            title: '<h3>Add: Season</h3>',
                             buttons: [
                                 {
                                     label: 'Add',
@@ -115,10 +112,10 @@
                         });
                     }
                 }, {
-                    extend: 'edit', text: 'Edit', className: "edit-team",
+                    extend: 'edit', text: 'Edit', className: "edit-season",
                     action: function () {
-                        teams_editor.edit(teams_table.row({selected: true}).indexes(), {
-                            title: '<h3>Edit: Team</h3>',
+                        seasons_editor.edit(seasons_table.row({selected: true}).indexes(), {
+                            title: '<h3>Edit: Season</h3>',
                             buttons: [
                                 {
                                     label: 'Update',
@@ -139,32 +136,32 @@
                     extend: 'remove',
                     text: 'Delete',
                     action: function () {
-                        teams_editor.title('<h3>Delete: Team</h3>').buttons([
+                        seasons_editor.title('<h3>Delete: Season</h3>').buttons([
                             {label: 'Delete', fn: function () {
                                     this.submit();
                                 }},
                             {label: 'Cancel', fn: function () {
                                     this.close();
                                 }}
-                        ]).message('Are you sure you want to delete this team?').remove(teams_table.row({selected: true}));
+                        ]).message('Are you sure you want to delete this season?').remove(seasons_table.row({selected: true}));
                     }
                 }
             ]
         });
-        $(teams_editor.displayNode()).addClass('modal-multi-columns');
-        teams_editor.on('postSubmit', function (e, json, data, action) {
+        $(seasons_editor.displayNode()).addClass('modal-multi-columns');
+        seasons_editor.on('postSubmit', function (e, json, data, action) {
             if ((json.hasOwnProperty('data') && !json.hasOwnProperty('fieldErrors')) || (json.hasOwnProperty('data') && !json.hasOwnProperty('error'))) {
                 var key = Object.keys(json['data']);
                 var info = json['data'][key];
                 switch (action) {
                     case 'create':
-                        flash_message('Team ' + info['teams']['name'] + ' has been successfully added', 'success');
+                        flash_message('Season ' + info['seasons']['description'] + ' has been successfully added', 'success');
                         break;
                     case 'edit':
-                        flash_message('Team ' + info['teams']['name'] + ' has been successfully updated', 'success');
+                        flash_message('Season ' + info['seasons']['description'] + ' has been successfully updated', 'success');
                         break;
                     case 'remove':
-                        flash_message('Team has been successfully removed', 'success');
+                        flash_message('Season has been successfully removed', 'success');
                         break;
                 }
             }

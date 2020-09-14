@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Team;
+namespace App\Http\Controllers\Admin\Settings;
 
 use App\Models\Team\Color;
 use Illuminate\Http\Request;

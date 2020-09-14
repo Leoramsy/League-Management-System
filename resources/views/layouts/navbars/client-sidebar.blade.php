@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="sidebar-wrapper ps ps--active-x">
         <div class="logo">
-            <img src="/images/oilstar-white-logo.png" class="simple-text logo-normal">
+            <img src="/images/white-logo.png" alt="logo-here" class="simple-text logo-normal">
         </div>
         <ul class="nav">
             <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">

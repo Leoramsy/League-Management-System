@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="sidebar-wrapper ps ps--active-x">
         <div class="logo">
-            <img src="/images/oilstar-white-logo.png" class="simple-text logo-normal">
+            <img src="/images/white-logo.png" alt="logo-here" class="simple-text logo-normal">
         </div>
         <ul class="nav">            
             <li class="{{ ($category ?? ' ') == 'system' ? 'active' : ''}}">
@@ -14,13 +14,34 @@
                 </a>
                 <div class="collapse  show" id="system">
                     <ul class="nav">
+                        <li class="{{ ($page_slug ?? ' ') == 'league_formats' ? 'active' : ''}}">
+                            <a href="{{route('admin.leagues.formats')}}">
+
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> League Formats </span>
+                            </a>
+                        </li>
+                        <li class="{{ ($page_slug ?? ' ') == 'leagues' ? 'active' : ''}}">
+                            <a href="{{route('admin.leagues')}}">
+
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> Leagues </span>
+                            </a>
+                        </li>
+                        <li class="{{ ($page_slug ?? ' ') == 'seasons' ? 'active' : ''}}">
+                            <a href="{{route('admin.seasons')}}">
+
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> Seasons </span>
+                            </a>
+                        </li>
                         <li class="{{ ($page_slug ?? ' ') == 'teams' ? 'active' : ''}}">
                             <a href="{{route('admin.teams')}}">
 
                                 <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
                                 <span class="sidebar-normal"> Teams </span>
                             </a>
-                        </li>
+                        </li>                        
                         <li class="{{ ($page_slug ?? ' ') == 'results' ? 'active' : ''}}">
                             <a href="{{route('match-centre', ['type' => 'results'])}}">
                                 <span class="sidebar-mini-icon">PA</span>
