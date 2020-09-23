@@ -17,7 +17,7 @@
             </table>
             <div id="formats-editor" class="custom-editor">
                 <fieldset class="half-set multi-set">
-                    <legend><i class="fa fa-user" aria-hidden="true"></i> Season:</legend>                             
+                    <legend><i class="fa fa-user" aria-hidden="true"></i> League Format:</legend>                             
                     <div class="col-md-12">
                         <editor-field name="league_formats.description"></editor-field>
                         <editor-field name="league_formats.slug"></editor-field>

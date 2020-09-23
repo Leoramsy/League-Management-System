@@ -16,6 +16,8 @@ class CreateLeaguesTable extends Migration {
             $table->id();
             $table->foreignId('league_format_id')->constrained('league_formats');
             $table->string('description');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->boolean('active')->default(TRUE);
             $table->timestamps();
         });

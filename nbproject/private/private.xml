@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Projects/Laravel/app/Models/Team/Team.php</file>
-            <file>file:/C:/Projects/Laravel/resources/views/admin/settings/teams.blade.php</file>
-            <file>file:/C:/Projects/Laravel/resources/views/admin/javascript/settings/teams.php</file>
-            <file>file:/C:/Projects/Laravel/app/Http/Controllers/Team/TeamController.php</file>
-            <file>file:/C:/Projects/Laravel/app/Models/Team/Color.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

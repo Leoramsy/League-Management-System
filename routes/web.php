@@ -61,6 +61,16 @@ Route::prefix('admin')->middleware(['web'])->group(function () {
         Route::put('/seasons/edit/{id}', 'Admin\Settings\SeasonController@edit')->name('admin.seasons.update');
         Route::delete('/seasons/delete/{id}', 'Admin\Settings\SeasonController@delete')->name('admin.seasons.delete');
 
+        /*
+         * Player Routes
+         */
+        Route::get('/players', 'Admin\Settings\PlayerController@view')->name('admin.players');
+        Route::get('/players/index', 'Admin\Settings\PlayerController@index')->name('admin.players.index');
+        Route::post('/players/add', 'Admin\Settings\PlayerController@store')->name('admin.players.store');
+        Route::put('/players/edit/{id}', 'Admin\Settings\PlayerController@edit')->name('admin.players.update');
+        Route::delete('/players/delete/{id}', 'Admin\Settings\PlayerController@delete')->name('admin.players.delete');
+        Route::get('/players/image', 'Admin\Settings\PlayerController@image')->name('admin.players.image');
+
         Route::prefix('leagues')->group(function() {
             /*
              * League Routes

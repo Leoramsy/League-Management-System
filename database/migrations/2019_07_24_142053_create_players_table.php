@@ -4,18 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlayersTable extends Migration
-{
+class CreatePlayersTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('players', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('team_id')->constrained('teams');
+            $table->id();            
             $table->foreignId('position_id')->constrained('positions');
             $table->string('name');
             $table->string('surname')->deafult('');
@@ -24,6 +22,7 @@ class CreatePlayersTable extends Migration
             $table->date('date_of_birth');
             $table->string('contact_number');
             $table->string('image')->nullable();
+            $table->boolean('active')->default(TRUE);
             $table->timestamps();
         });
     }
@@ -33,8 +32,8 @@ class CreatePlayersTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('players');
     }
+
 }

@@ -41,31 +41,15 @@
                                 <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
                                 <span class="sidebar-normal"> Teams </span>
                             </a>
-                        </li>                        
-                        <li class="{{ ($page_slug ?? ' ') == 'results' ? 'active' : ''}}">
-                            <a href="{{route('match-centre', ['type' => 'results'])}}">
-                                <span class="sidebar-mini-icon">PA</span>
-                                <span class="sidebar-normal"> Results </span>
+                        </li>    
+                         <li class="{{ ($page_slug ?? ' ') == 'players' ? 'active' : ''}}">
+                            <a href="{{route('admin.players')}}">
+
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> Players </span>
                             </a>
-                        </li>
-                        <li class="{{ ($page_slug ?? ' ') == 'logs' ? 'active' : ''}}">
-                            <a href="{{route('match-centre', ['type' => 'logs'])}}">
-                                <span class="sidebar-mini-icon">PI</span>
-                                <span class="sidebar-normal"> Standings </span>
-                            </a>
-                        </li>
-                        <li class="{{ ($page_slug ?? ' ') == 'live' ? 'active' : ''}}">
-                            <a href="{{route('match-centre', ['type' => 'live'])}}">
-                                <span class="sidebar-mini-icon">RA</span>
-                                <span class="sidebar-normal"> Live Matches </span>
-                            </a>
-                        </li>
-                        <li class="{{ ($page_slug ?? ' ') == 'statistics' ? 'active' : ''}}">
-                            <a href="{{route('match-centre', ['type' => 'statistics'])}}">
-                                <span class="sidebar-mini-icon">RO</span>
-                                <span class="sidebar-normal"> Statistics </span>
-                            </a>
-                        </li>                        
+                        </li>    
+
                     </ul>
                 </div>
             </li>
