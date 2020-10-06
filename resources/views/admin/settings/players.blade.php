@@ -1,5 +1,6 @@
 @extends('layouts.app', ['page' => 'Players', 'page_slug' => 'players','category' => 'system'])
 @section('js_files')
+{!! Html::script('js/datatables/editor.upload.js') !!}
 @include('admin.javascript.settings.players')
 @endsection
 @section('content')

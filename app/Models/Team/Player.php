@@ -33,5 +33,14 @@ class Player extends Model {
     public function teams() {
         return $this->belongsToMany('App\Models\Team\Team', 'team_players', 'team_id', 'player_id');
     }
+    
+    /**
+     * Is this model linked to any data that would break integrity if it were deleted
+     * 
+     * @return string
+     */
+    public function isLinked() {
+        return false; //Could be updated to query portal links. For now, we simply return false for testing 02/07/2020
+    }
 
 }

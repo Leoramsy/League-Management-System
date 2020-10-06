@@ -12,7 +12,7 @@
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse  show" id="system">
+                <div class="collapse {{ ($category ?? ' ') == 'system' ? 'show' : ''}}" id="system">
                     <ul class="nav">
                         <li class="{{ ($page_slug ?? ' ') == 'league_formats' ? 'active' : ''}}">
                             <a href="{{route('admin.leagues.formats')}}">
@@ -42,7 +42,7 @@
                                 <span class="sidebar-normal"> Teams </span>
                             </a>
                         </li>    
-                         <li class="{{ ($page_slug ?? ' ') == 'players' ? 'active' : ''}}">
+                        <li class="{{ ($page_slug ?? ' ') == 'players' ? 'active' : ''}}">
                             <a href="{{route('admin.players')}}">
 
                                 <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
@@ -53,7 +53,31 @@
                     </ul>
                 </div>
             </li>
-
+            <li class="{{ ($category ?? ' ') == 'matchday' ? 'active' : ''}}">
+                <a data-toggle="collapse" href="#matchday">
+                    <i class="fas fa-sync-alt"></i>
+                    <p>
+                        Match Center
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ ($category ?? ' ') == 'matchday' ? 'show' : ''}}" id="matchday">
+                    <ul class="nav"> 
+                        <li class="{{ ($page_slug ?? ' ') == 'match_days' ? 'active' : ''}}">
+                            <a href="{{route('admin.match_days')}}">
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> Match Days </span>
+                            </a>
+                        </li>
+                        <li class="{{ ($page_slug ?? ' ') == 'fixtures' ? 'active' : ''}}">
+                            <a href="{{route('admin.fixtures')}}">
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> Fixtures </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">
                 <a href="#">
                     <i class="fas fa-chart-pie"></i>

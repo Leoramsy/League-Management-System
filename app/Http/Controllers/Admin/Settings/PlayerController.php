@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Settings;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\Team\Team;
 use App\Models\Team\Position;
@@ -34,26 +35,43 @@ class PlayerController extends EditorController {
     /**
      * Show the view for this controller
      * 
+     * if($request->hasFile('image')){
+      $image = $request->file('image');
+      $filename = time() . '.' . $image->getClientOriginalExtension();
+      Image::make($image)->resize(300, 300)->save( storage_path('/uploads/' . $filename )
+     * 
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function image() {
-        if ($request->hasFile('image')) {
-            //  Let's do everything here
-            if ($request->file('image')->isValid()) {
-                //
-                $validated = $request->validate([                    
-                    'image' => 'mimes:jpeg,png|max:1014',
-                ]);
-                $extension = $request->image->extension();
-                $request->image->storeAs('/public', $validated['name'] . "." . $extension);
-                $url = Storage::url($validated['name'] . "." . $extension);
-                $file = File::create([
-                            'name' => $validated['name'],
-                            'url' => $url,
-                ]);
-                Session::flash('success', "Success!");
-                return \Redirect::back();
+    public function image(Request $request) {
+        try {
+            if ($request->has('id')) {
+                $class = $this->getPrimaryClass();
+                $player = $class::findOrFail($request->id)->id;
+            } else {
+                $player = 0;
             }
+            if ($request->hasFile('upload')) {
+                //  Let's do everything here
+                if ($request->file('upload')->isValid()) {
+                    $request->validate([
+                        'upload' => 'mimes:jpeg,png|max:1014',
+                    ]);
+                    $now = Carbon::now()->format('d_m_y_H_i_s');
+                    $extension = $request->upload->extension();
+                    $file_name = $now . "." . $extension;
+                    $path = '/uploads/images/';
+                    $request->upload->storeAs($path, $file_name);
+                    return response()->json(['data' => [], 'files' => ['players' => [$player => ['filename' => $file_name,
+                                            'web_path' => asset('storage/app') . $path]]]
+                                , 'upload' => ['id' => $player]]);
+                }
+            } else {
+                throw new Exception("Invalid image was encountered");
+            }
+        } catch (Exception $ex) {
+            dd($ex->getMessage(), $ex->getLine());
+            return response()->json(['error' => $ex->getMessage()]);
         }
     }
 
@@ -67,6 +85,7 @@ class PlayerController extends EditorController {
         $class = $this->getPrimaryClass();
         $object = new $class();
         $data = $this->data[$object->getTable()];
+        dd($data);
         $teams = ($data["team_players-many-count"] > 0 ? array_pluck($data["team_players"], 'team_id') : []);
         $file = $request->file('image');
         $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -139,7 +158,7 @@ class PlayerController extends EditorController {
      */
     protected function getOptions() {
         $position_options = editorOptions(Position::all(), ["value" => 0, "label" => "Select a Position"]);
-        $team_options = editorOptions(Team::all(), ["value" => 0, "label" => "Select a Team"]);
+        $team_options = editorOptions(Team::select('id', 'name AS description')->get(), ["value" => 0, "label" => "Select a Team"]);
         return [
             'players.position_id' => $position_options,
             'team_players[].team_id' => $team_options,

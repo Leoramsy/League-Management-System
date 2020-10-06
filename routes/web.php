@@ -69,7 +69,26 @@ Route::prefix('admin')->middleware(['web'])->group(function () {
         Route::post('/players/add', 'Admin\Settings\PlayerController@store')->name('admin.players.store');
         Route::put('/players/edit/{id}', 'Admin\Settings\PlayerController@edit')->name('admin.players.update');
         Route::delete('/players/delete/{id}', 'Admin\Settings\PlayerController@delete')->name('admin.players.delete');
-        Route::get('/players/image', 'Admin\Settings\PlayerController@image')->name('admin.players.image');
+        Route::post('/players/image', 'Admin\Settings\PlayerController@image')->name('admin.players.image');
+
+        /*
+         * Fixtures Routes
+         */
+        Route::get('/fixtures', 'Admin\Matchday\FixtureController@view')->name('admin.fixtures');
+        Route::get('/fixtures/index', 'Admin\Matchday\FixtureController@index')->name('admin.fixtures.index');
+        Route::post('/fixtures/add', 'Admin\Matchday\FixtureController@store')->name('admin.fixtures.store');
+        Route::put('/fixtures/edit/{id}', 'Admin\Matchday\FixtureController@edit')->name('admin.fixtures.update');
+        Route::delete('/fixtures/delete/{id}', 'Admin\Matchday\FixtureController@delete')->name('admin.fixtures.delete');
+
+        /*
+         * MatchDay Routes
+         */
+        Route::get('/match_days', 'Admin\Matchday\MatchDayController@view')->name('admin.match_days');
+        Route::get('/match_days/index', 'Admin\Matchday\MatchDayController@index')->name('admin.match_days.index');
+        Route::post('/match_days/add', 'Admin\Matchday\MatchDayController@store')->name('admin.match_days.store');
+        Route::put('/match_days/edit/{id}', 'Admin\Matchday\MatchDayController@edit')->name('admin.match_days.update');
+        Route::delete('/match_days/delete/{id}', 'Admin\Matchday\MatchDayController@delete')->name('admin.match_days.delete');
+
 
         Route::prefix('leagues')->group(function() {
             /*
