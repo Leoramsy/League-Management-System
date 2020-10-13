@@ -37,8 +37,16 @@
                     ],
                     def: 0
                 }, {
-                    label: "Date:",
-                    name: "match_days.date",
+                    label: "Start Date:",
+                    name: "match_days.start_date",
+                    type: "datetime",
+                    format: 'DD/MM/YYYY',
+                    def: function () {
+                        return new Date();
+                    }
+                }, {
+                    label: "End Date:",
+                    name: "match_days.end_date",
                     type: "datetime",
                     format: 'DD/MM/YYYY',
                     def: function () {
@@ -62,7 +70,8 @@
                 {data: null, defaultContent: '', orderable: false, sClass: "selector"},
                 {data: "seasons.description", editField: "match_days.season_id"},
                 {data: "match_days.description"},
-                {data: "match_days.date"},
+                {data: "match_days.start_date"},
+                {data: "match_days.end_date"},
                 {data: null, render: function (data, type, row) {
                         if (row['match_days']['completed'] == "1") {
                             return "Yes";
@@ -73,7 +82,7 @@
             ],
             columnDefs: [
                 {className: "dt-cell-left", targets: [1, 2]}, //Align table body cells to left  
-                {className: "dt-cell-center", targets: [3, 4]}, //Align table body cells to left  
+                {className: "dt-cell-center", targets: [3, 4, 5]}, //Align table body cells to left  
                 {searchable: false, targets: 0}
             ],
             order: [1, 'asc'],
@@ -139,6 +148,9 @@
                 }
             ]
         });
+
+
+        
         $(match_days_editor.displayNode()).addClass('modal-multi-columns');
         match_days_editor.on('postSubmit', function (e, json, data, action) {
             if ((json.hasOwnProperty('data') && !json.hasOwnProperty('fieldErrors')) || (json.hasOwnProperty('data') && !json.hasOwnProperty('error'))) {
@@ -158,5 +170,5 @@
             }
         });
 
-    }); //End of document
+    }); //End of document    
 </script>

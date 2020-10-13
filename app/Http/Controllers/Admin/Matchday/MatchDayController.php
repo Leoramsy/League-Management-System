@@ -29,7 +29,7 @@ class MatchDayController extends EditorController {
     public function view() {
         return view('admin.matchday.match_days');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,13 +39,15 @@ class MatchDayController extends EditorController {
     protected function create(Request $request) {
         $class = $this->getPrimaryClass();
         $object = new $class();
-        $data = $this->data[$object->getTable()];        
-        $date = Carbon::createFromFormat('d/m/Y', $data['date'])->startOfDay();
+        $data = $this->data[$object->getTable()];
+        $start_date = Carbon::createFromFormat('d/m/Y', $data['start_date'])->startOfDay();
+        $end_date = Carbon::createFromFormat('d/m/Y', $data['end_date'])->startOfDay();
         $object->fill($data);
-        $object->date = $date;        
+        $object->start_date = $start_date;
+        $object->end_date = $end_date;
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
-        }        
+        }
         return $this->getRows($request, $object->id);
     }
 
@@ -73,7 +75,8 @@ class MatchDayController extends EditorController {
                 'description' => $data->description,
                 'season_id' => $data->season_id,
                 'completed' => $data->completed,
-                'date' => (is_null($data->date) ? null : $data->date->format('d/m/Y')),
+                'start_date' => (is_null($data->start_date) ? null : $data->start_date->format('d/m/Y')),
+                'end_date' => (is_null($data->end_date) ? null : $data->end_date->format('d/m/Y')),
             ],
             "seasons" => [
                 "description" => $data->season,
@@ -85,8 +88,9 @@ class MatchDayController extends EditorController {
         $season_list = createValidateList(Season::all());
         $this->rules = [
             'match_days.season_id' => 'required|integer|in:' . $season_list,
-            "match_days.date" => "nullable|date_format:d/m/Y",
-            "match_days.description" => "required|string|min:3",           
+            "match_days.start_date" => "nullable|date_format:d/m/Y",
+            "match_days.end_date" => "nullable|date_format:d/m/Y",
+            "match_days.description" => "required|string|min:3",
             "match_days.completed" => "required|boolean",
         ];
         if (count($rules) > 0) {

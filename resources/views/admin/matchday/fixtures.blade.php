@@ -16,6 +16,7 @@
                         <th class='dt-cell-left'>Away Team</th>
                         <th class='dt-cell-right'>Home Score</th>
                         <th class='dt-cell-right'>Away Score</th>
+                        <th class='dt-cell-center'>Kick Off</th> 
                         <th class='dt-cell-center'>Completed</th>                        
                     </tr>
                 </thead>
@@ -38,6 +39,9 @@
                     <div class="col-md-12">
                         <editor-field name="fixtures.completed"></editor-field>  
                         <editor-field name="fixtures.postponed"></editor-field>  
+                    </div>
+                    <div class="col-md-12">
+                        <editor-field name="fixtures.kick_off"></editor-field>                          
                     </div>
                 </fieldset>                            
             </div> 

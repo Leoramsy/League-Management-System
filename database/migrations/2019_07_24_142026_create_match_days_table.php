@@ -16,7 +16,8 @@ class CreateMatchDaysTable extends Migration {
             $table->id();
             $table->foreignId('season_id')->constrained('seasons');
             $table->string('description');
-            $table->date('date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->boolean('completed')->default(FALSE);
             $table->timestamps();
         });

@@ -32,6 +32,41 @@ class FixtureController extends EditorController {
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function create(Request $request) {
+        $class = $this->getPrimaryClass();
+        $object = new $class();
+        $data = $this->data[$object->getTable()];
+        $object->fill($data);
+        $object->kick_off = (strlen($data['kick_off']) > 0 ? Carbon::createFromFormat('d/m/Y h:i a', $data['kick_off']) : null);
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        return $this->getRows($request, $object->id);
+    }
+
+    public function data($season_id) {
+        try {
+            $season = Season::find($season_id);
+            // get match days linked to this season
+            $match_days = editorOptions(MatchDay::where('season_id', $season->id)->get(), ["value" => 0, "label" => "Select a Match Day"]);
+            // get teams linked to this season
+            $teams = editorOptions(Team::select('teams.id', 'teams.name AS description')
+                            ->join('season_teams', 'teams.id', '=', 'season_teams.team_id')
+                            ->where('season_teams.season_id', $season->id)
+                            ->where('teams.active', TRUE)
+                            ->get(), ["value" => 0, "label" => "Select a Team"]);
+            return response()->json(["matchday_options" => $match_days, "team_options" => $teams]);
+        } catch (Exception $ex) {
+            return response()->json(['error' => $ex->getMessage()]);
+        }
+    }
+
+    /**
      * Return a list of resource.
      * 
      * @param Request $request
@@ -64,6 +99,7 @@ class FixtureController extends EditorController {
                 'drawn_match' => $data->drawn_match,
                 'completed' => $data->completed,
                 'postponed' => $data->postponed,
+                'kick_off' => (is_null($data->kick_off) ? 'Not Set' : $data->kick_off->format('d/m/Y H:i'))
             ],
             "match_days" => [
                 "description" => $data->match_day,
@@ -85,13 +121,14 @@ class FixtureController extends EditorController {
         $team_list = createValidateList(Team::all());
         $this->rules = [
             'fixtures.match_day_id' => 'required|integer|in:' . $matchday_list,
-            'fixtures.home_team_id' => 'required|integer|in:' . $team_list,
-            "fixtures.away_team_id" => 'required|integer|in:' . $team_list,
-            "fixtures.home_team_score" => "required|integer|min:0",
+            'fixtures.home_team_id' => 'required|integer|different:fixtures.away_team_id|in:' . $team_list,
+            "fixtures.away_team_id" => 'required|integer|different:fixtures.home_team_id|in:' . $team_list,
+            "fixtures.home_team_score" => "nullable|integer|min:0",
             "fixtures.drawn_match" => "required|boolean",
-            "fixtures.away_team_score" => "required|integer|min:0",
+            "fixtures.away_team_score" => "nullable|integer|min:0",
             "fixtures.completed" => "required|boolean",
             "fixtures.postponed" => "required|boolean",
+            //"fixtures.kick_off" => "nullable|date_format:d/m/Y h:mm A"
         ];
         if (count($rules) > 0) {
             $this->rules = array_merge($this->rules, $rules);
@@ -103,7 +140,7 @@ class FixtureController extends EditorController {
      * @return \App\Http\Controllers\type|array
      */
     protected function getOptions() {
-        $season_options = editorOptions(Season::all(), ["value" => 0, "label" => "Select a Season"]);
+        $season_options = editorOptions(Season::where('active', TRUE)->get(), ["value" => 0, "label" => "Select a Season"]);
         $matchday_options = editorOptions([], ["value" => 0, "label" => "Select a Matchday"]);
         $home_options = editorOptions([], ["value" => 0, "label" => "Select a Home Team"]);
         $away_options = editorOptions([], ["value" => 0, "label" => "Select an Away Team"]);

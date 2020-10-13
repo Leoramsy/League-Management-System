@@ -30,19 +30,19 @@
                 }, {
                     label: "Start Date",
                     name: "seasons.start_date",
-                    type: "date",
+                    type: "datetime",
+                    format: 'DD/MM/YYYY',
                     def: function () {
                         return new Date();
-                    },
-                    dateFormat: 'd/mm/yy'
+                    }
                 }, {
                     label: "End Date:",
                     name: "seasons.end_date",
-                    type: "date",
+                    type: "datetime",
+                    format: 'DD/MM/YYYY',
                     def: function () {
                         return new Date();
-                    },
-                    dateFormat: 'd/mm/yy'
+                    }
                 }, {
                     label: "Active:",
                     name: "seasons.active",

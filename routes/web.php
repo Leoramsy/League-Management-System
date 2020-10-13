@@ -79,6 +79,8 @@ Route::prefix('admin')->middleware(['web'])->group(function () {
         Route::post('/fixtures/add', 'Admin\Matchday\FixtureController@store')->name('admin.fixtures.store');
         Route::put('/fixtures/edit/{id}', 'Admin\Matchday\FixtureController@edit')->name('admin.fixtures.update');
         Route::delete('/fixtures/delete/{id}', 'Admin\Matchday\FixtureController@delete')->name('admin.fixtures.delete');
+        // AJAX route
+        Route::get('/fixtures/data/{id}', 'Admin\Matchday\FixtureController@data')->name('admin.fixtures.data');
 
         /*
          * MatchDay Routes

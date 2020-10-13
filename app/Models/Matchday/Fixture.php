@@ -24,6 +24,9 @@ class Fixture extends Model {
         'postponed'
     ];
     
+    
+    protected $dates = ['kick_off'];
+    
     /**
      * Is this model linked to any data that would break integrity if it were deleted
      * 

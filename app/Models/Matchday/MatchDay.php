@@ -19,13 +19,13 @@ class MatchDay extends Model {
         'date',
         'completed',
     ];
-    
+
     /**
      * Date attributes.
      *
      * @var array
      */
-    protected $dates = ['date'];
+    protected $dates = ['start_date', 'end_date'];
 
     /**
      * Is this model linked to any data that would break integrity if it were deleted
