@@ -15,9 +15,7 @@ class Season extends Model {
      */
     protected $fillable = [
         "league_id",
-        "description",
-        "start_date",
-        "end_date",
+        "description",       
         "active",
     ];
     protected $dates = ["start_date", "end_date"];

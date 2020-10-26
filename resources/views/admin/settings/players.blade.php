@@ -38,10 +38,7 @@
                     <div class="col-md-12">
                         <editor-field name="players.date_of_birth"></editor-field>  
                         <editor-field name="players.active"></editor-field>  
-                    </div> 
-                    <div class="col-md-12">
-                        <editor-field name="players.image"></editor-field>                        
-                    </div>
+                    </div>                     
                 </fieldset>                
                 <fieldset class="full-set">
                     <div class="col-md-12">

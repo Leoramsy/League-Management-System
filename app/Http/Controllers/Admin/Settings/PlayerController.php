@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Settings;
 
+use DB;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Team\Team;
 use App\Models\Team\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\EditorController;
 
 class PlayerController extends EditorController {
@@ -77,29 +79,74 @@ class PlayerController extends EditorController {
 
     /**
      * Store a newly created resource in storage.
-     *
+     * 
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     protected function create(Request $request) {
+        $now = Carbon::now();
         $class = $this->getPrimaryClass();
         $object = new $class();
         $data = $this->data[$object->getTable()];
-        dd($data);
-        $teams = ($data["team_players-many-count"] > 0 ? array_pluck($data["team_players"], 'team_id') : []);
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension(); // getting image extension
-        $filename = time() . '.' . $extension;
-        $file->move(app() . '/images/players/', $filename);
-        $dob = Carbon::createFromFormat('d/m/Y', $data['start_date'])->startOfDay();
+        $entries = $request->input('data');
+        $entry = current($entries);
+        $teams = ($entry["team_players-many-count"] > 0 ? Arr::pluck($entry["team_players"], 'team_id') : []);
+        $dob = Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->startOfDay();
         $object->fill($data);
         $object->date_of_birth = $dob;
-        $object->image = app() . '/images/players/' . $filename;
+        $object->image = null;
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
         }
-        $object->teams()->attach($teams);
+        $object->teams()->attach($teams, ['created_at' => $now, 'updated_at' => $now]);
         return $this->getRows($request, $object->id);
+    }
+
+    /**
+     * Edit a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function edit(Request $request) {
+        $now = Carbon::now();
+        $entries = $request->input('data');
+        $entry = current($entries);
+        $class = $this->getPrimaryClass();
+        $object = $class::findOrFail($this->primary_key);
+        $data = $this->data[$object->getTable()];
+        $teams = ($entry["team_players-many-count"] > 0 ? Arr::pluck($entry["team_players"], 'team_id') : []);
+        $dob = Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->startOfDay();
+        $object->fill($data);
+        $object->date_of_birth = $dob;
+        $object->image = null;
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        $object->teams()->sync($teams, ['updated_at' => $now]);
+        return $this->getRows($request, $object->id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id) {
+        DB::beginTransaction();
+        try {
+            if ($object = $this->isValid()) {
+                $object->teams()->detach();
+                if (!$object->delete()) {
+                    $this->setError('Failed to delete the entry'); //TODO This should be on create..if errors...
+                }
+            }
+            ($this->hasErrors() ? DB::rollback() : DB::commit());
+            return response()->json($this->output([]));
+        } catch (Exception $ex) {
+            DB::rollback();
+            return response()->json(['error' => $ex->getMessage()]);
+        }
     }
 
     /**
@@ -114,12 +161,15 @@ class PlayerController extends EditorController {
         $query = $object::select(['players.*', 'positions.description AS position'])
                 ->join('positions', 'players.position_id', '=', 'positions.id');
         if ($id > 0) {
-            return $query->where('league_formats.id', $id)->first();
+            return $query->where('players.id', $id)->first();
         }
         return $query->get();
     }
 
     protected function format($data): array {
+        $team_players = DB::table('team_players')->select('team_id')
+                        ->where('player_id', $data->id)
+                        ->get()->all(); //->pluck('country_location_id');
         return [
             "players" => [
                 "id" => $data->id,
@@ -128,12 +178,14 @@ class PlayerController extends EditorController {
                 "surname" => $data->surname,
                 "nick_name" => $data->nick_name,
                 "image" => $data->image,
+                "contact_number" => $data->contact_number,
                 "active" => $data->active,
                 "date_of_birth" => $data->date_of_birth->format('d/m/Y')
             ],
-            "position" => [
+            "positions" => [
                 "description" => $data->position,
-            ]
+            ],
+            "team_players[]" => $team_players,
         ];
     }
 

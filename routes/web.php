@@ -35,8 +35,6 @@ Route::prefix('match-centre')->group(function() {
 });
 
 
-
-
 /*
  * Admin Auth Logic
  */

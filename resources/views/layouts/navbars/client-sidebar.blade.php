@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="sidebar-wrapper ps ps--active-x">
         <div class="logo">
-            <img src="/images/white-logo.png" alt="logo-here" class="simple-text logo-normal">
+            <img src="/images/logo_callis.png" alt="logo-here" class="simple-text logo-normal">
         </div>
         <ul class="nav">
             <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">
@@ -22,7 +22,7 @@
                     <ul class="nav">
                         <li class="{{ ($page_slug ?? ' ') == 'fixtures' ? 'active' : ''}}">
                             <a href="{{route('match-centre', ['type' => 'fixtures'])}}">
-                                
+
                                 <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
                                 <span class="sidebar-normal"> Fixtures </span>
                             </a>
@@ -54,7 +54,7 @@
                     </ul>
                 </div>
             </li>
-            
+
             <li class="">
                 <a href="#">
                     <i class="fas fa-chart-pie"></i>
@@ -76,31 +76,7 @@
             <li class="">
                 <a href="#">
                     <i class="fas fa-chart-pie"></i>
-                    <p>Images</p>
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Videos</p>
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Who we are</p>
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
                     <p>About us</p>
-                </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>League Executive</p>
                 </a>
             </li>
             <li class="">

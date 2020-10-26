@@ -7,9 +7,9 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Communications League of Zimbabwe') }}</title>
+        <title>{{ config('app.name', 'Callis Fives') }}</title>
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="{{ asset('images') }}/oilstar-white-logo.png">
+        <link rel="icon" type="image/jpeg" href="{{ asset('images') }}/logo_callis.png">
         <!-- Fonts -->     
         <!-- Icons -->
         @include('partials.styles')

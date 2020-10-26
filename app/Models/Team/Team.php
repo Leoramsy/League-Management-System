@@ -5,7 +5,7 @@ namespace App\Models\Team;
 use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model {
-    
+
     protected $table = "teams";
 
     /**
@@ -24,6 +24,15 @@ class Team extends Model {
         "home_ground",
         "active",
     ];
+
+    /**
+     * Get the Season that belong to this Season
+     * 
+     * @return Season
+     */
+    public function seasons() {
+        return $this->belongsToMany('App\Models\System\Season', 'season_teams', 'team_id', 'season_id');
+    }
 
     /**
      * Is this model linked to any data that would break integrity if it were deleted

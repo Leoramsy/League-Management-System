@@ -32,31 +32,14 @@
                     label: "Surname:",
                     name: "players.surname"
                 }, {
-                    label: "Image:",
-                    name: "players.image",
-                    type: "upload",
-                    ajax: {
-                        type: "POST",
-                        url: '/admin/settings/players/image'
-                    },
-                    ajaxData: function (data) {
-                        var player = players_table.row({selected: true});
-                        if (player.any() && players_editor.mode() == 'edit') {
-                            data.append('id', player.data().games.id);
-                        }
-                    },
-                    display: function (filename) {
-                        console.log(filename);
-                        return '<img src="' + players_editor.file('players', filename).webPath + '"/>';
-                    },
-                    clearText: "Clear",
-                    noImageText: 'No image'
-                }, {
                     label: "Nick-Name:",
                     name: "players.nick_name"
                 }, {
                     label: "ID No:",
                     name: "players.id_number"
+                }, {
+                    label: "Contact Number:",
+                    name: "players.contact_number"
                 }, {
                     label: "Active:",
                     name: "players.active",
@@ -146,6 +129,11 @@
                 }, {
                     extend: 'edit', text: 'Edit', className: "edit-season",
                     action: function () {
+                        var teams = [];
+                        var teams_array = players_table.row({selected: true}).data()['team_players[]'];
+                        for (var i = 0; i < teams_array.length; i++) {
+                            teams.push(teams_array[i]['team_id']);
+                        }
                         players_editor.edit(players_table.row({selected: true}).indexes(), {
                             title: '<h3>Edit: Player</h3>',
                             buttons: [
@@ -163,6 +151,7 @@
                                 }
                             ]
                         });
+                        players_editor.field('team_players[].team_id').inst().select2().val(teams).trigger("change");
                     }
                 }, {
                     extend: 'remove',

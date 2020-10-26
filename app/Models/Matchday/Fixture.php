@@ -23,8 +23,7 @@ class Fixture extends Model {
         'completed',
         'postponed'
     ];
-    
-    
+        
     protected $dates = ['kick_off'];
     
     /**

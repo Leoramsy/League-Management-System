@@ -48,7 +48,7 @@ class MatchDayController extends EditorController {
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
         }
-        return $this->getRows($request, $object->id);
+        return $this->getRows($request, $object->id);        
     }
 
     /**

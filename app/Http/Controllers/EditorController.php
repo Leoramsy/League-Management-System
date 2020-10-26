@@ -166,7 +166,7 @@ abstract class EditorController extends DataTablesController {
     public function destroy(Request $request, $id) {
         DB::beginTransaction();
         try {
-            if ($object = $this->isValid()) {
+            if ($object = $this->isValid()) {                
                 $this->delete($object);
             }
             ($this->hasErrors() ? DB::rollback() : DB::commit());

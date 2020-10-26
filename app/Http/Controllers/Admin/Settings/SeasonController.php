@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Settings;
 
+use Carbon\Carbon;
 use App\Models\System\League;
 use Illuminate\Http\Request;
 use App\Http\Controllers\EditorController;
@@ -27,6 +28,48 @@ class SeasonController extends EditorController {
     public function view() {
         $page = 'Seasons';
         return view('admin.settings.seasons', compact('page'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * 
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function create(Request $request) {
+        $class = $this->getPrimaryClass();
+        $object = new $class();
+        $data = $this->data[$object->getTable()];
+        $start_date = Carbon::createFromFormat('d/m/Y', $data['start_date'])->startOfDay();
+        $end_date = Carbon::createFromFormat('d/m/Y', $data['end_date'])->startOfDay();
+        $object->fill($data);
+        $object->start_date = $start_date;
+        $object->end_date = $end_date;
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        return $this->getRows($request, $object->id);
+    }
+
+    /**
+     * Edit a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function edit(Request $request) {
+        $class = $this->getPrimaryClass();
+        $object = $class::findOrFail($this->primary_key);
+        $data = $this->data[$object->getTable()];
+        $start_date = Carbon::createFromFormat('d/m/Y', $data['start_date'])->startOfDay();
+        $end_date = Carbon::createFromFormat('d/m/Y', $data['end_date'])->startOfDay();
+        $object->fill($data);
+        $object->start_date = $start_date;
+        $object->end_date = $end_date;
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        return $this->getRows($request, $object->id);
     }
 
     /**
@@ -60,6 +103,7 @@ class SeasonController extends EditorController {
         return [
             "seasons" => [
                 "id" => $data->id,
+                "league_id" => $data->league_id,
                 "description" => $data->description,
                 "start_date" => $data->start_date->format('d/m/Y'),
                 "end_date" => $data->end_date->format('d/m/Y'),
@@ -75,8 +119,8 @@ class SeasonController extends EditorController {
         $leagues = createValidateList(League::all());
         $this->rules = [
             'seasons.league_id' => 'required|integer|in:' . $leagues,
-            'seasons.start_date' => 'required|date',
-            'seasons.end_date' => 'required|date',
+            'seasons.start_date' => 'required|date_format:d/m/Y',
+            'seasons.end_date' => 'required|date_format:d/m/Y',
             'seasons.description' => 'required|string|min:3',
             'seasons.active' => 'required|boolean',
         ];

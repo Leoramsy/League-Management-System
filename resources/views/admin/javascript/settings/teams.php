@@ -51,17 +51,24 @@
                         {label: "No", value: 0}
                     ],
                     def: 1
+                }, {
+                    label: "Seasons:",
+                    name: "season_teams[].season_id",
+                    type: "select2",
+                    opts: {
+                        multiple: true,
+                        allowClear: true,
+                        minimumResultsForSearch: 1
+                    }
                 }
             ]
         });
         /***** INIT TABLE *****/
         teams_table = $('#teams-table').DataTable({
-            serverSide: true,
             tabIndex: 1,
             pageLength: 20,
             bFilter: false,
             bInfo: false,
-            rowId: 'id',
             dom: 'Bfrtip',
             ajax: {
                 url: '/admin/settings/teams/index',
@@ -117,6 +124,11 @@
                 }, {
                     extend: 'edit', text: 'Edit', className: "edit-team",
                     action: function () {
+                        var seasons = [];
+                        var seasons_array = teams_table.row({selected: true}).data()['season_teams[]'];
+                        for (var i = 0; i < seasons_array.length; i++) {
+                            seasons.push(seasons_array[i]['season_id']);
+                        }
                         teams_editor.edit(teams_table.row({selected: true}).indexes(), {
                             title: '<h3>Edit: Team</h3>',
                             buttons: [
@@ -134,6 +146,7 @@
                                 }
                             ]
                         });
+                        teams_editor.field('season_teams[].season_id').inst().select2().val(seasons).trigger("change");
                     }
                 }, {
                     extend: 'remove',

@@ -92,6 +92,7 @@
                 }
             ]
         });
+        
         /***** INIT TABLE *****/
         fixtures_table = $('#fixtures-table').DataTable({
             tabIndex: 1,

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Settings;
 
+use DB;
+use Exception;
+use Carbon\Carbon;
 use App\Models\Team\Color;
 use Illuminate\Http\Request;
+use App\Models\System\Season;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\EditorController;
 
 class TeamController extends EditorController {
@@ -30,6 +35,50 @@ class TeamController extends EditorController {
     }
 
     /**
+     * Store a newly created resource in storage.
+     * 
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function create(Request $request) {
+        $now = Carbon::now();
+        $class = $this->getPrimaryClass();
+        $object = new $class();
+        $data = $this->data[$object->getTable()];
+        $entries = $request->input('data');
+        $entry = current($entries);
+        $seasons = ($entry["season_teams-many-count"] > 0 ? Arr::pluck($entry["season_teams"], 'season_id') : []);
+        $object->fill($data);
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        $object->seasons()->attach($seasons, ['created_at' => $now, 'updated_at' => $now]);
+        return $this->getRows($request, $object->id);
+    }
+
+    /**
+     * Update a newly resource in storage.
+     * 
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function edit(Request $request) {
+        $now = Carbon::now();
+        $class = $this->getPrimaryClass();
+        $object = $class::findOrFail($this->primary_key);
+        $data = $this->data[$object->getTable()];
+        $entries = $request->input('data');
+        $entry = current($entries);
+        $seasons = ($entry["season_teams-many-count"] > 0 ? Arr::pluck($entry["season_teams"], 'season_id') : []);
+        $object->fill($data);
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        $object->seasons()->sync($seasons, ['updated_at' => $now]);
+        return $this->getRows($request, $object->id);
+    }
+
+    /**
      * Return a list of resource.
      * 
      * @param Request $request
@@ -49,14 +98,19 @@ class TeamController extends EditorController {
      * @return \App\Http\Controllers\type|array
      */
     protected function getOptions() {
-        $color_options = editorOptions(Color::select('id', 'name AS description')->orderBy('name')->get(), ["value"=>0, "label"=>"Select a Color"]);
+        $color_options = editorOptions(Color::select('id', 'name AS description')->orderBy('name')->get(), ["value" => 0, "label" => "Select a Color"]);
+        $season_options = editorOptions(Season::orderBy('description')->where('active', TRUE)->get(), ["value" => 0, "label" => "Select a Season"]);
         return [
             "teams.home_color_id" => $color_options,
             "teams.away_color_id" => $color_options,
+            'season_teams[].season_id' => $season_options,
         ];
     }
 
     protected function format($data): array {
+        $season_teams = DB::table('season_teams')->select('season_id')
+                        ->where('team_id', $data->id)
+                        ->get()->all(); //->pluck('country_location_id');
         return [
             "teams" => [
                 "name" => $data->name,
@@ -68,7 +122,8 @@ class TeamController extends EditorController {
                 "away_color_id" => $data->away_color_id,
                 "home_ground" => $data->home_ground,
                 "active" => $data->active
-            ]
+            ],
+            "season_teams[]" => $season_teams,
         ];
     }
 

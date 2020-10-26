@@ -22,6 +22,7 @@ class CreateMatchDaysTable extends Migration {
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

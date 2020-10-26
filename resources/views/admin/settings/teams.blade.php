@@ -42,7 +42,12 @@
                     <div class="col-md-12">
                         <editor-field name="teams.active"></editor-field>  
                     </div>
-                </fieldset>                            
+                </fieldset>   
+                <fieldset class="full-set">
+                    <div class="col-md-12">
+                        <editor-field name="season_teams[].season_id"></editor-field>                                        
+                    </div>                    
+                </fieldset>
             </div> 
         </div>
     </div>

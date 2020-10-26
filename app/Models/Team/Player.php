@@ -23,7 +23,11 @@ class Player extends Model {
         "id_number",
         "home_ground",
         "active",
+        "contact_number"
     ];
+    
+    
+    protected $dates = ['date_of_birth'];
 
     /**
      * Get the Team that belong to this Player
@@ -31,9 +35,9 @@ class Player extends Model {
      * @return Team
      */
     public function teams() {
-        return $this->belongsToMany('App\Models\Team\Team', 'team_players', 'team_id', 'player_id');
+        return $this->belongsToMany('App\Models\Team\Team', 'team_players', 'player_id', 'team_id');
     }
-    
+
     /**
      * Is this model linked to any data that would break integrity if it were deleted
      * 

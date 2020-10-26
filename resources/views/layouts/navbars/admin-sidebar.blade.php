@@ -1,12 +1,12 @@
 <div class="sidebar">
     <div class="sidebar-wrapper ps ps--active-x">
         <div class="logo">
-            <img src="/images/white-logo.png" alt="logo-here" class="simple-text logo-normal">
+            <img src="/images/logo_callis.png" alt="logo-here" class="simple-text logo-normal">
         </div>
         <ul class="nav">            
             <li class="{{ ($category ?? ' ') == 'system' ? 'active' : ''}}">
                 <a data-toggle="collapse" href="#system">
-                    <i class="fas fa-sync-alt"></i>
+                    <i class="fa fa-cog" aria-hidden="true"></i>
                     <p>
                         System
                         <b class="caret"></b>
@@ -55,7 +55,7 @@
             </li>
             <li class="{{ ($category ?? ' ') == 'matchday' ? 'active' : ''}}">
                 <a data-toggle="collapse" href="#matchday">
-                    <i class="fas fa-sync-alt"></i>
+                    <i class="fa fa-trophy" aria-hidden="true"></i>
                     <p>
                         Match Center
                         <b class="caret"></b>

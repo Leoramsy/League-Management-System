@@ -49,16 +49,37 @@ class FixtureController extends EditorController {
         return $this->getRows($request, $object->id);
     }
 
+    /**
+     * Update an existing item resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function edit(Request $request) {
+        $class = $this->getPrimaryClass();
+        $object = $class::findOrFail($this->primary_key);
+        $data = $this->data[$object->getTable()];
+        $object->fill($data);
+        if (isset($data['kick_off'])) {
+            $object->kick_off = (strlen($data['kick_off']) > 0 ? Carbon::createFromFormat('d/m/Y h:i a', $data['kick_off']) : null);
+        }
+        if (!$object->save()) {
+            $this->setError('Failed to save the entry');
+        }
+        return $this->getRows($request, $object->id);
+    }
+
     public function data($season_id) {
         try {
             $season = Season::find($season_id);
             // get match days linked to this season
-            $match_days = editorOptions(MatchDay::where('season_id', $season->id)->get(), ["value" => 0, "label" => "Select a Match Day"]);
+            $match_days = editorOptions(MatchDay::where('season_id', $season->id)->orderBy('description', 'ASC')->get(), ["value" => 0, "label" => "Select a Match Day"]);
             // get teams linked to this season
             $teams = editorOptions(Team::select('teams.id', 'teams.name AS description')
                             ->join('season_teams', 'teams.id', '=', 'season_teams.team_id')
                             ->where('season_teams.season_id', $season->id)
                             ->where('teams.active', TRUE)
+                            ->orderBy('teams.name', 'ASC')
                             ->get(), ["value" => 0, "label" => "Select a Team"]);
             return response()->json(["matchday_options" => $match_days, "team_options" => $teams]);
         } catch (Exception $ex) {
@@ -80,7 +101,7 @@ class FixtureController extends EditorController {
                 ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
                 ->join('seasons', 'match_days.season_id', '=', 'seasons.id')
                 ->join('teams AS home_team', 'fixtures.home_team_id', '=', 'home_team.id')
-                ->join('teams AS away_team', 'fixtures.home_team_id', '=', 'away_team.id');
+                ->join('teams AS away_team', 'fixtures.away_team_id', '=', 'away_team.id');
         if ($id > 0) {
             return $query->where('fixtures.id', $id)->first();
         }
@@ -128,7 +149,7 @@ class FixtureController extends EditorController {
             "fixtures.away_team_score" => "nullable|integer|min:0",
             "fixtures.completed" => "required|boolean",
             "fixtures.postponed" => "required|boolean",
-            //"fixtures.kick_off" => "nullable|date_format:d/m/Y h:mm A"
+                //"fixtures.kick_off" => "nullable|date_format:d/m/Y h:mm A"
         ];
         if (count($rules) > 0) {
             $this->rules = array_merge($this->rules, $rules);
@@ -140,7 +161,7 @@ class FixtureController extends EditorController {
      * @return \App\Http\Controllers\type|array
      */
     protected function getOptions() {
-        $season_options = editorOptions(Season::where('active', TRUE)->get(), ["value" => 0, "label" => "Select a Season"]);
+        $season_options = editorOptions(Season::where('active', TRUE)->orderBy('description')->get(), ["value" => 0, "label" => "Select a Season"]);
         $matchday_options = editorOptions([], ["value" => 0, "label" => "Select a Matchday"]);
         $home_options = editorOptions([], ["value" => 0, "label" => "Select a Home Team"]);
         $away_options = editorOptions([], ["value" => 0, "label" => "Select an Away Team"]);

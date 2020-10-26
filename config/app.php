@@ -12,7 +12,7 @@ return [
       |
      */
 
-    'name' => env('APP_NAME', 'Communications League of Zimbabwe'),
+    'name' => env('APP_NAME', 'Callis Fives'),
     /*
       |--------------------------------------------------------------------------
       | Application Environment
@@ -57,7 +57,7 @@ return [
       | ahead and set this to a sensible default for you out of the box.
       |
      */
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Johannesburg',
     /*
       |--------------------------------------------------------------------------
       | Application Locale Configuration
