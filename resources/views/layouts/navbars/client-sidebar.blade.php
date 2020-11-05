@@ -53,18 +53,17 @@
                         </li>                        
                     </ul>
                 </div>
-            </li>
-
+            </li>            
             <li class="">
                 <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Tournaments</p>
+                    <i class="fas fa-users"></i>
+                    <p>Teams</p>
                 </a>
             </li>
             <li class="">
                 <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Gallery</p>
+                    <i class="fas fa-user"></i>
+                    <p>Players</p>
                 </a>
             </li>
             <li class="">
@@ -78,13 +77,7 @@
                     <i class="fas fa-chart-pie"></i>
                     <p>About us</p>
                 </a>
-            </li>
-            <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Contact us</p>
-                </a>
-            </li>
+            </li>            
         </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
             </div>

@@ -25,7 +25,8 @@ class CreateMatchesTable extends Migration {
             $table->boolean('postponed')->default(FALSE);
             $table->timestamps();
 
-            $table->unique(['match_day_id', 'home_team_id', 'away_team_id']);
+
+            $table->unique(['match_day_id', 'home_team_id', 'away_team_id'], "match_set");
         });
     }
 

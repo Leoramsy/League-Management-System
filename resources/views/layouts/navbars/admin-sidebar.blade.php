@@ -14,6 +14,13 @@
                 </a>
                 <div class="collapse {{ ($category ?? ' ') == 'system' ? 'show' : ''}}" id="system">
                     <ul class="nav">
+                        <li class="{{ ($page_slug ?? ' ') == 'seasons' ? 'active' : ''}}">
+                            <a href="{{route('admin.seasons')}}">
+
+                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
+                                <span class="sidebar-normal"> Seasons </span>
+                            </a>
+                        </li>
                         <li class="{{ ($page_slug ?? ' ') == 'league_formats' ? 'active' : ''}}">
                             <a href="{{route('admin.leagues.formats')}}">
 
@@ -26,13 +33,6 @@
 
                                 <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
                                 <span class="sidebar-normal"> Leagues </span>
-                            </a>
-                        </li>
-                        <li class="{{ ($page_slug ?? ' ') == 'seasons' ? 'active' : ''}}">
-                            <a href="{{route('admin.seasons')}}">
-
-                                <span class="sidebar-mini-icon"><i class="fas fa-archive"></i></span>
-                                <span class="sidebar-normal"> Seasons </span>
                             </a>
                         </li>
                         <li class="{{ ($page_slug ?? ' ') == 'teams' ? 'active' : ''}}">

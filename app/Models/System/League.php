@@ -18,9 +18,7 @@ class League extends Model {
      *
      * @var array
      */
-    protected $fillable = ['league_format_id', 'description', 'active'];
-    
-    
+    protected $fillable = ['season_id', 'league_format_id', 'description', 'active'];
     protected $date = ['start_date', 'end_date'];
 
     /**
@@ -44,12 +42,12 @@ class League extends Model {
     protected $dates = ['start_date', 'end_date'];
 
     /**
-     * Gets the Seasons that belong to this league
+     * Get the season that this league belongs to
      * 
      * @return Season
      */
-    public function seasons() {
-        return $this->hasMany('App\Models\System\Season', 'league_id', 'id');
+    public function season() {
+        return $this->belongsTo('App\Models\System\Season');
     }
 
     /**

@@ -14,8 +14,7 @@ class CreateSeasonsTable extends Migration
     public function up()
     {
         Schema::create('seasons', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('league_id')->constrained();
+            $table->bigIncrements('id');            
             $table->string('description');
             $table->date('start_date');
             $table->date('end_date');

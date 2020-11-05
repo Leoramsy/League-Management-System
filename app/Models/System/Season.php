@@ -14,11 +14,19 @@ class Season extends Model {
      * @var array
      */
     protected $fillable = [
-        "league_id",
-        "description",       
+        "description",
         "active",
     ];
     protected $dates = ["start_date", "end_date"];
+
+    /**
+     * Gets the Seasons that belong to this league
+     * 
+     * @return Season
+     */
+    public function leagues() {
+        return $this->hasMany('App\Models\System\League', 'id', 'season_id');
+    }
 
     /**
      * Is this model linked to any data that would break integrity if it were deleted

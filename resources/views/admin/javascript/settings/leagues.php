@@ -17,6 +17,11 @@
             template: "#leagues-editor",
             fields: [
                 {
+                    label: "Season:",
+                    name: "leagues.season_id",
+                    type: "select2",
+                    def: 0
+                }, {
                     label: "League Format:",
                     name: "leagues.league_format_id",
                     type: "select2",
@@ -66,6 +71,7 @@
             },
             columns: [
                 {data: null, defaultContent: '', orderable: false, sClass: "selector"},
+                {data: "seasons.description", editField: "leagues.season_id"},
                 {data: "league_formats.description", editField: "leagues.league_format_id"},
                 {data: "leagues.description"},
                 {data: "leagues.start_date"},
@@ -79,8 +85,8 @@
                     }}
             ],
             columnDefs: [
-                {className: "dt-cell-left", targets: [1, 2]}, //Align table body cells to left  
-                {className: "dt-cell-center", targets: [3, 4, 5]}, //Align table body cells to left  
+                {className: "dt-cell-left", targets: [1, 2, 4]}, //Align table body cells to left  
+                {className: "dt-cell-center", targets: [6, 4, 5]}, //Align table body cells to left  
                 {searchable: false, targets: 0}
             ],
             order: [1, 'asc'],

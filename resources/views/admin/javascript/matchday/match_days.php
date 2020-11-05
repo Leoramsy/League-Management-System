@@ -18,7 +18,7 @@
             fields: [
                 {
                     label: "Season:",
-                    name: "match_days.season_id",
+                    name: "match_days.league_id",
                     type: "select2",
                     opts: {
                         minimumResultsForSearch: 1
@@ -68,7 +68,7 @@
             },
             columns: [
                 {data: null, defaultContent: '', orderable: false, sClass: "selector"},
-                {data: "seasons.description", editField: "match_days.season_id"},
+                {data: "leagues.description", editField: "match_days.league_id"},
                 {data: "match_days.description"},
                 {data: "match_days.start_date"},
                 {data: "match_days.end_date"},
@@ -91,7 +91,7 @@
                 style: 'single',
                 selector: 'td:first-child'
             }, buttons: [
-                {extend: 'create', text: 'Add', className: "add-season",
+                {extend: 'create', text: 'Add', className: "add-league",
                     action: function () {
                         match_days_editor.create({
                             title: '<h3>Add: Match Day</h3>',
@@ -112,7 +112,7 @@
                         });
                     }
                 }, {
-                    extend: 'edit', text: 'Edit', className: "edit-season",
+                    extend: 'edit', text: 'Edit', className: "edit-league",
                     action: function () {
                         match_days_editor.edit(match_days_table.row({selected: true}).indexes(), {
                             title: '<h3>Edit: Match Day</h3>',

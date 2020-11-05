@@ -31,3 +31,8 @@ and open the template in the editor.
     display: block;
     padding: 10px 25px;
 }
+
+tr.group,
+tr.group:hover {
+    background-color: #ddd !important;
+}

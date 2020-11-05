@@ -14,7 +14,7 @@ class MatchDay extends Model {
      * @var array
      */
     protected $fillable = [
-        'season_id',
+        'league_id',
         'description',        
         'completed',
     ];

@@ -5,6 +5,7 @@
         fixtures_table = $('#logs-table').DataTable({
             processing: true,
             tabIndex: 1,
+            paging: false,
             bFilter: false,
             bInfo: false,
             targets: 'no-sort',
@@ -24,15 +25,11 @@
                 {data: "fixtures.won"},
                 {data: "fixtures.draw"},
                 {data: "fixtures.lost"},
-                {data: "fixtures.goals_for"},
-                {data: "fixtures.goals_against"},
-                {data: "fixtures.difference"},
-                {data: "fixtures.points"},
-                {data: "fixtures.form"}
+                {data: "fixtures.points"}
             ],
             columnDefs: [
                 {className: "dt-cell-left", targets: [1]}, //Align table body cells to left      
-                {className: "dt-cell-center", targets: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10]}, //Align table body cells to left      
+                {className: "dt-cell-center", targets: [0, 2, 3, 4, 5, 6]}, //Align table body cells to left      
                 {searchable: false, targets: 0}
             ],
             bLengthChange: false,

@@ -14,6 +14,7 @@
 //Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/data', 'HomeController@data')->name('data');
 /*
  * Admin Auth Logic
  */

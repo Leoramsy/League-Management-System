@@ -27,6 +27,7 @@
 {!! Html::script('js/FieldType-Mask-1.5.6/editor.mask.min.js') !!} 
 {!! Html::script('js/FieldType-Select2-1.6.2/editor.select2.js') !!}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.min.js"></script>
 {!! Html::script('js/datatables/custom.editor.bootstrap.js') !!}
 {{-- Add page specific scripts --}}

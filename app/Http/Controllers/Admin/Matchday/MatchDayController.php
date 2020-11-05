@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Matchday;
 
 use Carbon\Carbon;
 use App\Models\Team\Team;
-use App\Models\System\Season;
+use App\Models\System\League;
 use Illuminate\Http\Request;
 use App\Http\Controllers\EditorController;
 
@@ -60,8 +60,8 @@ class MatchDayController extends EditorController {
      */
     protected function getRows(Request $request, $id = 0) {
         $object = $this->getPrimaryClass();
-        $query = $object::select(['match_days.*', 'seasons.description AS season'])
-                ->join('seasons', 'match_days.season_id', '=', 'seasons.id');
+        $query = $object::select(['match_days.*', 'leagues.description AS league'])
+                ->join('leagues', 'match_days.league_id', '=', 'leagues.id');
         if ($id > 0) {
             return $query->where('match_days.id', $id)->first();
         }
@@ -73,21 +73,21 @@ class MatchDayController extends EditorController {
             "match_days" => [
                 'id' => $data->id,
                 'description' => $data->description,
-                'season_id' => $data->season_id,
+                'league_id' => $data->league_id,
                 'completed' => $data->completed,
                 'start_date' => (is_null($data->start_date) ? null : $data->start_date->format('d/m/Y')),
                 'end_date' => (is_null($data->end_date) ? null : $data->end_date->format('d/m/Y')),
             ],
-            "seasons" => [
-                "description" => $data->season,
+            "leagues" => [
+                "description" => $data->league,
             ]
         ];
     }
 
     protected function setRules(array $rules = array()): array {
-        $season_list = createValidateList(Season::all());
+        $league_list = createValidateList(League::all());
         $this->rules = [
-            'match_days.season_id' => 'required|integer|in:' . $season_list,
+            'match_days.league_id' => 'required|integer|in:' . $league_list,
             "match_days.start_date" => "nullable|date_format:d/m/Y",
             "match_days.end_date" => "nullable|date_format:d/m/Y",
             "match_days.description" => "required|string|min:3",
@@ -103,9 +103,9 @@ class MatchDayController extends EditorController {
      * @return \App\Http\Controllers\type|array
      */
     protected function getOptions() {
-        $season_options = editorOptions(Season::all(), ["value" => 0, "label" => "Select a Season"]);
+        $league_options = editorOptions(League::all(), ["value" => 0, "label" => "Select a League"]);
         return [
-            'match_days.season_id' => $season_options,
+            'match_days.league_id' => $league_options,
         ];
     }
 

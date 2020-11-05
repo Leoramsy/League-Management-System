@@ -6,38 +6,41 @@
             processing: true,
             tabIndex: 1,
             pageLength: 20,
-            bFilter: false,
             bInfo: false,
+            bFilter: false,
+            targets: 'no-sort',
+            bSort: false,
             ajax: {
-                url: '/match-centre/data',
+                url: '/data',
                 type: "GET",
-                data: function (d){
+                data: function (d) {
+                    d.league_id = $("#league-select").val();
+                    d.team_id = $("#team-select").val();
                     d.type = 'results';
                 }
             },
             columns: [
-                {data: null, defaultContent: '', orderable: false, sClass: "selector"},
-                {data: "sale_representatives.name"},
-                {data: "sale_representatives.tel"},
+                {data: "home_team.name"},
+                {data: "fixtures.home_team_score"},
                 {data: null, render: function (data, type, row) {
-                        if (row['sale_representatives']['cell'] != "") {
-                            return row['sale_representatives']['cell'];
-                        } else {
-                            return "N/A";
-                        }
+                        return "vs";
                     }},
-                {data: "sale_representatives.email"}
+                {data: "away_team.name"},
+                {data: "fixtures.away_team_score"},
+                {data: "match_days.description"}
             ],
             columnDefs: [
-                {className: "dt-cell-left", targets: [1, 2, 3, 4]}, //Align table body cells to left                
-                {searchable: false, targets: 0}
+                {className: "dt-cell-left", targets: [0, 2, 4]}, //Align table body cells to left      
+                {className: "dt-cell-center", targets: [1, 3]}, //Align table body cells to left      
+                {searchable: false, targets: 0},
+                {visible: false, targets: [5]}
             ],
-            order: [1, 'asc'],
             bLengthChange: false,
-            select: {
-                style: 'single',
-                selector: 'td:first-child'
+            order: [3, 'asc'],
+            rowGroup: {
+                dataSrc: "fixtures.date"
             }
         });
+
     }); //End of document
 </script>

@@ -8,16 +8,35 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        <div  id="content" class="card">
+            <div class="card-body">      
+                <!-- form -->
+                {!! Form::open(array('id' => 'fixtures-form')) !!}                             
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <b> {!! Form::label('league_id', 'League:', ['class' => 'awesome']) !!}</b>
+                        {!! Form::select('league_id', $leagues, key($leagues), array('id' => 'league-select', 'class' => 'form-control input-original', 'data-original' => key($leagues))) !!}
+                    </div> 
+                    <div class="col-md-4">
+                        <b>{!! Form::label('team_id', 'Team:', ['class' => 'awesome']) !!}</b>
+                        {!! Form::select('team_id', $teams, key($teams), array('id' => 'team-select', 'class' => 'form-control input-original', 'data-original' => key($teams))) !!}
+                    </div>                     
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <div class="card">            
-            <div class="card-header" style="padding: 0px">                  
-                <ul class="nav nav-tabs" role="tablist">                        
+            <div class="card-body">                  
+                <ul class="nav nav-tabs" role="tablist" class="col-md-12 nav nav-tabs" style="border-bottom: 2px solid #1B75B9">                        
                     <li role="presentation" class="active col text-center"><a data-toggle="tab" href="#fixtures-tab" >Fixtures<span></span></a></li>
                     <li role="presentation" class="col text-center"><a data-toggle="tab" href="#results-tab" >Results<span></span></a></li>
                     <li role="presentation" class="col text-center"><a data-toggle="tab" href="#log-tab" >Log Standings<span></span></a></li>                
                     <li role="presentation" class="col text-center"><a data-toggle="tab" href="#statistics-tab" >Statistics<span></span></a></li>            
-                </ul>
-            </div>
-            <div class="card-body">  
+                </ul>                      
                 <div class="tab-content">                       
                     <div id="fixtures-tab" class="tab-pane fade {{ $type == 'fixtures' ? 'show active' : ''}}">      
                         @include('partials.match_centre.fixtures')
@@ -32,7 +51,7 @@
                         @include('partials.match_centre.statistics')
                     </div> 
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 </div>

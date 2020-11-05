@@ -17,8 +17,8 @@
             template: "#fixtures-editor",
             fields: [
                 {
-                    label: "Season:",
-                    name: "fixtures.season_id",
+                    label: "League:",
+                    name: "fixtures.league_id",
                     type: "select2",
                     opts: {
                         minimumResultsForSearch: 1
@@ -92,7 +92,7 @@
                 }
             ]
         });
-        
+
         /***** INIT TABLE *****/
         fixtures_table = $('#fixtures-table').DataTable({
             tabIndex: 1,
@@ -106,24 +106,12 @@
             },
             columns: [
                 {data: null, defaultContent: '', orderable: false, sClass: "selector"},
-                {data: "seasons.description", editField: "fixtures.season_id"},
+                {data: "leagues.description", editField: "fixtures.league_id"},
                 {data: "match_days.description", editField: "fixtures.match_day_id"},
                 {data: "home_team.name", editField: "fixtures.home_team_id"},
                 {data: "away_team.name", editField: "fixtures.away_team_id"},
-                {data: null, render: function (data, type, row) {
-                        if (row['fixtures']['home_team_score'] == null) {
-                            return "N/A";
-                        } else {
-                            row['fixtures']['home_team_score'];
-                        }
-                    }},
-                {data: null, render: function (data, type, row) {
-                        if (row['fixtures']['away_team_score'] == null) {
-                            return "N/A";
-                        } else {
-                            row['fixtures']['away_team_score'];
-                        }
-                    }},
+                {data: "fixtures.home_team_score"},
+                {data: "fixtures.away_team_score"},
                 {data: "fixtures.kick_off"},
                 {data: null, render: function (data, type, row) {
                         if (row['fixtures']['completed'] == "1") {
@@ -144,7 +132,7 @@
                 style: 'single',
                 selector: 'td:first-child'
             }, buttons: [
-                {extend: 'create', text: 'Add', className: "add-season",
+                {extend: 'create', text: 'Add', className: "add-league",
                     action: function () {
                         fixtures_editor.create({
                             title: '<h3>Add: Fixture</h3>',
@@ -165,7 +153,7 @@
                         });
                     }
                 }, {
-                    extend: 'edit', text: 'Edit', className: "edit-season",
+                    extend: 'edit', text: 'Edit', className: "edit-league",
                     action: function () {
                         fixtures_editor.edit(fixtures_table.row({selected: true}).indexes(), {
                             title: '<h3>Edit: Fixture</h3>',
@@ -202,7 +190,7 @@
             ]
         });
 
-        fixtures_editor.dependent('fixtures.season_id', function (val, data, callback) {
+        fixtures_editor.dependent('fixtures.league_id', function (val, data, callback) {
             if (val > 0) {
                 getData(val);
             }
@@ -231,18 +219,18 @@
     }); //End of document
     /**
      * 
-     * @param {type} season_id
+     * @param {type} league_id
      * @param {type} dt
      * @returns {undefined} 
      */
-    function getData(season_id) {
+    function getData(league_id) {
 
         fixtures_editor.error('');
         fixtures_editor.field('fixtures.match_day_id').update('').message('Loading Options');
         fixtures_editor.field('fixtures.home_team_id').update('').message('Loading Options');
         fixtures_editor.field('fixtures.away_team_id').update('').message('Loading Options');
         $.ajax({
-            url: "/admin/settings/fixtures/data/" + season_id,
+            url: "/admin/settings/fixtures/data/" + league_id,
             type: "GET"
         }).done(function (return_data) {
             fixtures_editor.field('fixtures.match_day_id').message('');

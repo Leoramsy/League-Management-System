@@ -14,6 +14,7 @@ class CreateLeaguesTable extends Migration {
     public function up() {
         Schema::create('leagues', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('season_id')->constrained('seasons');
             $table->foreignId('league_format_id')->constrained('league_formats');
             $table->string('description');
             $table->date('start_date');

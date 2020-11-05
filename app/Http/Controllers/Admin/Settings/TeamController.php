@@ -7,7 +7,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Team\Color;
 use Illuminate\Http\Request;
-use App\Models\System\Season;
+use App\Models\System\League;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\EditorController;
 
@@ -47,12 +47,12 @@ class TeamController extends EditorController {
         $data = $this->data[$object->getTable()];
         $entries = $request->input('data');
         $entry = current($entries);
-        $seasons = ($entry["season_teams-many-count"] > 0 ? Arr::pluck($entry["season_teams"], 'season_id') : []);
+        $leagues = ($entry["league_teams-many-count"] > 0 ? Arr::pluck($entry["league_teams"], 'league_id') : []);
         $object->fill($data);
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
         }
-        $object->seasons()->attach($seasons, ['created_at' => $now, 'updated_at' => $now]);
+        $object->leagues()->attach($leagues, ['created_at' => $now, 'updated_at' => $now]);
         return $this->getRows($request, $object->id);
     }
 
@@ -69,12 +69,12 @@ class TeamController extends EditorController {
         $data = $this->data[$object->getTable()];
         $entries = $request->input('data');
         $entry = current($entries);
-        $seasons = ($entry["season_teams-many-count"] > 0 ? Arr::pluck($entry["season_teams"], 'season_id') : []);
+        $leagues = ($entry["league_teams-many-count"] > 0 ? Arr::pluck($entry["league_teams"], 'league_id') : []);
         $object->fill($data);
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
         }
-        $object->seasons()->sync($seasons, ['updated_at' => $now]);
+        $object->leagues()->sync($leagues, ['updated_at' => $now]);
         return $this->getRows($request, $object->id);
     }
 
@@ -99,16 +99,16 @@ class TeamController extends EditorController {
      */
     protected function getOptions() {
         $color_options = editorOptions(Color::select('id', 'name AS description')->orderBy('name')->get(), ["value" => 0, "label" => "Select a Color"]);
-        $season_options = editorOptions(Season::orderBy('description')->where('active', TRUE)->get(), ["value" => 0, "label" => "Select a Season"]);
+        $league_options = editorOptions(League::orderBy('description')->where('active', TRUE)->get(), ["value" => 0, "label" => "Select a Season"]);
         return [
             "teams.home_color_id" => $color_options,
             "teams.away_color_id" => $color_options,
-            'season_teams[].season_id' => $season_options,
+            'league_teams[].league_id' => $league_options,
         ];
     }
 
     protected function format($data): array {
-        $season_teams = DB::table('season_teams')->select('season_id')
+        $league_teams = DB::table('league_teams')->select('league_id')
                         ->where('team_id', $data->id)
                         ->get()->all(); //->pluck('country_location_id');
         return [
@@ -123,7 +123,7 @@ class TeamController extends EditorController {
                 "home_ground" => $data->home_ground,
                 "active" => $data->active
             ],
-            "season_teams[]" => $season_teams,
+            "league_teams[]" => $league_teams,
         ];
     }
 

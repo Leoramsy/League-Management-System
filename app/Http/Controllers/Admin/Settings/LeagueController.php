@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Settings;
 
 use Carbon\Carbon;
+use App\Models\System\Season;
 use App\Models\System\LeagueFormat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\EditorController;
@@ -60,7 +61,8 @@ class LeagueController extends EditorController {
      */
     protected function getRows(Request $request, $id = 0) {
         $object = $this->getPrimaryClass();
-        $query = $object::select(['leagues.*', 'league_formats.description AS league_format'])
+        $query = $object::select(['leagues.*', 'league_formats.description AS league_format', 'seasons.description AS season'])
+                ->join('seasons', 'leagues.season_id', '=', 'seasons.id')
                 ->join('league_formats', 'leagues.league_format_id', '=', 'league_formats.id');
         if ($id > 0) {
             return $query->where('league_formats.id', $id)->first();
@@ -74,11 +76,15 @@ class LeagueController extends EditorController {
                 "id" => $data->id,
                 "description" => $data->description,
                 "league_format_id" => $data->league_format_id,
+                "season_id" => $data->season_id,
                 "active" => $data->active,
                 "start_date" => $data->start_date->format('d/m/Y'),
                 "end_date" => $data->end_date->format('d/m/Y')
             ],
             "league_formats" => [
+                "description" => $data->league_format,
+            ],
+            "seasons" => [
                 "description" => $data->league_format,
             ]
         ];
@@ -86,9 +92,11 @@ class LeagueController extends EditorController {
 
     protected function setRules(array $rules = array()): array {
         $format_list = createValidateList(LeagueFormat::all());
+        $season_list = createValidateList(Season::where('active', TRUE)->get());
         $this->rules = [
             'leagues.description' => 'required|string|min:3',
             'leagues.league_format_id' => 'required|integer|in:' . $format_list,
+            'leagues.season_id' => 'required|integer|in:' . $season_list,
             'leagues.active' => 'required|boolean',
             "leagues.start_date" => "required|date_format:d/m/Y",
             "leagues.end_date" => "required|date_format:d/m/Y|after_or_equal:leagues.start_date",
@@ -104,8 +112,10 @@ class LeagueController extends EditorController {
      */
     protected function getOptions() {
         $format_options = editorOptions(LeagueFormat::all(), ["value" => 0, "label" => "Select a League Format"]);
+        $season_options = editorOptions(Season::where('active', TRUE)->orderBy('description')->get(), ["value" => 0, "label" => "Select a Season"]);
         return [
             'leagues.league_format_id' => $format_options,
+            'leagues.season_id' => $season_options,
         ];
     }
 

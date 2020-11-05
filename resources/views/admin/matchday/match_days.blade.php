@@ -10,7 +10,7 @@
                 <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th class='dt-cell-left'>Season</th>
+                        <th class='dt-cell-left'>League</th>
                         <th class='dt-cell-left'>Description</th>
                         <th class='dt-cell-center'>Start Date</th>
                         <th class='dt-cell-center'>End Date</th>
@@ -22,7 +22,7 @@
                 <fieldset class="half-set multi-set">
                     <legend><i class="fa fa-user" aria-hidden="true"></i> Match Day:</legend>                             
                     <div class="col-md-12">
-                        <editor-field name="match_days.season_id"></editor-field> 
+                        <editor-field name="match_days.league_id"></editor-field> 
                         <editor-field name="match_days.description"></editor-field>                        
                     </div>
                     <div class="col-md-12">

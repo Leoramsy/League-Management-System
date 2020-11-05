@@ -45,7 +45,7 @@
                 </fieldset>   
                 <fieldset class="full-set">
                     <div class="col-md-12">
-                        <editor-field name="season_teams[].season_id"></editor-field>                                        
+                        <editor-field name="league_teams[].league_id"></editor-field>                                        
                     </div>                    
                 </fieldset>
             </div> 

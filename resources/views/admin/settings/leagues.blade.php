@@ -10,6 +10,7 @@
                 <thead>
                     <tr>
                         <th>&nbsp;</th>
+                        <th class='dt-cell-left'>Season</th>
                         <th class='dt-cell-left'>League Format</th>
                         <th class='dt-cell-left'>League Name</th> 
                         <th class='dt-cell-center'>Start Date</th> 
@@ -22,16 +23,17 @@
                 <fieldset class="half-set multi-set">
                     <legend><i class="fa fa-user" aria-hidden="true"></i> League:</legend>                             
                     <div class="col-md-12">
+                        <editor-field name="leagues.season_id"></editor-field>
                         <editor-field name="leagues.league_format_id"></editor-field>
+                    </div>
+                    <div class="col-md-12">
                         <editor-field name="leagues.description"></editor-field>
-                    </div>   
+                        <editor-field name="leagues.active"></editor-field>
+                    </div>
                     <div class="col-md-12">
                         <editor-field name="leagues.start_date"></editor-field>
                         <editor-field name="leagues.end_date"></editor-field>
-                    </div>   
-                    <div class="col-md-12">
-                        <editor-field name="leagues.active"></editor-field>                        
-                    </div>   
+                    </div>                
                 </fieldset>                            
             </div> 
         </div>

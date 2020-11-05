@@ -26,12 +26,12 @@ class Team extends Model {
     ];
 
     /**
-     * Get the Season that belong to this Season
+     * Get the League that belong to this Season
      * 
-     * @return Season
+     * @return League
      */
-    public function seasons() {
-        return $this->belongsToMany('App\Models\System\Season', 'season_teams', 'team_id', 'season_id');
+    public function leagues() {
+        return $this->belongsToMany('App\Models\System\Season', 'league_teams', 'team_id', 'league_id');
     }
 
     /**

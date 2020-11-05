@@ -81,8 +81,7 @@ class SeasonController extends EditorController {
      */
     protected function getRows(Request $request, $id = 0) {
         $object = $this->getPrimaryClass();
-        $query = $object::select(['seasons.*', 'leagues.description AS league_name'])
-                ->join('leagues', 'seasons.league_id', '=', 'leagues.id');
+        $query = $object::select(['seasons.*']);
         if ($id > 0) {
             return $query->where('seasons.id', $id)->first();
         }
@@ -93,9 +92,9 @@ class SeasonController extends EditorController {
      * @return \App\Http\Controllers\type|array
      */
     protected function getOptions() {
-        $league_options = editorOptions(League::orderBy('description')->get(), ["value" => 0, "label" => "Select a League"]);
+        //$league_options = editorOptions(League::orderBy('description')->get(), ["value" => 0, "label" => "Select a League"]);
         return [
-            "seasons.league_id" => $league_options,
+                //"seasons.league_id" => $league_options,
         ];
     }
 
@@ -103,22 +102,16 @@ class SeasonController extends EditorController {
         return [
             "seasons" => [
                 "id" => $data->id,
-                "league_id" => $data->league_id,
                 "description" => $data->description,
                 "start_date" => $data->start_date->format('d/m/Y'),
                 "end_date" => $data->end_date->format('d/m/Y'),
                 "active" => $data->active
-            ],
-            "leagues" => [
-                "description" => $data->league_name
             ]
         ];
     }
 
     protected function setRules(array $rules = array()): array {
-        $leagues = createValidateList(League::all());
         $this->rules = [
-            'seasons.league_id' => 'required|integer|in:' . $leagues,
             'seasons.start_date' => 'required|date_format:d/m/Y',
             'seasons.end_date' => 'required|date_format:d/m/Y',
             'seasons.description' => 'required|string|min:3',

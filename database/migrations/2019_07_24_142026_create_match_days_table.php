@@ -14,7 +14,7 @@ class CreateMatchDaysTable extends Migration {
     public function up() {
         Schema::create('match_days', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('season_id')->constrained('seasons');
+            $table->foreignId('league_id')->constrained('leagues');
             $table->string('description');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
