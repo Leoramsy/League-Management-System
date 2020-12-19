@@ -104,6 +104,7 @@ class HomeController extends Controller {
         return view('client.home', compact('leagues'));
     }
 
+    
     public function data(Request $request) {
         try {
             $data = [];

@@ -89,7 +89,7 @@ function submitCompany() {
         'value': company_id,
         'type': 'hidden'
     })).appendTo('body').submit();
-    $(this).dialog("close");   
+    $(this).dialog("close");
 }
 
 
@@ -123,6 +123,16 @@ function modal_msg(title, body, callback) {
         $('#feedback-ok').attr('data-dismisswithcallback', '');
     }
 }
+
+
+$(".nav-tabs li a").click(function () {
+    $(".nav-tabs li").removeClass("active");
+    $(".nav-tabs li a").removeClass("in active");
+    $(this).parent('li').addClass("active");
+    $(this).addClass("in active");
+    $(".tab-pane").removeClass("in active");
+    $("" + $(this).attr('href') + "").addClass("in active");
+});
 
 /**
  *  

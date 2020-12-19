@@ -18,6 +18,7 @@ class Position extends Model {
     const ATTACKING_MIDFIELDER = 'attacking_midfielder';
     const STRIKER = 'striker';
     
+    
     /**
      * The attributes that are mass assignable.
      *

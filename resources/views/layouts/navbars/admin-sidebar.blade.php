@@ -77,21 +77,9 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-            <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Tournaments</p>
-                </a>
-            </li>
-            <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>Gallery</p>
-                </a>
-            </li>
-            <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">
-                <a href="#">
+            </li>            
+            <li class="{{ ($category ?? ' ') == 'news' ? 'active' : ''}}">
+                <a href="{{route('admin.news')}}">
                     <i class="fas fa-chart-pie"></i>
                     <p>News</p>
                 </a>

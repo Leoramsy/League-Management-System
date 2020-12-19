@@ -112,4 +112,15 @@ Route::prefix('admin')->middleware(['web'])->group(function () {
             Route::delete('/formats/delete/{id}', 'Admin\Settings\LeagueFormatController@delete')->name('admin.leagues.formats.delete');
         });
     });
+    /*
+     * News Routes
+     *          
+     */
+    Route::prefix('news')->group(function() {
+        Route::get('/', 'Admin\Settings\NewsController@view')->name('admin.news');
+        Route::get('/index', 'Admin\Settings\NewsController@index')->name('admin.news.index');
+        Route::post('/add', 'Admin\Settings\NewsController@store')->name('admin.news.store');
+        Route::put('/edit/{id}', 'Admin\Settings\NewsController@edit')->name('admin.news.update');
+        Route::delete('/delete/{id}', 'Admin\Settings\NewsController@delete')->name('admin.news.delete');
+    });
 });
