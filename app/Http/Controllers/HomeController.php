@@ -295,7 +295,7 @@ class HomeController extends Controller {
                 "id" => $data->id,
                 "date" => (is_null($data->kick_off) ? 'TBA' : $data->kick_off->format('d/m/Y')),
                 "kick_off" => (is_null($data->kick_off) ? 'TBA' : $data->kick_off->format('d/m/Y H:i')),
-                "venue" => (is_null($data->venue) ? 'TBA' : $data->venue)
+                "venue" => (is_null($data->venue) ? 'KPK Unit G' : $data->venue)
             ],
             "home_team" => [
                 "name" => $data->home_team,

@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-header">Latest News</div>
             <div class="card-body">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 700px">
                     <ol class="carousel-indicators">                        
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
@@ -119,9 +119,12 @@
     </div>
     <div class="col-md-6" style="margin-top: 10px;">
         <div class="card">
-            <div class="card-header">News</div>
+            <div class="card-header">Latest News</div>
             <div class="card-body">
-                News Cards will go here
+                <h3 style="color: black">All set for the Official Opening Tournament</h3>
+                <h6>21 December 2020 by Admin</h6>
+                <p>The draw for the opening tournament was made late today in the presence of all team captions. The captains were also taken through the rules of the day so that they can convey this message to their players.</p>
+                <p>11 teams will participate in tomorrow's tournament with each team playing 12 minutes for each group game.</p>
             </div>
         </div>
     </div>
