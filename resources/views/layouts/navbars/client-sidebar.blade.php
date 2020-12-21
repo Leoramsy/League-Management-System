@@ -38,13 +38,7 @@
                                 <span class="sidebar-mini-icon">PI</span>
                                 <span class="sidebar-normal"> Standings </span>
                             </a>
-                        </li>
-                        <li class="{{ ($page_slug ?? ' ') == 'live' ? 'active' : ''}}">
-                            <a href="{{route('match-centre', ['type' => 'live'])}}">
-                                <span class="sidebar-mini-icon">RA</span>
-                                <span class="sidebar-normal"> Live Matches </span>
-                            </a>
-                        </li>
+                        </li>                        
                         <li class="{{ ($page_slug ?? ' ') == 'statistics' ? 'active' : ''}}">
                             <a href="{{route('match-centre', ['type' => 'statistics'])}}">
                                 <span class="sidebar-mini-icon">RO</span>
@@ -55,26 +49,26 @@
                 </div>
             </li>            
             <li class="">
-                <a href="#">
+                <a  href="/teams">
                     <i class="fas fa-users"></i>
                     <p>Teams</p>
                 </a>
             </li>
             <li class="">
-                <a href="#">
+                <a href="/players">
                     <i class="fas fa-user"></i>
                     <p>Players</p>
                 </a>
             </li>
             <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
+                <a href="/news">
+                    <i class="fas fa-newspaper"></i>
                     <p>News</p>
                 </a>
             </li>
             <li class="">
-                <a href="#">
-                    <i class="fas fa-chart-pie"></i>
+                <a href="/about-us">
+                    <i class="fas fa-info"></i>
                     <p>About us</p>
                 </a>
             </li>            

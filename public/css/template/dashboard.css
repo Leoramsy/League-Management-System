@@ -5994,7 +5994,7 @@ button.close {
     align-items: center;
     width: 100%;
     backface-visibility: hidden;
-    perspective: 1000px;
+    max-height: 600px;
 }
 
 .carousel-item.active,

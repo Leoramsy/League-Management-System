@@ -19,24 +19,21 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="https://dummyimage.com/1500x400/000/fff&text=Test+Image+1" alt="Where is my pic">
+                            <img class="d-block img-fluid" src="/images/home/image_1.jpg" alt="Where is my pic">
                             <div class="carousel-caption d-none d-md-block">
-                                <h3>Title 1 goes here</h3>
-                                <p>What is this about</p>
+                                <h3>Preparations for the official launch are underway</h3>                                
                             </div>
                         </div>
                         <div class="carousel-item ">
-                            <img class="d-block img-fluid" src="https://dummyimage.com/1500x400/000/fff&text=Test+Image+2" alt="Where is my pic">
+                            <img class="d-block img-fluid" src="/images/home/image_2.jpg" alt="Where is my pic">
                             <div class="carousel-caption d-none d-md-block">
-                                <h3>Title 2 goes here</h3>
-                                <p>What is this about</p>
+                                <h3>Preparations for the official launch are underway</h3>                                
                             </div>
                         </div>
                         <div class="carousel-item ">
-                            <img class="d-block img-fluid" src="https://dummyimage.com/1500x400/000/fff&text=Test+Image+3" alt="Where is my pic">
+                            <img class="d-block img-fluid" src="/images/home/image_3.jpg" alt="Where is my pic">
                             <div class="carousel-caption d-none d-md-block">
-                                <h3>Title 3 goes here</h3>
-                                <p>What is this about</p>
+                                <h3>Preparations for the official launch are underway</h3>                                
                             </div>
                         </div>
                     </div>

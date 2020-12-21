@@ -35,6 +35,22 @@ Route::prefix('match-centre')->group(function() {
     Route::get('/data', 'Matchday\MatchCentreController@index')->name('match-centre.index');
 });
 
+Route::get('/teams', function() {
+    return view("client.coming_soon");
+});
+
+Route::get('/players', function() {
+    return view("client.coming_soon");
+});
+
+Route::get('/about-us', function() {
+    return view("client.coming_soon");
+});
+
+Route::get('/news', function() {
+    return view("client.coming_soon");
+});
+
 
 /*
  * Admin Auth Logic

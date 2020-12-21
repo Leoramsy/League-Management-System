@@ -37,7 +37,7 @@ class MatchCentreController extends Controller {
         $teams = selectTwoOptions($team_options, "All Teams");
         if ($request->ajax()) {
             return response()->json(["data" => []]);
-        }
+        }        
         return view('client.match_centre', compact('type', 'leagues', 'teams'));
     }
 

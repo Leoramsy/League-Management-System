@@ -7,6 +7,7 @@
             tabIndex: 1,
             paging: false,
             bFilter: false,
+            pageLength: 5,
             bInfo: false,
             targets: 'no-sort',
             bSort: false,
