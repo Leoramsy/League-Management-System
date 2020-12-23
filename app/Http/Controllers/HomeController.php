@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use DB;
+use File;
 use App\Models\System\League;
-use App\Models\Team\Team;
+use App\Models\System\News;
 use App\Models\Matchday\Fixture;
 use Illuminate\Http\Request;
 
@@ -25,86 +26,21 @@ class HomeController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request) {
-        /*
-          $request->league_id = 1;
-          dd(DB::select("SELECT team_id AS team_id,
-          t.name team_name,
-          count(*) AS played,
-          SUM(scored)AS scored_total,
-          SUM(conceided) AS conceided_total,
-          count(CASE WHEN scored > conceided
-          THEN 1 END) AS  wins,
-          count(CASE WHEN scored = conceided
-          THEN 1 END) AS raws,
-          count(CASE WHEN scored < conceided
-          THEN 1 END) AS lost,
-          sum(scored) - sum(conceided) AS balance,
-          sum(
-          CASE WHEN scored > conceided
-          THEN 3
-          ELSE 0 END
-          + CASE WHEN scored = conceided
-          THEN 1
-          ELSE 0 END) AS points,
-          count(CASE WHEN place = 'home'
-          THEN 1 END) AS home_matches,
-          count(CASE WHEN place = 'home' AND scored > conceided
-          THEN 1 END) AS home_wins,
-          count(CASE WHEN place = 'home' AND scored = conceided
-          THEN 1 END) AS home_draws,
-          count(CASE WHEN place = 'home' AND scored < conceided
-          THEN 1 END) AS home_lost,
-          SUM(CASE WHEN place = 'home'
-          THEN scored
-          ELSE 0 END) AS home_scored,
-          SUM(CASE WHEN place = 'home'
-          THEN conceided
-          ELSE 0 END) AS home_conceided,
-          count(CASE WHEN place = 'away'
-          THEN 1 END) AS away_matches,
-          count(CASE WHEN place = 'away' AND scored > conceided
-          THEN 1 END) AS away_wins,
-          count(CASE WHEN place = 'away' AND scored = conceided
-          THEN 1 END) AS away_draws,
-          count(CASE WHEN place = 'away' AND scored < conceided
-          THEN 1 END) AS away_lost,
-          SUM(CASE WHEN place = 'away'
-          THEN scored
-          ELSE 0 END) AS away_scored,
-          SUM(CASE WHEN place = 'away'
-          THEN conceided
-          ELSE 0 END) AS away_conceided
-          FROM
-          (
-          (SELECT
-          hm.home_team_id team_id,
-          hm.home_team_score   scored,
-          hm.away_team_score   conceided,
-          'home'          place
-          FROM fixtures hm
-          JOIN match_days ON hm.match_day_id = match_days.id
-          WHERE match_days.league_id = '" . $request->league_id . "')
-          UNION ALL
-          (SELECT
-          am.away_team_id team_id,
-          am.away_team_score   scored,
-          am.home_team_score   conceided,
-          'away' place
-          FROM fixtures am
-          JOIN match_days ON am.match_day_id = match_days.id
-          WHERE match_days.league_id = '" . $request->league_id . "')
-          ) m
-          JOIN teams t ON t.id = team_id
-          GROUP BY team_id, t.name
-          ORDER BY points DESC, balance DESC"));
-          dd($logs);
-         * 
-         */
+        $files = File::files(public_path('images/home'));
+        $images = [];
+        foreach ($files as $file) {
+            $images[] = '/images/home/' . $file->getRelativePathname();
+        }
+        $news = News::select("news.*", DB::raw("IFNULL(users.name, 'Admin') AS author"), DB::raw("DATE_FORMAT(news.published_date, '%d %M %Y') AS date"))
+                ->leftJoin('users', 'news.created_by', '=', 'users.id')
+                ->where('news.featured', TRUE)
+                ->where('news.active', TRUE)                
+                ->orderBy('news.published_date', 'DESC')
+                ->get();
         $leagues = selectTwoOptions(League::where('active', TRUE)->get());
-        return view('client.home', compact('leagues'));
+        return view('client.home', compact('leagues', 'images', 'news'));
     }
 
-    
     public function data(Request $request) {
         try {
             $data = [];

@@ -110,8 +110,20 @@
                 {data: "match_days.description", editField: "fixtures.match_day_id"},
                 {data: "home_team.name", editField: "fixtures.home_team_id"},
                 {data: "away_team.name", editField: "fixtures.away_team_id"},
-                {data: "fixtures.home_team_score"},
-                {data: "fixtures.away_team_score"},
+                {data: null, render: function (data, type, row) {
+                        if (row['fixtures']['home_team_score'] == null) {
+                            return "N/A";
+                        } else {
+                            return row['fixtures']['home_team_score'];
+                        }
+                    }},
+                {data: null, render: function (data, type, row) {
+                        if (row['fixtures']['away_team_score'] == null) {
+                            return "N/A";
+                        } else {
+                            return row['fixtures']['away_team_score'];
+                        }
+                    }},
                 {data: "fixtures.kick_off"},
                 {data: null, render: function (data, type, row) {
                         if (row['fixtures']['completed'] == "1") {
@@ -172,6 +184,8 @@
                                 }
                             ]
                         });
+                        var league_id = fixtures_table.row({selected: true}).data().fixtures.league_id;                                               
+                        fixtures_editor.field('fixtures.league_id').inst().select2().val(league_id).trigger("change");
                     }
                 }, {
                     extend: 'remove',
@@ -192,7 +206,10 @@
 
         fixtures_editor.dependent('fixtures.league_id', function (val, data, callback) {
             if (val > 0) {
-                getData(val);
+                var home_team_id = (fixtures_editor.mode() === "edit" ? data["row"]["fixtures"]["home_team_id"] : 0);
+                var away_team_id = (fixtures_editor.mode() === "edit" ? data["row"]["fixtures"]["away_team_id"] : 0);
+                var match_day_id = (fixtures_editor.mode() === "edit" ? data["row"]["fixtures"]["match_day_id"] : 0);
+                getData(val, match_day_id, home_team_id, away_team_id);
             }
         });
 
@@ -223,8 +240,7 @@
      * @param {type} dt
      * @returns {undefined} 
      */
-    function getData(league_id) {
-
+    function getData(league_id, match_day_id, home_team_id, away_team_id) {
         fixtures_editor.error('');
         fixtures_editor.field('fixtures.match_day_id').update('').message('Loading Options');
         fixtures_editor.field('fixtures.home_team_id').update('').message('Loading Options');
@@ -237,19 +253,42 @@
             fixtures_editor.field('fixtures.home_team_id').message('');
             fixtures_editor.field('fixtures.away_team_id').message('');
             if ('error' in return_data) {
-                if (dt) {
-                    fixtures_editor.error(return_data['error']);
-                } else {
-
-                }
+                fixtures_editor.error(return_data['error']);
             } else {
+                var match_day;
+                var home_team;
+                var away_team;
+                for (var i = 0; i < return_data['matchday_options'].length; i++) {
+                    if (return_data['matchday_options'][i]["value"] == match_day_id)
+                    {
+                        match_day = true;
+                        break;
+                    }
+                }
+
+                for (var i = 0; i < return_data['team_options'].length; i++) {
+                    if (return_data['team_options'][i]["value"] == home_team_id)
+                    {
+                        home_team = true;
+                        break;
+                    }
+                }
+
+                for (var i = 0; i < return_data['team_options'].length; i++) {
+                    if (return_data['team_options'][i]["value"] == away_team_id)
+                    {
+                        away_team = true;
+                        break;
+                    }
+                }
+
                 fixtures_editor.field('fixtures.match_day_id').update(return_data['matchday_options']);
                 fixtures_editor.field('fixtures.home_team_id').update(return_data['team_options']);
                 fixtures_editor.field('fixtures.away_team_id').update(return_data['team_options']);
 
-                fixtures_editor.field('fixtures.match_day_id').def(0).val(0);
-                fixtures_editor.field('fixtures.home_team_id').def(0).val(0);
-                fixtures_editor.field('fixtures.away_team_id').def(0).val(0);
+                fixtures_editor.field('fixtures.match_day_id').def((match_day ? match_day_id : 0)).val((match_day ? match_day_id : 0));
+                fixtures_editor.field('fixtures.home_team_id').def((home_team ? home_team_id : 0)).val((home_team ? home_team_id : 0));
+                fixtures_editor.field('fixtures.away_team_id').def((away_team ? away_team_id : 0)).val((away_team ? away_team_id : 0));
             }
         });
     }

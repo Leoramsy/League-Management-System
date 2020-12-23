@@ -22,8 +22,8 @@ class Fixture extends Model {
         'drawn_match',
         'completed',
         'postponed'
-    ];
-        
+    ];        
+    
     protected $dates = ['kick_off'];
     
     /**

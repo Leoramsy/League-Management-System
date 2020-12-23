@@ -47,9 +47,8 @@ Route::get('/about-us', function() {
     return view("client.coming_soon");
 });
 
-Route::get('/news', function() {
-    return view("client.coming_soon");
-});
+Route::get('/news', 'System\NewsController@index')->name('news');
+Route::get('/news/article/{id}', 'System\NewsController@show')->name('news.view');
 
 
 /*

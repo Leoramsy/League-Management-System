@@ -19,7 +19,8 @@ class News extends Model {
         "featured",
         "active",
     ];
-    protected $dates = ["published_date"];    
+    protected $dates = ["published_date"];
+    
 
     /**
      * Is this model linked to any data that would break integrity if it were deleted

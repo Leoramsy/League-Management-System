@@ -97,7 +97,7 @@ class FixtureController extends EditorController {
     protected function getRows(Request $request, $id = 0) {
         $object = $this->getPrimaryClass();
         $query = $object::select(['fixtures.*', 'away_team.name AS away_team', 'home_team.name AS home_team',
-                    'match_days.description AS match_day', 'leagues.description AS league'])
+                    'match_days.description AS match_day', 'leagues.description AS league', 'leagues.id AS league_id'])
                 ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
                 ->join('leagues', 'match_days.league_id', '=', 'leagues.id')
                 ->join('teams AS home_team', 'fixtures.home_team_id', '=', 'home_team.id')
@@ -112,11 +112,12 @@ class FixtureController extends EditorController {
         return [
             "fixtures" => [
                 'id' => $data->id,
+                'league_id' => $data->league_id,
                 'match_day_id' => $data->match_day_id,
                 'home_team_id' => $data->home_team_id,
                 'away_team_id' => $data->away_team_id,
-                'home_team_score' => (is_null($data->home_team_score) ? 'N/A' : $data->home_team_score),
-                'away_team_score' => (is_null($data->away_team_score) ? 'N/A' : $data->away_team_score),
+                'home_team_score' => $data->home_team_score,
+                'away_team_score' => $data->away_team_score,
                 'drawn_match' => $data->drawn_match,
                 'completed' => $data->completed,
                 'postponed' => $data->postponed,

@@ -48,19 +48,19 @@
                     </ul>
                 </div>
             </li>            
-            <li class="">
+            <li class="{{ ($page_slug ?? ' ') == 'teams' ? 'active' : ''}}">
                 <a  href="/teams">
                     <i class="fas fa-users"></i>
                     <p>Teams</p>
                 </a>
             </li>
-            <li class="">
+            <li class="{{ ($page_slug ?? ' ') == 'players' ? 'active' : ''}}">
                 <a href="/players">
                     <i class="fas fa-user"></i>
                     <p>Players</p>
                 </a>
             </li>
-            <li class="">
+            <li class="{{ ($page_slug ?? ' ') == 'news' ? 'active' : ''}}">
                 <a href="/news">
                     <i class="fas fa-newspaper"></i>
                     <p>News</p>

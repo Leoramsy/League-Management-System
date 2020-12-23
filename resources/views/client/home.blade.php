@@ -12,30 +12,17 @@
             <div class="card-header">Latest News</div>
             <div class="card-body">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 700px">
-                    <ol class="carousel-indicators">                        
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
+                    <ol class="carousel-indicators">    
+                        @foreach($images AS $index => $image)
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{$index}}" class="{{$index == 0 ? 'active' : ''}}"></li>
+                        @endforeach                        
                     </ol>
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="/images/home/image_1.jpg" alt="Where is my pic">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Preparations for the official launch are underway</h3>                                
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <img class="d-block img-fluid" src="/images/home/image_2.jpg" alt="Where is my pic">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Preparations for the official launch are underway</h3>                                
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <img class="d-block img-fluid" src="/images/home/image_3.jpg" alt="Where is my pic">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Preparations for the official launch are underway</h3>                                
-                            </div>
-                        </div>
+                        @foreach($images AS $index => $image)
+                        <div class="carousel-item {{$index == 0 ? 'active' : ''}}" style="align-content: center">
+                            <img class="d-block img-fluid" src="{{$image}}" alt="Loading...">                            
+                        </div>                        
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -121,10 +108,11 @@
         <div class="card">
             <div class="card-header">Latest News</div>
             <div class="card-body">
-                <h3 style="color: black">All set for the Official Opening Tournament</h3>
-                <h6>21 December 2020 by Admin</h6>
-                <p>The draw for the opening tournament was made late today in the presence of all team captions. The captains were also taken through the rules of the day so that they can convey this message to their players.</p>
-                <p>11 teams will participate in tomorrow's tournament with each team playing 12 minutes for each group game.</p>
+                @forelse($news AS $article)
+                @include('partials.news_snippet')
+                @empty
+                <p>No exciting news yet, check back later for more updates...</p>
+                @endforelse
             </div>
         </div>
     </div>
