@@ -11,7 +11,7 @@
             ajax: {
                 url: '/match-centre/data',
                 type: "GET",
-                data: function (d){
+                data: function (d) {
                     d.type = 'statistics';
                 }
             },
@@ -32,6 +32,9 @@
                 {className: "dt-cell-left", targets: [1, 2, 3, 4]}, //Align table body cells to left                
                 {searchable: false, targets: 0}
             ],
+            language: {
+                emptyTable: "This feature is not available yet, check back later"
+            },
             order: [1, 'asc'],
             bLengthChange: false,
             select: {

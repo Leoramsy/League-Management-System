@@ -6,7 +6,7 @@
             <div class="card-header">{{$article->title}}</div>   
             <div  class="card-body">
                 <a href="{{ route('news.view', $article->id) }}">
-                    <img src="{{(is_null($article->image) ? 'https://via.placeholder.com/1100x350?text=No+image+to+show' : $article->image)}}" alt="Loading...">
+                    <img src="{{(is_null($article->image) ? 'https://via.placeholder.com/1100x350?text=No+image+to+show' : '/images/news/' . $article->image)}}" alt="Loading..." style="max-height: 600px;">
                 </a>
             </div>
         </div>       

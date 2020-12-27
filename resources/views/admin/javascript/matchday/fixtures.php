@@ -25,6 +25,14 @@
                     },
                     def: 0
                 }, {
+                    label: "Fixture Type:",
+                    name: "fixtures.fixture_type_id",
+                    type: "select2",
+                    opts: {
+                        minimumResultsForSearch: 1
+                    },
+                    def: 0
+                }, {
                     label: "Home Score:",
                     name: "fixtures.home_team_score"
                 }, {
@@ -85,7 +93,7 @@
                     label: "Kick Off:",
                     name: "fixtures.kick_off",
                     type: "datetime",
-                    format: 'DD/MM/YYYY h:mm a',
+                    format: 'DD/MM/YYYY hh:mm',
                     def: function () {
                         return new Date();
                     }
@@ -110,6 +118,13 @@
                 {data: "match_days.description", editField: "fixtures.match_day_id"},
                 {data: "home_team.name", editField: "fixtures.home_team_id"},
                 {data: "away_team.name", editField: "fixtures.away_team_id"},
+                {data: null, editField: "fixtures.fixture_type_id", render: function (data, type, row) {
+                        if (row['fixture_types']['description'] == null) {
+                            return "N/A";
+                        } else {
+                            return row['fixture_types']['description'];
+                        }
+                    }},
                 {data: null, render: function (data, type, row) {
                         if (row['fixtures']['home_team_score'] == null) {
                             return "N/A";
@@ -134,11 +149,11 @@
                     }}
             ],
             columnDefs: [
-                {className: "dt-cell-left", targets: [1, 2, 3, 4]}, //Align table body cells to left  
-                {className: "dt-cell-center", targets: [5, 6, 7, 8]}, //Align table body cells to left  
+                {className: "dt-cell-left", targets: [1, 2, 3, 4, 5]}, //Align table body cells to left  
+                {className: "dt-cell-center", targets: [6, 7, 8, 9]}, //Align table body cells to left  
                 {searchable: false, targets: 0}
             ],
-            order: [1, 'asc'],
+            order: [8, 'desc'],
             bLengthChange: false,
             select: {
                 style: 'single',
@@ -184,7 +199,7 @@
                                 }
                             ]
                         });
-                        var league_id = fixtures_table.row({selected: true}).data().fixtures.league_id;                                               
+                        var league_id = fixtures_table.row({selected: true}).data().fixtures.league_id;
                         fixtures_editor.field('fixtures.league_id').inst().select2().val(league_id).trigger("change");
                     }
                 }, {

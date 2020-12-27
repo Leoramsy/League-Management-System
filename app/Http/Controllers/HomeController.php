@@ -7,6 +7,7 @@ use File;
 use App\Models\System\League;
 use App\Models\System\News;
 use App\Models\Matchday\Fixture;
+use App\Models\System\LeagueFormat;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
@@ -34,7 +35,7 @@ class HomeController extends Controller {
         $news = News::select("news.*", DB::raw("IFNULL(users.name, 'Admin') AS author"), DB::raw("DATE_FORMAT(news.published_date, '%d %M %Y') AS date"))
                 ->leftJoin('users', 'news.created_by', '=', 'users.id')
                 ->where('news.featured', TRUE)
-                ->where('news.active', TRUE)                
+                ->where('news.active', TRUE)
                 ->orderBy('news.published_date', 'DESC')
                 ->get();
         $leagues = selectTwoOptions(League::where('active', TRUE)->get());
@@ -46,14 +47,16 @@ class HomeController extends Controller {
             $data = [];
             switch ($request->type) {
                 case 'fixtures':
-                    $fixtures_query = Fixture::select('fixtures.*', 'match_days.description AS match_day', 'home_team.name AS home_team', 'away_team.name AS away_team')
+                    $fixtures_query = Fixture::select('fixtures.*', 'match_days.description AS match_day', 'home_team.name AS home_team', 'away_team.name AS away_team', 'fixture_types.description AS fixture_type')
                             ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
                             ->join('teams AS home_team', 'fixtures.home_team_id', '=', 'home_team.id')
                             ->join('teams AS away_team', 'fixtures.away_team_id', '=', 'away_team.id')
+                            ->leftJoin('fixture_types', 'fixtures.fixture_type_id', '=', 'fixture_types.id')
                             ->where('match_days.league_id', $request->league_id)
                             ->where('fixtures.completed', FALSE)
                             ->where('match_days.completed', FALSE)
                             ->where('fixtures.postponed', FALSE)
+                            ->orderBy('fixtures.kick_off', 'DESC')
                             ->orderBy('fixtures.kick_off', 'ASC');
 
                     if (isset($request->team_id) && $request->team_id > 0) {
@@ -69,17 +72,19 @@ class HomeController extends Controller {
                     break;
 
                 case 'results':
-                    $results = Fixture::select('fixtures.*', 'home_team.home_ground AS venue', 'match_days.description AS match_day', 'home_team.name AS home_team', 'away_team.name AS away_team')
+                    $results = Fixture::select('fixtures.*', 'home_team.home_ground AS venue', 'match_days.description AS match_day', 'home_team.name AS home_team', 'away_team.name AS away_team', 'fixture_types.description AS fixture_type')
                             ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
                             ->join('teams AS home_team', 'fixtures.home_team_id', '=', 'home_team.id')
                             ->join('teams AS away_team', 'fixtures.away_team_id', '=', 'away_team.id')
+                            ->leftJoin('fixture_types', 'fixtures.fixture_type_id', '=', 'fixture_types.id')
                             ->where('match_days.league_id', $request->league_id)
                             ->whereNotNull('fixtures.home_team_score')
                             ->whereNotNull('fixtures.away_team_score')
                             ->where('fixtures.completed', TRUE)
                             ->where('match_days.completed', FALSE)
                             ->where('fixtures.postponed', FALSE)
-                            ->orderBy('match_days.id', 'ASC')
+                            ->orderBy('fixtures.kick_off', 'DESC')
+                            ->orderBy('match_days.id', 'DESC')
                             ->get();
 
                     foreach ($results as $result) {
@@ -87,7 +92,12 @@ class HomeController extends Controller {
                     }
                     break;
                 case 'logs':
-                    $logs = DB::select("SELECT team_id AS team_id,
+                    // check if league is season and do log, else return empty array
+                    $league = League::find($request->league_id);
+                    $suitable_leages = LeagueFormat::whereIn('slug', [LeagueFormat::SEASON])->get();
+                    if (in_array($league->league_format_id, $suitable_leages->pluck('id')->all())) {
+
+                        $logs = DB::select("SELECT team_id AS team_id,
                                                     t.name team_name,
                                                     count(*) AS played,
                                                     SUM(scored)AS scored_total,
@@ -167,6 +177,9 @@ class HomeController extends Controller {
                                                     JOIN teams t ON t.id = team_id
                                                   GROUP BY team_id, t.name
                                                   ORDER BY points DESC, balance DESC");
+                    } else {
+                        $logs = [];
+                    }
 
                     foreach ($logs as $index => $log) {
                         $data[] = $this->processLogs($log, $index + 1);
@@ -211,6 +224,7 @@ class HomeController extends Controller {
                 "home_team_score" => $data->home_team_score,
                 "away_team_score" => $data->away_team_score,
                 "date" => (is_null($data->kick_off) ? 'TBA' : $data->kick_off->format('d/m/Y')),
+                "fixture_type" => $data->fixture_type
             ],
             "home_team" => [
                 "name" => $data->home_team,
@@ -231,7 +245,8 @@ class HomeController extends Controller {
                 "id" => $data->id,
                 "date" => (is_null($data->kick_off) ? 'TBA' : $data->kick_off->format('d/m/Y')),
                 "kick_off" => (is_null($data->kick_off) ? 'TBA' : $data->kick_off->format('d/m/Y H:i')),
-                "venue" => (is_null($data->venue) ? 'KPK Unit G' : $data->venue)
+                "venue" => (is_null($data->venue) ? 'KPK Unit G' : $data->venue),
+                "fixture_type" => $data->fixture_type
             ],
             "home_team" => [
                 "name" => $data->home_team,

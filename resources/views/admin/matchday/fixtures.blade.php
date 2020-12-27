@@ -14,6 +14,7 @@
                         <th class='dt-cell-left'>Match Day</th>
                         <th class='dt-cell-left'>Home Team</th>
                         <th class='dt-cell-left'>Away Team</th>
+                        <th class='dt-cell-left'>Type</th>
                         <th class='dt-cell-right'>Home Score</th>
                         <th class='dt-cell-right'>Away Score</th>
                         <th class='dt-cell-center'>Kick Off</th> 
@@ -29,6 +30,10 @@
                         <editor-field name="fixtures.match_day_id"></editor-field>                        
                     </div>
                     <div class="col-md-12">
+                        <editor-field name="fixtures.fixture_type_id"></editor-field>             
+                        <editor-field name="fixtures.kick_off"></editor-field>                          
+                    </div>
+                    <div class="col-md-12">
                         <editor-field name="fixtures.home_team_id"></editor-field>
                         <editor-field name="fixtures.away_team_id"></editor-field>
                     </div> 
@@ -39,10 +44,7 @@
                     <div class="col-md-12">
                         <editor-field name="fixtures.completed"></editor-field>  
                         <editor-field name="fixtures.postponed"></editor-field>  
-                    </div>
-                    <div class="col-md-12">
-                        <editor-field name="fixtures.kick_off"></editor-field>                          
-                    </div>
+                    </div>                    
                 </fieldset>                            
             </div> 
         </div>

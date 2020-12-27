@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="UTF-8">
+         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,17 +18,13 @@
         <div class="wrapper">
             @auth
             @include('layouts.navbars.admin-sidebar')
+            @include('layouts.navbars.admin-navbar')
             @endauth
             @guest
             @include('layouts.navbars.client-sidebar')
-            @endguest          
+            @include('layouts.navbars.client-navbar')
+            @endguest               
             <div class="main-panel">
-                @auth
-                @include('layouts.navbars.admin-navbar')
-                @endauth
-                @guest
-                @include('layouts.navbars.client-navbar')
-                @endguest
                 <div class="content">
                     @include('flash::message')
                     @yield('content')

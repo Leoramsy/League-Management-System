@@ -17,6 +17,7 @@ class Fixture extends Model {
         'match_day_id',
         'home_team_id',
         'away_team_id',
+        'fixture_type_id',
         'home_team_score',
         'away_team_score',
         'drawn_match',

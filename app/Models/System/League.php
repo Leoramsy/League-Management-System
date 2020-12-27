@@ -51,6 +51,15 @@ class League extends Model {
     }
 
     /**
+     * Get the league format that this league belongs to
+     * 
+     * @return LeagueFormat
+     */
+    public function format() {
+        return $this->belongsTo('App\Models\System\LeagueFormat');
+    }
+
+    /**
      * 
      * @return boolean
      */

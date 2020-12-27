@@ -1,8 +1,8 @@
 <script>
-    var fixtures_table;
+    var logs_table;
     $(document).ready(function () {
         /***** INIT TABLE *****/
-        fixtures_table = $('#logs-table').DataTable({
+        logs_table = $('#logs-table').DataTable({
             processing: true,
             tabIndex: 1,
             paging: false,
@@ -32,6 +32,9 @@
                 {className: "dt-cell-center", targets: [0, 2, 3, 4, 5, 6]}, //Align table body cells to left      
                 {searchable: false, targets: 0}
             ],
+            language: {
+                emptyTable: "The selected League does not have any standings"
+            },
             bLengthChange: false,
             order: [0, 'asc']
         });

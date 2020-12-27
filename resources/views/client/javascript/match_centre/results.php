@@ -35,10 +35,14 @@
                 {searchable: false, targets: 0},
                 {visible: false, targets: [5]}
             ],
+            language: {
+                emptyTable: "No results to show, check back later"
+            },
             bLengthChange: false,
             order: [3, 'asc'],
             rowGroup: {
-                dataSrc: "fixtures.date"
+                dataSrc: ["fixtures.date", "fixtures.fixture_type"],
+                emptyDataGroup: null
             }
         });
 

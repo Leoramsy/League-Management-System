@@ -33,11 +33,15 @@
                 {className: "dt-cell-center", targets: [1, 3]}, //Align table body cells to left      
                 {searchable: false, targets: 0},
                 {visible: false, targets: [4]}
-            ],
+            ],         
+            language: {
+                emptyTable: "No fixtures to show, check back later"
+            },
             bLengthChange: false,
             order: [3, 'asc'],
             rowGroup: {
-                dataSrc: "fixtures.date"
+                dataSrc: ["fixtures.date", "fixtures.fixture_type"],
+                emptyDataGroup: null
             }
         });
 

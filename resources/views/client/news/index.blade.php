@@ -5,11 +5,11 @@
         <div class="card" style="margin-bottom: 10px">
             <div class="card-header" style="padding-bottom: 15px">Latest News</div>            
         </div>        
-        @forelse($news AS $article)
-        <div class="card col-md-6">
-            <div class="col-md-12">
+        @forelse($news AS $index => $article)
+        <div class="card" style="width: 49%;float: {{ $index % 2 ? 'left' : 'right'}}">
+            <div class="col-md-12" style="padding-top: 15px">
                 <a href="{{ route('news.view', $article->id) }}">
-                    <img class="img-fluid" src="{{(is_null($article->image) ? 'https://via.placeholder.com/350x150?text=No+image+to+show' : $article->image)}}" alt="Loading...">
+                    <img class="img-fluid" src="{{(is_null($article->image) ? 'https://via.placeholder.com/350x150?text=No+image+to+show' : '/images/news/' . $article->image)}}" alt="Loading..." style="max-height: 200px;">
                 </a>
             </div>
             <div class="col-md-12">

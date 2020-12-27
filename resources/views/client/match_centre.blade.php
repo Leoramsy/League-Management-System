@@ -4,6 +4,7 @@
 @include('client.javascript.match_centre.results')
 @include('client.javascript.match_centre.statistics')
 @include('client.javascript.match_centre.logs')
+@include('client.javascript.match_centre')
 @endsection
 @section('content')
 <div class="row">
@@ -33,7 +34,7 @@
             <div class="card-body">                  
                 <ul class="col-md-12 nav nav-tabs" style="border-bottom: 2px solid #1B75B9">                        
                     <li role="presentation" class="{{ $type == 'fixtures' ? 'active' : ''}} col text-center"><a data-toggle="tab" href="#fixtures-tab" >Fixtures<span></span></a></li>
-                    <li role="presentation" class="{{ $type == 'results' ? 'active' : ''}}col text-center"><a data-toggle="tab" href="#results-tab" >Results<span></span></a></li>
+                    <li role="presentation" class="{{ $type == 'results' ? 'active' : ''}} col text-center"><a data-toggle="tab" href="#results-tab" >Results<span></span></a></li>
                     <li role="presentation" class="{{ $type == 'logs' ? 'active' : ''}} col text-center"><a data-toggle="tab" href="#log-tab" >Log Standings<span></span></a></li>                
                     <li role="presentation" class="{{ $type == 'statistics' ? 'active' : ''}} col text-center"><a data-toggle="tab" href="#statistics-tab" >Statistics<span></span></a></li>            
                 </ul>                      
