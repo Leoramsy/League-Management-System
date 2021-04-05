@@ -29,7 +29,9 @@ class FixtureController extends EditorController {
      * @return \Illuminate\Http\Response
      */
     public function view() {
-        return view('admin.matchday.fixtures');
+        $leagues = selectTwoOptions(League::where('active', TRUE)->latest()->get(), "Select a League");
+        $teams = selectTwoOptions(Team::select('id', 'name AS description')->where('active', TRUE)->orderBy('name')->get(), "Select a Team");
+        return view('admin.matchday.fixtures', compact('leagues', 'teams'));
     }
 
     /**
@@ -105,6 +107,12 @@ class FixtureController extends EditorController {
                 ->join('teams AS away_team', 'fixtures.away_team_id', '=', 'away_team.id')
                 ->leftJoin('fixture_types', 'fixtures.fixture_type_id', '=', 'fixture_types.id')
                 ->orderBy('fixtures.kick_off', 'DESC');
+        if ($request->league_id > 0) {
+            $query->where('leagues.id', $request->league_id);
+        }
+        if ($request->team_id > 0) {
+            $query->where('home_team.id', $request->team_id)->orWhere('away_team.id', $request->team_id);
+        }
         if ($id > 0) {
             return $query->where('fixtures.id', $id)->first();
         }

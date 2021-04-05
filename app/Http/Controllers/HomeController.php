@@ -38,7 +38,7 @@ class HomeController extends Controller {
                 ->where('news.active', TRUE)
                 ->orderBy('news.published_date', 'DESC')
                 ->get();
-        $leagues = selectTwoOptions(League::where('active', TRUE)->get());
+        $leagues = selectTwoOptions(League::where('active', TRUE)->latest()->get());
         return view('client.home', compact('leagues', 'images', 'news'));
     }
 

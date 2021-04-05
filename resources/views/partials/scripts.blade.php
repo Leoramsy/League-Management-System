@@ -9,7 +9,7 @@
 {{-- System scripts --}}
 @include('partials.post_initiate')
 {!! Html::script('js/main.js') !!}
-{!! Html::script('packages/Select2-4.0.3/js/select2.min.js') !!}
+{!! Html::script('packages/Select2-4.0.3/js/select2.full.js') !!}
 {!! Html::script('js/datatables/jquery-ui.min.js') !!}
 {!! Html::script('js/datatables/jquery.dataTables.min.js') !!}    
 {!! Html::script('js/datatables/dataTables.bootstrap.min.js') !!} 
@@ -22,8 +22,6 @@
 {!! Html::script('js/datatables/datetime-moment.js') !!}
 {!! Html::script('js/inputmask-4.0/min/inputmask/inputmask.min.js') !!}
 {!! Html::script('js/inputmask-4.0/min/inputmask/inputmask.extensions.min.js') !!}
-{!! Html::script('js/inputmask-4.0/min/inputmask/inputmask.numeric.extensions.min.js') !!}
-{!! Html::script('js/inputmask-4.0/min/inputmask/jquery.inputmask.min.js') !!}
 {!! Html::script('js/FieldType-Mask-1.5.6/editor.mask.min.js') !!} 
 {!! Html::script('js/FieldType-Select2-1.6.2/editor.select2.js') !!}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>

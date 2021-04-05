@@ -1,6 +1,17 @@
 <script>
     var fixtures_table;
     $(document).ready(function () {
+        /*
+         * Select2
+         
+         $("#team-select").select2({
+         theme: "bootstrap"
+         });
+         $("#league-select").select2({
+         theme: "bootstrap"
+         });
+         */
+
         fixtures_editor = new $.fn.dataTable.Editor({
             ajax: {
                 create: '/admin/settings/fixtures/add',
@@ -105,12 +116,14 @@
         fixtures_table = $('#fixtures-table').DataTable({
             tabIndex: 1,
             pageLength: 20,
-            bFilter: false,
-            bInfo: false,
             dom: 'Bfrtip',
             ajax: {
                 url: '/admin/settings/fixtures/index',
-                type: "GET"
+                type: "GET",
+                data: function (d) {
+                    d.league_id = $('#league-select').val();
+                    d.team_id = $('#team-select').val();
+                }
             },
             columns: [
                 {data: null, defaultContent: '', orderable: false, sClass: "selector"},
@@ -214,6 +227,11 @@
                                     this.close();
                                 }}
                         ]).message('Are you sure you want to delete this Fixture?').remove(fixtures_table.row({selected: true}).indexes());
+                    }
+                }, {
+                    text: '<i class="fa fa-refresh" aria-hidden="true" rel="tooltip" title="Refresh table results"></i>', className: "",
+                    action: function () {
+                        fixtures_table.ajax.reload();
                     }
                 }
             ]

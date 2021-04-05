@@ -2,7 +2,7 @@
     <div class="sidebar-wrapper ps ps--active-x">
         <div class="logo">
             <img src="/images/logo_callis.png" alt="logo loading..." class="simple-text logo-normal">
-            <span class="sidebar-normal version-info">1.0.2</span>
+            <span class="sidebar-normal version-info">1.0.3</span>
         </div>
         <ul class="nav">            
             <li class="{{ ($category ?? ' ') == 'system' ? 'active' : ''}}">
