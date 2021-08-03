@@ -17,6 +17,7 @@
                         <th class='dt-cell-left'>Position</th> 
                         <th class='dt-cell-center'>Date of Birth</th> 
                         <th class='dt-cell-center'>Active</th> 
+                        <th class='dt-cell-center'>Image</th> 
                     </tr>
                 </thead>
             </table>
@@ -38,7 +39,10 @@
                     <div class="col-md-12">
                         <editor-field name="players.date_of_birth"></editor-field>  
                         <editor-field name="players.active"></editor-field>  
-                    </div>                     
+                    </div>   
+                    <div class="col-md-12">
+                        <editor-field name="players.image"></editor-field>   
+                    </div>
                 </fieldset>                
                 <fieldset class="full-set">
                     <div class="col-md-12">

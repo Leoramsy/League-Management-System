@@ -8,6 +8,7 @@ use App\Models\System\League;
 use App\Models\System\News;
 use App\Models\Matchday\Fixture;
 use App\Models\System\LeagueFormat;
+use App\Models\Matchday\FixtureManagement\Goal;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
@@ -37,6 +38,7 @@ class HomeController extends Controller {
                 ->where('news.featured', TRUE)
                 ->where('news.active', TRUE)
                 ->orderBy('news.published_date', 'DESC')
+                ->limit(3)
                 ->get();
         $leagues = selectTwoOptions(League::where('active', TRUE)->latest()->get());
         return view('client.home', compact('leagues', 'images', 'news'));
@@ -54,7 +56,7 @@ class HomeController extends Controller {
                             ->leftJoin('fixture_types', 'fixtures.fixture_type_id', '=', 'fixture_types.id')
                             ->where('match_days.league_id', $request->league_id)
                             ->where('fixtures.completed', FALSE)
-                            ->where('match_days.completed', FALSE)
+                            //->where('match_days.completed', FALSE)
                             ->where('fixtures.postponed', FALSE)
                             ->orderBy('fixtures.kick_off', 'DESC')
                             ->orderBy('fixtures.kick_off', 'ASC');
@@ -72,7 +74,7 @@ class HomeController extends Controller {
                     break;
 
                 case 'results':
-                    $results = Fixture::select('fixtures.*', 'home_team.home_ground AS venue', 'match_days.description AS match_day', 'home_team.name AS home_team', 'away_team.name AS away_team', 'fixture_types.description AS fixture_type')
+                    $results_query = Fixture::select('fixtures.*', 'home_team.home_ground AS venue', 'match_days.description AS match_day', 'home_team.name AS home_team', 'away_team.name AS away_team', 'fixture_types.description AS fixture_type')
                             ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
                             ->join('teams AS home_team', 'fixtures.home_team_id', '=', 'home_team.id')
                             ->join('teams AS away_team', 'fixtures.away_team_id', '=', 'away_team.id')
@@ -81,11 +83,15 @@ class HomeController extends Controller {
                             ->whereNotNull('fixtures.home_team_score')
                             ->whereNotNull('fixtures.away_team_score')
                             ->where('fixtures.completed', TRUE)
-                            ->where('match_days.completed', FALSE)
+                            //->where('match_days.completed', FALSE)
                             ->where('fixtures.postponed', FALSE)
                             ->orderBy('fixtures.kick_off', 'DESC')
-                            ->orderBy('match_days.id', 'DESC')
-                            ->get();
+                            ->orderBy('match_days.id', 'DESC');
+                    if (isset($request->team_id) && $request->team_id > 0) {
+                        $results_query->where('home_team.id', $request->team_id)->orWhere('away_team.id', $request->team_id);
+                    }
+
+                    $results = $results_query->get();
 
                     foreach ($results as $result) {
                         $data[] = $this->processResults($result);
@@ -185,6 +191,30 @@ class HomeController extends Controller {
                         $data[] = $this->processLogs($log, $index + 1);
                     }
                     break;
+
+                case 'top_scorers':
+                    $scorers = Goal::select([DB::raw("COUNT(fixture_goals.player_id) AS goals"), 'fixture_goals.player_id', 'teams.name AS team', 'players.name AS player'])
+                            ->join('players', 'fixture_goals.player_id', '=', 'players.id')
+                            ->join('teams', 'fixture_goals.team_id', '=', 'teams.id')
+                            ->join('fixtures', 'fixture_goals.fixture_id', '=', 'fixtures.id')
+                            ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
+                            ->where('fixture_goals.own_goal', FALSE)
+                            ->where('match_days.league_id', $request->league_id)
+                            ->orderBy('goals', 'desc')
+                            ->orderBy('player', 'asc')
+                            ->groupBy(['fixture_goals.player_id', 'fixture_goals.fixture_id', 'teams.name', 'players.name'])
+                            ->get();
+                    foreach ($scorers as $scorer) {
+                        $number_of_games = DB::table('fixture_players')->select('fixture_players.fixture_id')
+                                ->join('fixtures', 'fixture_players.fixture_id', '=', 'fixtures.id')
+                                ->join('match_days', 'fixtures.match_day_id', '=', 'match_days.id')
+                                ->where('match_days.league_id', $request->league_id)
+                                ->where('fixture_players.player_id', $scorer->player_id)
+                                ->distinct('fixture_players.fixture_id')
+                                ->count();
+                        $data[] = $this->processGoals($scorer, $number_of_games);
+                    }
+                    break;
                 default:
                     throw new Exception("Invalid Data Type Encountered");
             }
@@ -193,6 +223,22 @@ class HomeController extends Controller {
         } catch (Exception $ex) {
             return response()->json(["error" => $ex->getMessage()]);
         }
+    }
+
+    private function processGoals($data, $number_of_games) {
+        return [
+            "DT_RowId" => "row_" . $data->player_id,
+            "fixture_goals" => [
+                "goals" => $data->goals,
+                "games" => $number_of_games
+            ],
+            "players" => [
+                "name" => $data->player
+            ],
+            "teams" => [
+                "name" => $data->team
+            ]
+        ];
     }
 
     private function processlogs($data, $position) {

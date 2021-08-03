@@ -36,15 +36,15 @@ Route::prefix('match-centre')->group(function() {
 });
 
 Route::get('/teams', function() {
-    return view("client.coming_soon");
+    return view("client.coming_soon", ['type' => 'teams', 'category' => 'teams']);
 });
 
 Route::get('/players', function() {
-    return view("client.coming_soon");
+    return view("client.coming_soon", ['type' => 'players', 'category' => 'players']);
 });
 
 Route::get('/about-us', function() {
-    return view("client.coming_soon");
+    return view("client.coming_soon", ['type' => 'about', 'category' => 'about']);
 });
 
 Route::get('/news', 'System\NewsController@index')->name('news');
@@ -95,6 +95,21 @@ Route::prefix('admin')->middleware(['web'])->group(function () {
         Route::delete('/fixtures/delete/{id}', 'Admin\Matchday\FixtureController@delete')->name('admin.fixtures.delete');
         // AJAX route
         Route::get('/fixtures/data/{id}', 'Admin\Matchday\FixtureController@data')->name('admin.fixtures.data');
+
+        /*
+         * Fixture Management Routes
+         */
+        Route::get('/fixtures/{fixture}/management', 'Admin\Matchday\FixtureManagementController@show')->name('admin.fixtures.management');
+        Route::get('/fixtures/{fixture}/management/players', 'Admin\Matchday\FixtureManagement\TeamSheetController@index')->name('admin.fixtures.management.players');
+        Route::post('/fixtures/{fixture}/management/players/add', 'Admin\Matchday\FixtureManagement\TeamSheetController@add')->name('admin.fixtures.management.players.add');
+        Route::post('/fixtures/{fixture}/management/players/remove', 'Admin\Matchday\FixtureManagement\TeamSheetController@remove')->name('admin.fixtures.management.players.remove');
+        Route::get('/fixtures/{fixture}/management/scores', 'Admin\Matchday\FixtureManagement\GoalScorerController@index')->name('admin.fixtures.management.scores');
+        Route::post('/fixtures/{fixture}/management/scores/add', 'Admin\Matchday\FixtureManagement\GoalScorerController@add')->name('admin.fixtures.management.scores.add');
+        Route::post('/fixtures/{fixture}/management/scores/remove', 'Admin\Matchday\FixtureManagement\GoalScorerController@remove')->name('admin.fixtures.management.scores.remove');
+
+        Route::post('/fixtures/management/players/{id}', 'Admin\Matchday\FixtureManagementController@delete')->name('admin.fixtures.management.players.delete');
+        // AJAX route
+        Route::get('/fixtures/management/data/{id}', 'Admin\Matchday\FixtureController@data')->name('admin.fixtures.data');
 
         /*
          * MatchDay Routes

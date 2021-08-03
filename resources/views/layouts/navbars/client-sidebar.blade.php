@@ -2,7 +2,7 @@
     <div class="sidebar-wrapper ps ps--active-x">
         <div class="logo">
             <img src="/images/logo_callis.png" alt="logo loading..." class="simple-text logo-normal">
-            <span class="sidebar-normal version-info">1.0.3</span>
+            <span class="sidebar-normal version-info">1.0.4</span>
         </div>
         <ul class="nav">
             <li class="{{ ($category ?? ' ') == 'dashboard' ? 'active' : ''}}">
@@ -67,7 +67,7 @@
                     <p>News</p>
                 </a>
             </li>
-            <li class="">
+            <li  class="{{ ($page_slug ?? ' ') == 'about' ? 'active' : ''}}">
                 <a href="/about-us">
                     <i class="fas fa-info"></i>
                     <p>About us</p>

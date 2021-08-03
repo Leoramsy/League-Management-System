@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Matchday;
+namespace App\Models\Matchday\FixtureManagement;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class Assist extends Model
 {
     //
     /**

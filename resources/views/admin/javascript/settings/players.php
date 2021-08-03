@@ -67,14 +67,26 @@
                         return new Date();
                     }
                 }
+                /*, {
+                 label: "Image:",
+                 name: "players.image",
+                 type: "upload",
+                 display: function (file_id) {
+                 return '<img src="' + players_editor.file('players', file_id).web_path + '"/>';
+                 },
+                 ajax: {
+                 url: '/admin/settings/players/image'
+                 },
+                 clearText: "Clear",
+                 noImageText: 'No data uploaded'
+                 }
+                 */
             ]
         });
         /***** INIT TABLE *****/
         players_table = $('#players-table').DataTable({
             tabIndex: 1,
             pageLength: 20,
-            bFilter: false,
-            bInfo: false,
             dom: 'Bfrtip',
             ajax: {
                 url: '/admin/settings/players/index',
@@ -92,6 +104,13 @@
                             return "Active";
                         } else {
                             return "In-Active";
+                        }
+                    }},
+                {data: null, render: function (data, type, row) {
+                        if (row['players']['image_path'] == null) {
+                            return "No image";
+                        } else {
+                            return '<img src="' + row['players']['image_path'] + '" alt="No image">';
                         }
                     }}
             ],

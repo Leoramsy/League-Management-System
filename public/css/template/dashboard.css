@@ -514,8 +514,6 @@ mark,
 .img-fluid {
     max-width: 100%;
     height: auto;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .img-thumbnail {
@@ -5996,7 +5994,7 @@ button.close {
     align-items: center;
     width: 100%;
     backface-visibility: hidden;
-    max-height: 600px;
+    perspective: 1000px;
 }
 
 .carousel-item.active,
@@ -28656,17 +28654,6 @@ Copyright (c) 2015 Daniel Eden
     }
 }
 
-.pagination .page-item.active>.page-link, .pagination .page-item.active>.page-link:focus, .pagination .page-item.active>.page-link:hover {
-    background: #e14eca;
-    background-image: -webkit-linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
-    background-image: -o-linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
-    background-image: -moz-linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
-    background-image: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
-    background-size: 210% 210%;
-    background-position: top right;
-    color: #ffffff;
-}
-
 .modal-open .modal {
     overflow-x: hidden;
     overflow-y: auto;
@@ -29044,7 +29031,7 @@ ul.popover_list {
 
 .version-info{
     position: absolute;
-    top: 88%;
+    top: 78%;
     right: 7%;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.8);

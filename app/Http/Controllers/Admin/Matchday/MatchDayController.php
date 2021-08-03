@@ -48,7 +48,28 @@ class MatchDayController extends EditorController {
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
         }
-        return $this->getRows($request, $object->id);        
+        return $this->getRows($request, $object->id);
+    }
+
+    /**
+     * Update resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function edit(Request $request) {
+        $class = $this->getPrimaryClass();
+        $object = $class::findOrFail($this->primary_key);
+        $data = $this->data[$object->getTable()];
+        $start_date = Carbon::createFromFormat('d/m/Y', $data['start_date'])->startOfDay();
+        $end_date = Carbon::createFromFormat('d/m/Y', $data['end_date'])->startOfDay();
+        $object->fill($data);
+        $object->start_date = $start_date;
+        $object->end_date = $end_date;
+        if (!$object->save()) {
+            $this->setError('Failed to create the entry');
+        }
+        return $this->getRows($request, $object->id);
     }
 
     /**

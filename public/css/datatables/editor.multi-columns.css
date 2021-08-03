@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 div.modal-multi-columns > .modal-dialog {
     width: 1000px;
+    max-width: 100% !important;
 }
 /*
 div.modal-multi-columns > div.modal-content { 

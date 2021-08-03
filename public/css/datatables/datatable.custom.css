@@ -1,3 +1,37 @@
+div.DTED_Lightbox_Wrapper {   
+    z-index: 1060 !important;
+}
+
+.dtrg-level-1 {
+    background-color: gray !important;
+    font-weight: bolder;
+}
+
+.dataTables_filter {
+    margin-right: 10px !important;
+}
+
+div.DTED_Lightbox_Background { 
+    z-index: 1050 !important;
+}
+
+.select2-dropdown {   
+    z-index: 1061 !important;
+}
+
+.input-group-addon, .input-group-btn {
+    width: 10% !important;   
+}
+
+fieldset.full-set div.DTE_Field > label.col-lg-4 {
+    width: 16.66666667% !important;
+}
+
+fieldset.full-set div.DTE_Field > div.col-lg-8 {
+    width: 83.33333333%;
+    max-width: 83.33333333% !important;
+}
+
 
 .table > tbody > tr > td.selector {
     width: 4%;
@@ -356,7 +390,7 @@ button.close {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1040;
+    z-index: 1060;
     display: none;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
@@ -783,6 +817,15 @@ div.DTE_Form_Info{
 /** TABLE HEADER **/
 
 #content thead > tr > th {
+    background-color: var(--secondary);
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.blue-footer tfoot > tr > th {
     background-color: var(--secondary);
     color: #fff;
     font-family: "Poppins", sans-serif;

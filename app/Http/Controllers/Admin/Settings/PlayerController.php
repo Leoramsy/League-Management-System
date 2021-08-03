@@ -9,6 +9,7 @@ use App\Models\Team\Team;
 use App\Models\Team\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\EditorController;
 
 class PlayerController extends EditorController {
@@ -47,32 +48,19 @@ class PlayerController extends EditorController {
      */
     public function image(Request $request) {
         try {
-            if ($request->has('id')) {
-                $class = $this->getPrimaryClass();
-                $player = $class::findOrFail($request->id)->id;
-            } else {
-                $player = 0;
-            }
-            if ($request->hasFile('upload')) {
-                //  Let's do everything here
-                if ($request->file('upload')->isValid()) {
-                    $request->validate([
-                        'upload' => 'mimes:jpeg,png|max:1014',
-                    ]);
-                    $now = Carbon::now()->format('d_m_y_H_i_s');
-                    $extension = $request->upload->extension();
-                    $file_name = $now . "." . $extension;
-                    $path = '/uploads/images/';
-                    $request->upload->storeAs($path, $file_name);
-                    return response()->json(['data' => [], 'files' => ['players' => [$player => ['filename' => $file_name,
-                                            'web_path' => asset('storage/app') . $path]]]
-                                , 'upload' => ['id' => $player]]);
-                }
-            } else {
-                throw new Exception("Invalid image was encountered");
-            }
+            //  Let's do everything here
+            $request->validate([
+                'upload' => 'mimes:jpeg,png|max:1014',
+            ]);
+            $now = Carbon::now()->format('d_m_y_H_i_s');
+            $orignal_file_name = $request->upload->getClientOriginalName();
+            $extension = $request->upload->extension();
+            $file_name = $now . "." . $extension;
+            $path = '/images/players/';
+            $request->file('upload')->storeAs($path, $file_name, 'public');
+            return response()->json(['data' => [], 'files' => ['players' => [$file_name => ['upload_name' => $orignal_file_name, 'web_path' => asset('storage/app/public/images/players') . '/' . $file_name]]], 'upload' => ['id' => $file_name]]);
         } catch (Exception $ex) {
-            dd($ex->getMessage(), $ex->getLine());
+            //dd($ex->getMessage(), $ex->getLine());
             return response()->json(['error' => $ex->getMessage()]);
         }
     }
@@ -94,7 +82,6 @@ class PlayerController extends EditorController {
         $dob = Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->startOfDay();
         $object->fill($data);
         $object->date_of_birth = $dob;
-        $object->image = null;
         if (!$object->save()) {
             $this->setError('Failed to create the entry');
         }
@@ -177,7 +164,9 @@ class PlayerController extends EditorController {
                 "name" => $data->name,
                 "surname" => $data->surname,
                 "nick_name" => $data->nick_name,
+                "id_number" => $data->id_number,
                 "image" => $data->image,
+                "image_path" => (is_null($data->image) ? null : '/storage/app/public/images/players/' . $data->image),
                 "contact_number" => $data->contact_number,
                 "active" => $data->active,
                 "date_of_birth" => $data->date_of_birth->format('d/m/Y')

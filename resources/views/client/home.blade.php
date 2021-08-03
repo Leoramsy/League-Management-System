@@ -1,17 +1,18 @@
 @extends('layouts.app')
 @section('js_files')
-@include('client.javascript.home')
 @include('client.javascript.dashboard.fixtures')
 @include('client.javascript.dashboard.results')
 @include('client.javascript.dashboard.logs')
+@include('client.javascript.dashboard.top_scorers')
+@include('client.javascript.home')
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">Latest News</div>
             <div class="card-body">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 700px">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">    
                         @foreach($images AS $index => $image)
                         <li data-target="#carouselExampleIndicators" data-slide-to="{{$index}}" class="{{$index == 0 ? 'active' : ''}}"></li>
@@ -19,8 +20,8 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         @foreach($images AS $index => $image)
-                        <div class="carousel-item {{$index == 0 ? 'active' : ''}}" style="align-content: center">
-                            <img class="d-block img-fluid" src="{{$image}}" alt="Loading...">                            
+                        <div class="carousel-item {{$index == 0 ? 'active' : ''}}">
+                            <img class="d-block img-fluid" src="{{$image}}" alt="Loading..." style="max-height: 500px; margin: auto">                            
                         </div>                        
                         @endforeach
                     </div>
@@ -36,9 +37,21 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" style="margin-top: 10px;">
+    <div class="col-md-4">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header">Latest News</div>
+            <div class="card-body">
+                @forelse($news AS $article)
+                @include('partials.news_snippet')
+                @empty
+                <p>No exciting news yet, check back later for more updates...</p>
+                @endforelse
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header row">
                 <div class="col-md-6">Match Centre</div>
                 <div class="col-md-6">
                     {!! Form::select('league_id', $leagues, key($leagues), array('id' => 'league-select', 'class' => 'form-control input-original')) !!}
@@ -104,15 +117,20 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" style="margin-top: 10px;">
+    <div class="col-md-6">
         <div class="card">
-            <div class="card-header">Latest News</div>
+            <div class="card-header">Top Goal Scorers</div>
             <div class="card-body">
-                @forelse($news AS $article)
-                @include('partials.news_snippet')
-                @empty
-                <p>No exciting news yet, check back later for more updates...</p>
-                @endforelse
+                <table id="top-scorers-table" class="table" style="width: 100%">
+                    <thead>
+                        <tr>                            
+                            <th class='dt-cell-left'>Player</th>
+                            <th class='dt-cell-left'>Team</th>
+                            <th class='dt-cell-left'>No. of Games</th> 
+                            <th class='dt-cell-left'>No. of Goals</th> 
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>

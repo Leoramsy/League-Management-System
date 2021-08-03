@@ -1,8 +1,8 @@
 <script>
-    var fixtures_table;
+    var results_table;
     $(document).ready(function () {
         /***** INIT TABLE *****/
-        fixtures_table = $('#results-table').DataTable({
+        results_table = $('#results-table').DataTable({
             processing: true,
             tabIndex: 1,
             paging: false,

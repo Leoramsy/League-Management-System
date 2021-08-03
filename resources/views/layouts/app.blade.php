@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-         <meta charset="UTF-8">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -25,15 +25,14 @@
             @include('layouts.navbars.client-navbar')
             @endguest               
             <div class="main-panel">
-                <div class="content">
-                    @include('flash::message')
+                <div class="content">                    
                     @yield('content')
                 </div>
 
                 @include('layouts.footer')
-            </div>     
-
+            </div>                 
             @include('partials.scripts')
+            @include('flash::message')
             @stack('js')
 
             <script>
@@ -90,10 +89,8 @@
 
                     });
                 });
-            </script>
-            <script>
-                flash_package();
-            </script>
+            </script>            
             @stack('js')
+            @include('partials.modals')       
     </body>
 </html>

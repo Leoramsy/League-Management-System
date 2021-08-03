@@ -3,14 +3,14 @@
     $(document).ready(function () {
         /*
          * Select2
-         
-         $("#team-select").select2({
-         theme: "bootstrap"
-         });
-         $("#league-select").select2({
-         theme: "bootstrap"
-         });
          */
+        $("#team-select").select2({
+            theme: "bootstrap"
+        });
+        $("#league-select").select2({
+            theme: "bootstrap"
+        });
+
 
         fixtures_editor = new $.fn.dataTable.Editor({
             ajax: {
@@ -117,6 +117,7 @@
             tabIndex: 1,
             pageLength: 20,
             dom: 'Bfrtip',
+            scrollX: true,
             ajax: {
                 url: '/admin/settings/fixtures/index',
                 type: "GET",
@@ -227,6 +228,20 @@
                                     this.close();
                                 }}
                         ]).message('Are you sure you want to delete this Fixture?').remove(fixtures_table.row({selected: true}).indexes());
+                    }
+                }, {
+                    extend: 'edit', text: 'Management', className: "fixture-management",
+                    action: function () {
+                        var id = fixtures_table.row({selected: true}).data()["fixtures"]["id"];
+                        var csrf_token = $('meta[name="csrf-token"]').attr('content'); //Tag is in the main layout //csrf_token() 
+                        $('<form>', {
+                            'method': 'get',
+                            'action': "/admin/settings/fixtures/" + id + "/management" 
+                        }).append($('<input>', {
+                            'name': '_token',
+                            'value': csrf_token,
+                            'type': 'hidden'
+                        })).appendTo('body').submit();
                     }
                 }, {
                     text: '<i class="fa fa-refresh" aria-hidden="true" rel="tooltip" title="Refresh table results"></i>', className: "",
